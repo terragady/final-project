@@ -20,8 +20,10 @@ function Tile({ initState, id, position }) {
                 ? { backgroundColor: initState.color }
                 : { color: 'black' }}
             />
+            <div>
             <p>{initState.streetName}</p>
             <p>{`$${initState.price}M`}</p>
+            </div>
           </>
         )
         : (

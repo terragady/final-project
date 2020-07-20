@@ -13,7 +13,10 @@ function Board() {
       <section className="Board">
         {
       tiles.map((tile, index) => {
-        if (index <= 10) {
+        if (index === 0) {
+          return <Tile key={uuidv4()} position="tile--start" id={index} initState={tile} />;
+        }
+        if (index > 0 && index <= 10) {
           return <Tile key={uuidv4()} position="horizontal--bottom" id={index} initState={tile} />;
         }
         if (index >= 11 && index <= 19) {

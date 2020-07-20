@@ -51,12 +51,15 @@
 .tile38 { grid-area: 9 / 11 / 10 / 12; }
 .tile39 { grid-area: 10 / 11 / 11 / 12; }
 .center { grid-area: 2 / 2 / 11 / 11; }
+.tile--start {
+  border-top: 2px solid black;
+  border-left: 2px solid black;
+
+}
 
 
 .color-box {
   width: 100%;
-  height: 30%;
-  border-bottom: 2px solid black;
 }
 
 .Tile {
@@ -73,23 +76,60 @@
  .horizontal--top {
    border-left: 2px  solid black;
    border-top: 2px  solid black;
-   transform: translate(0%, 0%) rotate(180deg);
+   border-bottom: 2px  solid black;
+
+   display: flex;
+   flex-direction: column;
+   justify-content: flex-end;
 
  }
+ 
+ .horizontal--top .color-box{
+  order: 1;
+  border-top: 2px solid black;
+  height: 2vh;
+}
  
  .vertical--right {
    border-left: 2px  solid black;
    border-top: 2px  solid black;
-   
+   display: flex;
+   justify-content: flex-start;
+   flex-direction: row;
+
  }
+
+ .vertical--right .color-box{
+ height: 100%;
+ width: 1.5vw;
+ border-bottom: 0;
+ border-right: 2px solid black;
+}
  
  .horizontal--bottom {
    border-top: 2px solid black;
    border-left: 2px  solid black;
 
  }
+
+ .horizontal--bottom .color-box{
+   border-bottom: 2px solid black;
+   height: 2vh;
+
+ }
  
  .vertical--left {
    border-top: 2px solid black;
    border-right: 2px  solid black;
+   display: flex;
+   justify-content: flex-end;
+   flex-direction: row;
+ }
+
+ .vertical--left .color-box{
+  height: 100%;
+  width: 1.5vw;
+  order: 1;
+  border-bottom: 0;
+  border-left: 2px solid black;
  }
