@@ -1,0 +1,21 @@
+.Tile {
+ width: 15%;
+ height: 15%;
+ border: 1px solid black;
+}
+
+.horizontal--top {
+  color: black;
+}
+
+.vertical--right {
+  color: blue;
+}
+
+.horizontal--bottom {
+  color: green;
+}
+
+.vertical--left {
+  color: yellow;
+}

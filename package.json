@@ -1,0 +1,27 @@
+{
+  "name": "monopoly-socket-app",
+  "version": "1.0.0",
+  "description": "a monopoly game",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint . --ext .js --ext .jsx"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/terragady/final-project.git"
+  },
+  "author": "The Coderleones",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/terragady/final-project/issues"
+  },
+  "homepage": "https://github.com/terragady/final-project#readme",
+  "dependencies": {
+    "uuid": "^8.2.0"
+  },
+  "devDependencies": {
+    "eslint": "^7.5.0",
+    "eslint-config-salt": "^1.0.1"
+  }
+}
