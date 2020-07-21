@@ -6,38 +6,3 @@
   height: 100vh;
   background-color: lightblue;
 }
-
-.App--buttons {
-  position: absolute;
-  top: 50%; 
-  right: 50%;
-  transform: translate(50%,-50%);
-  display: flex;
-  flex-direction: column;
-}
-
-button {
-  margin: 0.5vw;
-  border-radius: 1px;
-}
-
-.button--start {
-  width: 15vw;
-  height: 7vw;
-  font-size: 2.5vw;
-  font-family: 'Avenir', sans-serif;
-  background: white;
-  border: 1px solid black;
-  box-shadow: 0 0 1px 1px rgb(49, 49, 49);
-}
-
-.button--join {
-  font-weight: bold;
-  width: 15vw;
-  height: 4vw;
-  font-size: 1.5vw;
-  font-family: 'Avenir', sans-serif;
-  background: rgb(255, 255, 255);
-  border: 1px solid black;
-  box-shadow: 0 0 1px 1px rgb(47, 47, 47);
-}

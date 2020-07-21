@@ -1,31 +1,32 @@
 const express = require('express');
+
 const app = express();
 const server = require('http').createServer(app);
 const path = require('path');
 
 const socket = require('socket.io');
+
 const io = socket(server);
 // app.get('/setCookie', (req, res)=> //set cookie and redirect
 //   res.redirect('')
 // )
-app.use(express.static(path.join(__dirname, 'client', 'build')));
-app.get('/', (req, res) => {
-  res.sendFile(__dirname + 'client/build/index.html');
-});
-
+if (process.env.NODE_ENV = 'production') {
+  app.use(express.static(path.join(__dirname, 'client', 'build')));
+  app.get('/', (req, res) => {
+    res.sendFile(`${__dirname}client/build/index.html`);
+  });
+}
+// io.emit is to everyone
+// socket.broadcast.emit is to everyone except sender
+const state = { inGame: 'false', players: ['marcin'] };
 io.on('connection', socket => {
-  socket.on('New room', (roomId) => {
-    socket.join(roomId);
-    io.in(roomId).emit('Welcome message', 'helloooo');
+  socket.emit('update', state);
+  socket.on('update', newName => {
+    state.players.push(newName);
+    socket.emit('update', state);
   });
 
-  socket.on('Join room', roomId => {
-    socket.join(roomId);
-    io.in(roomId).emit('Joined room', roomId)
-
-  });
-  
-
+  socket.on('disconnect', () => console.log('left'));
 });
 
 const port = 8080;

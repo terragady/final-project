@@ -1,13 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import './style/Board.css';
+import io from 'socket.io-client';
 import Tile from './Tile.jsx';
 import initialState from './BoardInitState';
+import { stateContext } from '../App';
 import Center from './Center';
 import Dice from './Dice';
 
 function Board() {
   const [tiles, setTiles] = useState(initialState);
+  const { dispatch, state } = useContext(stateContext);
+  let playerName = '';
+  useEffect(async () => {
+    console.log(state);
+    while (!playerName) playerName = prompt('What is your name?');
+    dispatch({ type: 'enterRoom', payload: playerName });
+  }, []);
+
   return (
     <>
       <section className="Board">
@@ -35,7 +45,11 @@ function Board() {
           <br />
           {' '}
           <Dice />
+          <div className="waiting-log">
+            <h3>Your lobby:</h3>
+          </div>
         </div>
+
       </section>
     </>
   );
