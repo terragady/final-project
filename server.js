@@ -1,5 +1,7 @@
-const app = require('express')();
+const express = require('express');
+const app = express();
 const server = require('http').createServer(app);
+const path = require('path')
 
 const socketio = require('socket.io');
 const io = socketio(server);
@@ -7,18 +9,15 @@ const io = socketio(server);
 // app.get('/setCookie', (req, res)=> //set cookie and redirect
 //   res.redirect('')
 // )
+app.use(express.static(path.join(__dirname, 'client', 'build')));
 
 io.on('connection', socket => {
-  socket.emit('message', 'Welcome');
-  socket.broadcast.emit('message', 'A player has joined the game');
-
-  socket.on('create new room', roomId => );
-  
-  // Runs when client disconnects
-  socket.on('disconnect', () => {
-    io.emit('message', 'A player has left the game');
-  });
-})
+  socket.on('create new room', roomId => {
+      socket.join(roomId);
+      socket.to(roomId).emit('room created', roomId)
+    });
+  socket.on('join existing room', roomId => {socket.join(roomId); socket.to(roomId).emit('A player has joined')});
+});
 
 const port = 8080;
 
