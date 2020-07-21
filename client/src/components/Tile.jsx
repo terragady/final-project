@@ -21,17 +21,12 @@ function Tile({ initState, id, position }) {
                 : { color: 'black' }}
             />
             <div>
-            <p>{initState.streetName}</p>
-            <p>{`$${initState.price}M`}</p>
+              <p className="tile--street-name">{initState.streetName}</p>
+              <p className="tile--price">{`$${initState.price}M`}</p>
             </div>
           </>
         )
-        : (
-          <>
-            <p>{initState.streetName}</p>
-            {initState.price ? <p className="tile--price">{`$${initState.price}M`}</p> : <></>}
-          </>
-        )}
+        : <p className="tile--special-name">{initState.streetName}</p>}
     </article>
   );
 }

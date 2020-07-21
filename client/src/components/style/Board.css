@@ -1,11 +1,12 @@
 .Board {
   border: 2px solid black;
-  font-size: 1vw;
-  width: 100%;
-  height: 100%;
+  height: 100vh;
+  width: 100vw;
+  /* min-width: 100%;
+  height: 100%; */
   display: grid;
-  grid-template-columns: 1.5fr repeat(9, 1fr) 1.5fr;
-  grid-template-rows: 1.5fr repeat(9, 1fr) 1.5fr;
+  grid-template-columns: 1.5fr repeat(9, 1.5fr) 1.5fr;
+  grid-template-rows: 1.5fr repeat(9, 1.5fr) 1.5fr;
   grid-gap: 0px;
   background: rgb(191, 234, 163);
 }
@@ -57,20 +58,20 @@
 
 }
 
-
-.color-box {
-  width: 100%;
-}
-
 .Tile {
   width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+ }
+
+ .tile--street-name {
+   color: blue;
  }
 
  .tile--price {
-   align-self: flex-end;
+   color: red;
  }
  
  .horizontal--top {
@@ -78,31 +79,25 @@
    border-top: 2px  solid black;
    border-bottom: 2px  solid black;
 
-   display: flex;
-   flex-direction: column;
-   justify-content: flex-end;
-
  }
  
  .horizontal--top .color-box{
   order: 1;
   border-top: 2px solid black;
-  height: 2vh;
+  height: 1.5vw;
 }
  
  .vertical--right {
    border-left: 2px  solid black;
    border-top: 2px  solid black;
    display: flex;
-   justify-content: flex-start;
    flex-direction: row;
-
+   justify-content: flex-start;
  }
 
  .vertical--right .color-box{
+   width: 1.5vw;
  height: 100%;
- width: 1.5vw;
- border-bottom: 0;
  border-right: 2px solid black;
 }
  
@@ -114,7 +109,7 @@
 
  .horizontal--bottom .color-box{
    border-bottom: 2px solid black;
-   height: 2vh;
+   height: 1.5vw;
 
  }
  

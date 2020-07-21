@@ -51,7 +51,7 @@ const initialState = [
     houses: 0,
   },
   {
-    streetName: 'jail',
+    streetName: 'Jail',
   },
   {
     streetName: 'SomethingElseSt',
@@ -89,7 +89,7 @@ const initialState = [
     houses: 0,
   },
   {
-    streetName: 'chance',
+    streetName: 'Chance',
   },
   {
     streetName: 'SomethingElseSt',
@@ -178,7 +178,7 @@ const initialState = [
     houses: 0,
   },
   {
-    streetName: 'chest',
+    streetName: 'Chest',
   },
   {
     streetName: 'SomethingElseSt',
@@ -188,11 +188,11 @@ const initialState = [
     houses: 0,
   },
   {
-    streetName: 'railroadSomething',
+    streetName: 'RailroadSomething',
     color: 'railroad',
   },
   {
-    streetName: 'chance',
+    streetName: 'Chance',
   },
   {
     streetName: 'SomethingElseSt',
