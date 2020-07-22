@@ -326,10 +326,10 @@
   display: flex;
 }
 .player-token {
-  position: relative;
+  position: fixed;
   display: block;
-  width: 10px;
-  height: 10px;
+  width: 20px;
+  height: 20px;
   border-radius: 100%;
   border: 1px solid black;
 }

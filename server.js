@@ -34,7 +34,7 @@ io.on('connection', socket => {
 
   socket.on('makeMove', tile => {
     const { id } = socket;
-    if (tile !== 40) {
+    if (tile !== 39) {
       state.players[id].currentTile = state.players[id].currentTile + tile;
     } else {
       state.players[id].currentTile = 0;
