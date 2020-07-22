@@ -11,18 +11,3 @@ h1 {
 .dice {
   font-size: 10vw;
 }
-
-.waiting-room {
-  display: flex;
-  flex-direction: row;
-}
-
-.waiting-log {
-  border: 1px solid gray;
-  min-width: 300px;
-  min-height: 300px;
-  border-bottom: 2px solid gray;
-  border-right: 2px solid grey;
-  margin: 20px;
-  padding: 20px;
-}
