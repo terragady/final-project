@@ -1,4 +1,5 @@
 import React from 'react';
+import './style/Board.css';
 
 export default function Dice() {
   function rollDice() {
@@ -31,15 +32,15 @@ export default function Dice() {
   const [diceFont2, diceNumber2] = rollDice();
 
   return (
-    <div>
-      <h1 className="dice">
+    <section className="dice">
+      <h1 className="dice__dices">
         {diceFont1 + diceFont2}
       </h1>
-      <h2>
-        result:
+      <h2 className="dice__result">
+        {'Result: '}
         {diceNumber1 + diceNumber2}
       </h2>
       {diceNumber1 === diceNumber2 ? <h2>🤩DOUBLE🤩</h2> : ''}
-    </div>
+    </section>
   );
 }

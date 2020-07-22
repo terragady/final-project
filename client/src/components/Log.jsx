@@ -2,28 +2,27 @@ import React, { useState, useEffect, useContext } from 'react';
 import './style/Board.css';
 import { stateContext } from '../App';
 
-
 export default function Log() {
   const { dispatch, state } = useContext(stateContext);
 
   return (
-    <div className="waiting-log">
-      <section>
-        <h3>Your lobby:</h3>
+    <div className="waiting-room">
+      <section className="waiting-log">
+        <h3>Log:</h3>
+
         {state
-          ? state.players.map(e => (
-            <p>
-              {`Player ${e}`}
+          ? Object.keys(state.players).map(e => (
+            <p style={{ color: state.players[e].color }}>
+              {`${state.players[e].name} joined as "${state.players[e].color}"`}
             </p>
           ))
           : <p>Loading...</p>}
-        <section>
-          <h3>Chat:</h3>
 
-        </section>
       </section>
+      <section className="waiting-log__game">
+        <h3>Log:</h3>
 
-
+      </section>
     </div>
   );
 }

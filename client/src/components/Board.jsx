@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useContext } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import React, { useState, useEffect, useContext } from 'react';
 import './style/Board.css';
 import io from 'socket.io-client';
 import Tile from './Tile.jsx';
@@ -12,13 +12,12 @@ import Log from './Log';
 
 function Board() {
   const [tiles, setTiles] = useState(initialState);
-  // const { dispatch, state } = useContext(stateContext);
-  // let playerName = '';
-  // useEffect(() => {
-  //   console.log(state);
-  //   while (!playerName) playerName = prompt('What is your name?');
-  //   dispatch({ type: 'enterRoom', payload: playerName });
-  // }, []);
+  const { dispatch, state } = useContext(stateContext);
+  let playerName = 'Default';
+  useEffect(() => {
+    // while (!playerName) playerName = prompt('What is your name?');
+    dispatch({ type: 'newPlayer', payload: playerName });
+  }, [dispatch, playerName]);
 
   return (
     <>
@@ -43,15 +42,9 @@ function Board() {
           })
         }
         <div className="center">
-          <section className="center--dashboard">
             <Dice />
-            <Dashboard />
-          </section>
-          <seection className="center--lobby">
             <Log />
-
-          </seection>
-
+            <Dashboard />
         </div>
 
       </section>

@@ -13,9 +13,9 @@ const reducer = (state, action) => {
   switch (action.type) {
     case 'updateGameState':
       return { ...action.payload };
-    case 'enterRoom':
+    case 'newPlayer':
       socket.emit('new player', action.payload);
-      break;
+      return state;
     default:
       return state;
   }
