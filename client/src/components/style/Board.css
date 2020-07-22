@@ -13,6 +13,10 @@
 
 .tile0 {
   grid-area: 11 / 11 / 12 / 12;
+  background-image: url('https://i.pinimg.com/originals/a9/b6/8a/a9b68a1213ecc93ee5f07b3423d0e913.gif');
+  background-position: 50% 150%;
+  background-repeat: no-repeat;
+  background-size: 60%;
 }
 
 .tile1 {
@@ -21,6 +25,10 @@
 
 .tile2 {
   grid-area: 11 / 9 / 12 / 10;
+  background-image: url('https://i.pinimg.com/originals/aa/98/84/aa98846a483c4de09ea31b9c1e3fd8a1.gif');
+  background-position: 50% 100%;
+  background-repeat: no-repeat;
+  background-size: 60%;
 }
 
 .tile3 {
@@ -145,6 +153,10 @@
 
 .tile33 {
   grid-area: 4 / 11 / 5 / 12;
+  background-image: url('https://i.pinimg.com/originals/aa/98/84/aa98846a483c4de09ea31b9c1e3fd8a1.gif');
+  background-position: 50% 100%;
+  background-repeat: no-repeat;
+  background-size: 50%;
 }
 
 .tile34 {
@@ -201,7 +213,6 @@
 .tile--special-name {
   width: 100%;
   font-weight: bold;
-  margin-top: 3.5vh;
 }
 
 .horizontal--top {
@@ -324,12 +335,16 @@
 }
 .token-wrapper {
   display: flex;
+  position: absolute;
 }
 .player-token {
-  position: fixed;
-  display: block;
   width: 20px;
   height: 20px;
   border-radius: 100%;
   border: 1px solid black;
+}
+
+.tile--wrapper {
+  text-align: center;
+  width: 100%;
 }

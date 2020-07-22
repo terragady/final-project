@@ -1,9 +1,11 @@
 const express = require('express');
+
 const app = express();
 const server = require('http').createServer(app);
 const path = require('path');
-const socket = require('socket.io');
-const io = socket(server);
+const socketIO = require('socket.io');
+
+const io = socketIO(server);
 // app.get('/setCookie', (req, res)=> //set cookie and redirect
 //   res.redirect('')
 // )
@@ -16,10 +18,10 @@ if (process.env.NODE_ENV === 'production') {
 }
 // io.emit is to everyone
 // socket.broadcast.emit is to everyone except sender
-let state = { boardState: true, players: {} };
+const state = { boardState: true, players: {} };
 const colors = ['white', 'black', 'red', 'blue', 'green', 'yellow'];
 io.on('connection', socket => {
-  console.log(socket.id + ' joined');
+  console.log(`${socket.id} joined`);
   socket.emit('update', state);
 
   socket.on('new player', newName => {
@@ -32,15 +34,18 @@ io.on('connection', socket => {
     io.emit('update', state);
   });
 
-  socket.on('makeMove', tile => {
+  socket.on('makeMove', num => {
     const { id } = socket;
-    if (tile !== 39) {
-      state.players[id].currentTile = state.players[id].currentTile + tile;
+    const cTile = state.players[id].currentTile;
+    if (cTile + num < 40) {
+      state.players[id].currentTile = cTile + num;
     } else {
-      state.players[id].currentTile = 0;
+      const left = 40 - cTile;
+      const more = num - left;
+      state.players[id].currentTile = more;
     }
     io.emit('update', state);
-    console.log(state)
+    console.log(state);
   });
 
   socket.on('disconnect', () => {
@@ -48,7 +53,7 @@ io.on('connection', socket => {
       colors.push(state.players[socket.id].color);
       delete state.players[socket.id];
     }
-    console.log(socket.id + ' left');
+    console.log(`${socket.id} left`);
     io.emit('update', state);
   });
 });

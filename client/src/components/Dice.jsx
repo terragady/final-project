@@ -1,46 +1,58 @@
-import React from 'react';
+import React, { useState, useContext } from 'react';
+import { stateContext } from '../App';
+
 import './style/Board.css';
 
 export default function Dice() {
+  const { socketFunctions } = useContext(stateContext);
+
   function rollDice() {
     const result = Math.floor(Math.random() * 6 + 1);
     switch (result) {
       case 1:
         return ['⚀', 1];
-        break;
       case 2:
         return ['⚁', 2];
-        break;
       case 3:
         return ['⚂', 3];
-        break;
       case 4:
         return ['⚃', 4];
-        break;
       case 5:
         return ['⚄', 5];
-        break;
       case 6:
         return ['⚅', 6];
-        break;
 
       default:
-        break;
+        return [];
     }
   }
-  const [diceFont1, diceNumber1] = rollDice();
-  const [diceFont2, diceNumber2] = rollDice();
+  const [dice, setDice] = useState({ dice1: ['☠', 0], dice2: ['🦋', 0] });
+
+  const clickAndRoll = async () => {
+    const dice1 = rollDice();
+    const dice2 = rollDice();
+    setDice({ dice1, dice2 });
+    const result = dice1[1] + dice2[1];
+    for (let i = 0; i <= result; i++) {
+      setTimeout(() => {
+        socketFunctions.makeMove(1);
+      }, i * 200);
+    }
+  };
 
   return (
     <section className="dice">
+      <button type="button" onClick={clickAndRoll}>
+        Roll Dice
+      </button>
       <h1 className="dice__dices">
-        {diceFont1 + diceFont2}
+        {dice.dice1[0] + dice.dice2[0]}
       </h1>
       <h2 className="dice__result">
         {'Result: '}
-        {diceNumber1 + diceNumber2}
+        {dice.dice1[1] + dice.dice2[1]}
       </h2>
-      {diceNumber1 === diceNumber2 ? <h2>🤩DOUBLE🤩</h2> : ''}
+      {/* {dice.dice1[1] === dice.dice2[1] ? <h2>🤩DOUBLE🤩</h2> : ''} */}
     </section>
   );
 }

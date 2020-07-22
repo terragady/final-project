@@ -1,6 +1,6 @@
 const initialState = [
   {
-    streetName: 'Start',
+    streetName: '',
   },
   {
     streetName: 'Parker St',
@@ -21,6 +21,7 @@ const initialState = [
   },
   {
     streetName: 'IncomeTax',
+    price: 100,
   },
   {
     streetName: 'ReedingRailroad',

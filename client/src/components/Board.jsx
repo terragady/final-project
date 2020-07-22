@@ -1,8 +1,7 @@
-import { v4 as uuidv4 } from 'uuid';
 import React, { useState, useEffect, useContext } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import './style/Board.css';
-import io from 'socket.io-client';
-import Tile from './Tile.jsx';
+import Tile from './Tile';
 import initialState from './BoardInitState';
 import { stateContext } from '../App';
 import Dashboard from './Dashboard';
@@ -10,8 +9,8 @@ import Dice from './Dice';
 import Log from './Log';
 
 function Board() {
-  const [tiles, setTiles] = useState(initialState);
-  const { state, socketFunctions } = useContext(stateContext);
+  const [tiles] = useState(initialState);
+  const { socketFunctions } = useContext(stateContext);
   let playerName = '';
   useEffect(() => {
     while (!playerName) playerName = prompt('What is your name?');
@@ -38,6 +37,7 @@ function Board() {
             if (index >= 31 && index <= 39) {
               return <Tile key={uuidv4()} position="vertical--right" id={index} initState={tile} />;
             }
+            return <></>;
           })
         }
         <div className="center">

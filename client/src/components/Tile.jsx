@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import PropTypes from 'prop-types';
 import './style/Board.css';
 import { stateContext } from '../App';
 
@@ -6,14 +7,7 @@ function Tile({ initState, id, position }) {
   const { state } = useContext(stateContext);
   return (
     <article className={`Tile tile${id} ${position}`} id={id}>
-      {initState.color === 'lightblue'
-        || initState.color === 'red'
-        || initState.color === 'yellow'
-        || initState.color === 'green'
-        || initState.color === 'blue'
-        || initState.color === 'brown'
-        || initState.color === 'pink'
-        || initState.color === 'orange'
+      {initState.color && initState.color !== 'railroad'
         ? (
           <>
             <div
@@ -22,7 +16,7 @@ function Tile({ initState, id, position }) {
                 ? { backgroundColor: initState.color }
                 : { color: 'black' }}
             />
-            <div>
+            <div className="tile--wrapper">
               <p className="tile--street-name">{initState.streetName}</p>
               <div className="token-wrapper">
                 {Object.keys(state.players).map(e => (
@@ -36,7 +30,7 @@ function Tile({ initState, id, position }) {
           </>
         )
         : (
-          <>
+          <div className="tile--wrapper">
             <p className="tile--special-name">{initState.streetName}</p>
             <div className="token-wrapper">
               {Object.keys(state.players).map(e => (
@@ -45,11 +39,16 @@ function Tile({ initState, id, position }) {
                   : <></>
               ))}
             </div>
-          </>
-        )
-      }
+          </div>
+        )}
     </article>
   );
 }
+
+Tile.propTypes = {
+  initState: PropTypes.instanceOf(Object).isRequired,
+  id: PropTypes.number.isRequired,
+  position: PropTypes.string.isRequired,
+};
 
 export default Tile;

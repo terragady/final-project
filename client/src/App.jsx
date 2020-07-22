@@ -1,10 +1,8 @@
 import React, {
-  useEffect, useState, useReducer, createContext,
+  useEffect, useReducer, createContext,
 } from 'react';
 import io from 'socket.io-client';
-import { v4 as uuid } from 'uuid';
 import Board from './components/Board';
-import Dice from './components/Dice';
 
 const socket = io.connect('http://localhost:8080');
 const socketFunctions = {
