@@ -9,15 +9,14 @@ import Dashboard from './Dashboard';
 import Dice from './Dice';
 import Log from './Log';
 
-
 function Board() {
   const [tiles, setTiles] = useState(initialState);
-  const { dispatch, state } = useContext(stateContext);
+  const { state, socketFunctions } = useContext(stateContext);
   let playerName = '';
   useEffect(() => {
     while (!playerName) playerName = prompt('What is your name?');
-    dispatch({ type: 'newPlayer', payload: playerName });
-  }, [dispatch, playerName]);
+    socketFunctions.newPlayer(playerName);
+  }, [socketFunctions, playerName]);
 
   return (
     <>

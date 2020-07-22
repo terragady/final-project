@@ -190,52 +190,66 @@
 }
 
 .tile--street-name {
-  color: blue;
+  margin-top: 2.5vh;
+  margin-bottom: 0.5vh;
 }
 
 .tile--price {
-  color: red;
+  font-weight: bold;
+}
+
+.tile--special-name {
+  width: 100%;
+  font-weight: bold;
+  margin-top: 3.5vh;
 }
 
 .horizontal--top {
-  border-left: 2px solid black;
-  border-top: 2px solid black;
-  border-bottom: 2px solid black;
+  border-left: 1px solid black;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
 }
 
 .horizontal--top .color-box {
   order: 1;
-  border-top: 2px solid black;
-  height: 1.5vw;
+  border-top: 1px solid black;
+  height: 1.5vh;
 }
 
 .vertical--right {
-  border-left: 2px solid black;
-  border-top: 2px solid black;
+  border-left: 1px solid black;
+  border-top: 1px solid black;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
 }
 
+
 .vertical--right .color-box {
-  width: 1.5vw;
+  width: 1.5vh;
   height: 100%;
-  border-right: 2px solid black;
+  border-right: 1px solid black;
+  margin-right: 1.5vh;
 }
 
 .horizontal--bottom {
-  border-top: 2px solid black;
-  border-left: 2px solid black;
+  border-top: 1px solid black;
+  border-left: 1px solid black;
+}
+
+.horizontal--bottom .tile--street-name {
+  margin-top: -6vh;
+  margin-bottom: 0.5vh;
 }
 
 .horizontal--bottom .color-box {
-  border-bottom: 2px solid black;
-  height: 1.5vw;
+  border-bottom: 1px solid black;
+  height: 1.5vh;
 }
 
 .vertical--left {
-  border-top: 2px solid black;
-  border-right: 2px solid black;
+  border-top: 1px solid black;
+  border-right: 1px solid black;
   display: flex;
   justify-content: flex-end;
   flex-direction: row;
@@ -243,10 +257,11 @@
 
 .vertical--left .color-box {
   height: 100%;
-  width: 1.5vw;
+  width: 1.5vh;
   order: 1;
   border-bottom: 0;
-  border-left: 2px solid black;
+  border-left: 1px solid black;
+  margin-left: 1.5vh;
 }
 
 .center {
@@ -262,7 +277,7 @@
   grid-area: 'dashboard';
   margin-top: 1vw;
   width: 70vw;
-  height: 50vh;
+  height: 45vh;
   background: rgba(255, 255, 255, 0.50);
   border: 1px solid black;
   padding: 2vw; 
@@ -311,8 +326,10 @@
   display: flex;
 }
 .player-token {
-  width: 30px;
-  height: 30px;
+  position: relative;
+  display: block;
+  width: 10px;
+  height: 10px;
   border-radius: 100%;
   border: 1px solid black;
 }

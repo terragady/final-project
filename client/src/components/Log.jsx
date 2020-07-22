@@ -3,7 +3,7 @@ import './style/Board.css';
 import { stateContext } from '../App';
 
 export default function Log() {
-  const { dispatch, state } = useContext(stateContext);
+  const { state } = useContext(stateContext);
 
   return (
     <div className="waiting-room">

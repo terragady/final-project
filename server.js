@@ -16,7 +16,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 // io.emit is to everyone
 // socket.broadcast.emit is to everyone except sender
-let state = { boardState: null, players: {} };
+let state = { boardState: true, players: {} };
 const colors = ['white', 'black', 'red', 'blue', 'green', 'yellow'];
 io.on('connection', socket => {
   console.log(socket.id + ' joined');
@@ -29,9 +29,18 @@ io.on('connection', socket => {
       currentTile: 0,
       color: colors.pop(),
     };
-    console.log(state);
-    console.log(colors);
     io.emit('update', state);
+  });
+
+  socket.on('makeMove', tile => {
+    const { id } = socket;
+    if (tile !== 40) {
+      state.players[id].currentTile = state.players[id].currentTile + tile;
+    } else {
+      state.players[id].currentTile = 0;
+    }
+    io.emit('update', state);
+    console.log(state)
   });
 
   socket.on('disconnect', () => {
@@ -39,7 +48,6 @@ io.on('connection', socket => {
       colors.push(state.players[socket.id].color);
       delete state.players[socket.id];
     }
-    console.log(colors);
     console.log(socket.id + ' left');
     io.emit('update', state);
   });
