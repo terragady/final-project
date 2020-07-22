@@ -5,16 +5,6 @@ import './style/Board.css';
 
 export default function Dice() {
   const { state, socketFunctions, playerId } = useContext(stateContext);
-  let currentPlayer = 'none';
-
-  const mounted = useRef();
-  useEffect(() => {
-    if (!mounted.current) {
-      mounted.current = true;
-    } else {
-      currentPlayer = state.boardState.currentPlayer;
-    }
-  }, [state]);
 
   function rollDice() {
     const result = Math.floor(Math.random() * 6 + 1);
@@ -50,18 +40,22 @@ export default function Dice() {
     }
   };
   return (
-    <section className="dice">
-      {currentPlayer === playerId ? <button type="button" onClick={clickAndRoll}> Roll Dice</button> : <button type="button" disabled onClick={clickAndRoll}> Roll Dice</button>}
-      {currentPlayer}
-      {playerId}
-      <h1 className="dice__dices">
-        {dice.dice1[0] + dice.dice2[0]}
-      </h1>
-      <h2 className="dice__result">
-        {'Result: '}
-        {dice.dice1[1] + dice.dice2[1]}
-      </h2>
-      {/* {dice.dice1[1] === dice.dice2[1] ? <h2>🤩DOUBLE🤩</h2> : ''} */}
-    </section>
+    <>
+      {state.boardState
+        ? (
+          <section className="dice">
+            {state.boardState.currentPlayer === playerId ? <button type="button" onClick={clickAndRoll}> Roll Dice</button> : <button type="button" disabled onClick={clickAndRoll}> Roll Dice</button>}
+            <h1 className="dice__dices">
+              {dice.dice1[0] + dice.dice2[0]}
+            </h1>
+            <h2 className="dice__result">
+              {'Result: '}
+              {dice.dice1[1] + dice.dice2[1]}
+            </h2>
+            {/* {dice.dice1[1] === dice.dice2[1] ? <h2>🤩DOUBLE🤩</h2> : ''} */}
+          </section>
+        )
+        : null}
+    </>
   );
 }

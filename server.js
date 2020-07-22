@@ -20,7 +20,7 @@ if (process.env.NODE_ENV === 'production') {
 
 // io.emit is to everyone
 // socket.broadcast.emit is to everyone except sender
-const state = { boardState: { players: [], currentPlayer: 1}, players: {} };
+const state = { boardState: { players: [], currentPlayer: 2}, players: {} };
 const colors = ['white', 'black', 'red', 'blue', 'green', 'yellow'];
 io.on('connection', socket => {
   console.log(`${socket.id} joined`);
