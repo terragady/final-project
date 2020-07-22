@@ -16,9 +16,11 @@ if (process.env.NODE_ENV === 'production') {
     res.sendFile(`${__dirname}client/build/index.html`);
   });
 }
+
+
 // io.emit is to everyone
 // socket.broadcast.emit is to everyone except sender
-const state = { boardState: true, players: {} };
+const state = { boardState: { players: [], currentPlayer: 1}, players: {} };
 const colors = ['white', 'black', 'red', 'blue', 'green', 'yellow'];
 io.on('connection', socket => {
   console.log(`${socket.id} joined`);
@@ -31,6 +33,7 @@ io.on('connection', socket => {
       currentTile: 0,
       color: colors.pop(),
     };
+    state.boardState.players = Object.keys(state.players);
     io.emit('update', state);
   });
 

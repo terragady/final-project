@@ -1,10 +1,20 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect, useRef } from 'react';
 import { stateContext } from '../App';
 
 import './style/Board.css';
 
 export default function Dice() {
-  const { socketFunctions } = useContext(stateContext);
+  const { state, socketFunctions, playerId } = useContext(stateContext);
+  let currentPlayer = 'none';
+
+  const mounted = useRef();
+  useEffect(() => {
+    if (!mounted.current) {
+      mounted.current = true;
+    } else {
+      currentPlayer = state.boardState.currentPlayer;
+    }
+  }, [state]);
 
   function rollDice() {
     const result = Math.floor(Math.random() * 6 + 1);
@@ -39,12 +49,11 @@ export default function Dice() {
       }, i * 200);
     }
   };
-
   return (
     <section className="dice">
-      <button type="button" onClick={clickAndRoll}>
-        Roll Dice
-      </button>
+      {currentPlayer === playerId ? <button type="button" onClick={clickAndRoll}> Roll Dice</button> : <button type="button" disabled onClick={clickAndRoll}> Roll Dice</button>}
+      {currentPlayer}
+      {playerId}
       <h1 className="dice__dices">
         {dice.dice1[0] + dice.dice2[0]}
       </h1>

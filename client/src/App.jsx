@@ -1,5 +1,5 @@
 import React, {
-  useEffect, useReducer, createContext,
+  useEffect, useReducer, createContext, useState,
 } from 'react';
 import io from 'socket.io-client';
 import Board from './components/Board';
@@ -23,12 +23,22 @@ export const stateContext = createContext();
 
 export default function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
+  const [playerId, setPlayerId] = useState(false);
+
+  if (!playerId) {
+    socket.on('connect', () => {
+      setPlayerId(1);
+      // setPlayerId(socket.id);
+    });
+  }
   useEffect(() => {
     socket.on('update', newState => dispatch({ type: 'updateGameState', payload: newState }));
   }, []);
+
   return (
-    <stateContext.Provider value={{ state, socketFunctions }}>
+    <stateContext.Provider value={{ state, socketFunctions, playerId, currentPlayer }}>
       <main className="App">
+      {JSON.stringify(state)}
         <Board />
       </main>
     </stateContext.Provider>

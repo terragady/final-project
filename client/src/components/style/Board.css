@@ -14,9 +14,9 @@
 .tile0 {
   grid-area: 11 / 11 / 12 / 12;
   background-image: url('https://i.pinimg.com/originals/a9/b6/8a/a9b68a1213ecc93ee5f07b3423d0e913.gif');
-  background-position: 50% 150%;
+  background-position: center;
   background-repeat: no-repeat;
-  background-size: 60%;
+  background-size: contain;
 }
 
 .tile1 {
@@ -26,9 +26,9 @@
 .tile2 {
   grid-area: 11 / 9 / 12 / 10;
   background-image: url('https://i.pinimg.com/originals/aa/98/84/aa98846a483c4de09ea31b9c1e3fd8a1.gif');
-  background-position: 50% 100%;
+  background-position: center;
   background-repeat: no-repeat;
-  background-size: 60%;
+  background-size: contain;
 }
 
 .tile3 {
@@ -154,9 +154,9 @@
 .tile33 {
   grid-area: 4 / 11 / 5 / 12;
   background-image: url('https://i.pinimg.com/originals/aa/98/84/aa98846a483c4de09ea31b9c1e3fd8a1.gif');
-  background-position: 50% 100%;
+  background-position: center;
   background-repeat: no-repeat;
-  background-size: 50%;
+  background-size: contain;
 }
 
 .tile34 {
@@ -310,8 +310,8 @@
   /* display: none; */
   width: 22vw;
   height: 20vh;
-  background: black;
-  color: white;
+  background: rgb(199, 199, 199);
+  color: rgb(0, 0, 0);
   margin: 1vw;
   padding: 2vw;
 }
