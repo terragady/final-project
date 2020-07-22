@@ -13,9 +13,9 @@ import Log from './Log';
 function Board() {
   const [tiles, setTiles] = useState(initialState);
   const { dispatch, state } = useContext(stateContext);
-  let playerName = 'Default';
+  let playerName = '';
   useEffect(() => {
-    // while (!playerName) playerName = prompt('What is your name?');
+    while (!playerName) playerName = prompt('What is your name?');
     dispatch({ type: 'newPlayer', payload: playerName });
   }, [dispatch, playerName]);
 
@@ -42,9 +42,9 @@ function Board() {
           })
         }
         <div className="center">
-            <Dice />
-            <Log />
-            <Dashboard />
+          <Dice />
+          <Log />
+          <Dashboard />
         </div>
 
       </section>

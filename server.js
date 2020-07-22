@@ -26,7 +26,7 @@ io.on('connection', socket => {
     const { id } = socket;
     state.players[id] = {
       name: newName,
-      currentTile: 11,
+      currentTile: 0,
       color: colors.pop(),
     };
     console.log(state);
