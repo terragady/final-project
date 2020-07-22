@@ -10,7 +10,7 @@ const socketFunctions = {
   newPlayer: name => socket.emit('new player', name),
 };
 
-const initialState = { players: [] };
+const initialState = { boardState: {}, players: {}, loaded: false };
 const reducer = (state, action) => {
   switch (action.type) {
     case 'updateGameState':
@@ -27,7 +27,7 @@ export default function App() {
 
   if (!playerId) {
     socket.on('connect', () => {
-      setPlayerId(1);
+      setPlayerId(true);
       // setPlayerId(socket.id);
     });
   }

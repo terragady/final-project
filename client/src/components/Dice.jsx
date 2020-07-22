@@ -41,7 +41,7 @@ export default function Dice() {
   };
   return (
     <>
-      {state.boardState
+      {state.loaded
         ? (
           <section className="dice">
             {state.boardState.currentPlayer === playerId ? <button type="button" onClick={clickAndRoll}> Roll Dice</button> : <button type="button" disabled onClick={clickAndRoll}> Roll Dice</button>}
