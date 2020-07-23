@@ -14,9 +14,9 @@
 .tile0 {
   grid-area: 11 / 11 / 12 / 12;
   background-image: url('https://i.pinimg.com/originals/a9/b6/8a/a9b68a1213ecc93ee5f07b3423d0e913.gif');
-  background-position: center;
+  background-position: center -0.5vmin;
   background-repeat: no-repeat;
-  background-size: contain;
+  background-size: 75%;
 }
 
 .tile1 {
@@ -28,7 +28,7 @@
   background-image: url('https://i.pinimg.com/originals/aa/98/84/aa98846a483c4de09ea31b9c1e3fd8a1.gif');
   background-position: center;
   background-repeat: no-repeat;
-  background-size: contain;
+  background-size: 65%;
 }
 
 .tile3 {
@@ -37,14 +37,18 @@
 
 .tile4 {
   grid-area: 11 / 7 / 12 / 8;
-  background-image: url('https://www.pinclipart.com/picdir/big/389-3897122_taxes-clipart.png');
+  background-image: url('https://cdn4.iconfinder.com/data/icons/business-bicolor-1/512/salary-512.png');
   background-position: center;
   background-repeat: no-repeat;
-  background-size: 6vh;
+  background-size: 55%;
 }
 
 .tile5 {
   grid-area: 11 / 6 / 12 / 7;
+  background-image: url('https://i.pinimg.com/originals/02/43/87/0243879c56257b841de3a891941b48ad.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 55%;
 }
 
 .tile6 {
@@ -56,7 +60,7 @@
   background-image: url('https://pngimg.com/uploads/question_mark/question_mark_PNG121.png');
   background-position: center;
   background-repeat: no-repeat;
-  background-size: 4vh;
+  background-size: 33%;
 }
 
 .tile8 {
@@ -69,6 +73,10 @@
 
 .tile10 {
   grid-area: 11 / 1 / 12 / 2;
+  background-image: url('https://cdn.iconscout.com/icon/premium/png-256-thumb/jail-1488489-1259723.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 47%;
 }
 
 .tile11 {
@@ -77,6 +85,10 @@
 
 .tile12 {
   grid-area: 9 / 1 / 10 / 2;
+  background-image: url('https://i.pinimg.com/originals/a8/a6/20/a8a620c5f79c2b85554352148eac732f.gif');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 50%;
 }
 
 .tile13 {
@@ -89,6 +101,10 @@
 
 .tile15 {
   grid-area: 6 / 1 / 7 / 2;
+  background-image: url('https://i.pinimg.com/originals/02/43/87/0243879c56257b841de3a891941b48ad.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 55%;
 }
 
 .tile16 {
@@ -100,7 +116,7 @@
   background-image: url('https://pngimg.com/uploads/question_mark/question_mark_PNG121.png');
   background-position: center;
   background-repeat: no-repeat;
-  background-size: 4vh;
+  background-size: 33%;
 }
 
 .tile18 {
@@ -113,6 +129,11 @@
 
 .tile20 {
   grid-area: 1 / 1 / 2 / 2;
+  background-image: url('https://s3.amazonaws.com/images.hamlethub.com/hh20mediafolder/942/201611/parking_large-1480365634.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  
 }
 
 .tile21 {
@@ -124,7 +145,7 @@
   background-image: url('https://pngimg.com/uploads/question_mark/question_mark_PNG121.png');
   background-position: center;
   background-repeat: no-repeat;
-  background-size: 4vh;
+  background-size: 33%;
 }
 
 .tile23 {
@@ -137,6 +158,10 @@
 
 .tile25 {
   grid-area: 1 / 6 / 2 / 7;
+  background-image: url('https://i.pinimg.com/originals/02/43/87/0243879c56257b841de3a891941b48ad.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 55%;
 }
 
 .tile26 {
@@ -149,6 +174,10 @@
 
 .tile28 {
   grid-area: 1 / 9 / 2 / 10;
+  background-image: url('https://i.pinimg.com/originals/a8/a6/20/a8a620c5f79c2b85554352148eac732f.gif');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 50%;
 }
 
 .tile29 {
@@ -157,6 +186,10 @@
 
 .tile30 {
   grid-area: 1 / 11 / 2 / 12;
+  background-image: url('https://www.pinclipart.com/picdir/big/127-1274529_prison-clipart-gates-monopoly-go-to-jail-man.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 65%;
 }
 
 .tile31 {
@@ -172,7 +205,7 @@
   background-image: url('https://i.pinimg.com/originals/aa/98/84/aa98846a483c4de09ea31b9c1e3fd8a1.gif');
   background-position: center;
   background-repeat: no-repeat;
-  background-size: contain;
+  background-size: 65%;
 }
 
 .tile34 {
@@ -181,6 +214,10 @@
 
 .tile35 {
   grid-area: 6 / 11 / 7 / 12;
+  background-image: url('https://i.pinimg.com/originals/02/43/87/0243879c56257b841de3a891941b48ad.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 55%;
 }
 
 .tile36 {
@@ -188,7 +225,7 @@
   background-image: url('https://pngimg.com/uploads/question_mark/question_mark_PNG121.png');
   background-position: center;
   background-repeat: no-repeat;
-  background-size: 4vh;
+  background-size: 33%;
 }
 
 .tile37 {
@@ -197,6 +234,10 @@
 
 .tile38 {
   grid-area: 9 / 11 / 10 / 12;
+  background-image: url('https://cdn4.iconfinder.com/data/icons/business-bicolor-1/512/salary-512.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 55%;
 }
 
 .tile39 {
@@ -208,8 +249,8 @@
 }
 
 .tile--start {
-  border-top: 2px solid black;
-  border-left: 2px solid black;
+  border-top: 1px solid black;
+  border-left: 1px solid black;
 }
 
 .Tile {
@@ -297,59 +338,53 @@
 
 .center {
   display: grid;
-  grid-template-columns: 1fr 2fr;
+  grid-template-columns: 1fr 1fr;
   grid-template-areas:
   "dice log"
   "dashboard dashboard";
   padding: 2vw 3vw 2vw 4vw;
+  background:rgba(255, 255, 255, 0.50);
+  margin: 5vmin;
+  position: relative;
+  width: 90%;
 }
 
 .center--dashboard {
   grid-area: 'dashboard';
-  margin-top: 1vw;
-  width: 70vw;
-  height: 45vh;
-  background: rgba(255, 255, 255, 0.50);
-  border: 1px solid black;
-  padding: 2vw; 
+  margin-top: 1vmin;
+  width: 100%;
+  height: 65%;
+  border-top: 1px dashed black;
+  padding: 2vw;
+  position: absolute;
+  bottom: 0;
 }
 
-.waiting-room {
-  grid-area: 'log';
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: white;
-  border: 1px solid black;
-  margin-left: -49vw;
-  width: 50vw;
-  opacity: 50%;
-}
-
-.waiting-log, .waiting-log__game {
-  /* display: none; */
-  width: 35vw;
-  height: 20vh;
-  background: rgb(199, 199, 199);
-  color: rgb(0, 0, 0);
+.waiting-log {
+  width: 70%;
+  height: 35%;
+  position: absolute;
+  left: 30%;
+  color: black;
   margin: 0;
-  padding: 4px;
+  padding: 1.5vmin;
   overflow-y: auto;
-
-}
-
-.waiting-log__game {
-  display: none;
+  overflow-x: hidden;
+  overflow-wrap: break-word;
 }
 
 .dice {
   grid-area: 'dice';
-  width: 20vw;
-  max-height: 20vh;
+  width: 30%;
+  height: 35%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   text-align: center;
+  /* border: 1px solid black; */
+  position: absolute;
+  margin: 0vmin 0 0 0vmin;
+  background: rgb(191, 234, 163);
 }
 
 .dice__dices {
@@ -369,4 +404,15 @@
 .tile--wrapper {
   text-align: center;
   width: 100%;
+}
+
+.dice__button {
+  /* width: 5vmin;
+  height: 2vmin; */
+  font-size: 1.5vmin;
+  padding: 0.5vmin 1vmin;
+  background: white 0.75;
+  border: 1px solid black;
+  border-radius: 3px;
+  align-self: center;
 }

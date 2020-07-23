@@ -107,7 +107,7 @@ const initialState = [
     houses: 0,
   },
   {
-    streetName: 'Free Parking',
+    streetName: '',
   },
   {
     streetName: 'SomethingElseSt',

@@ -4,10 +4,9 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
-
 ReactDOM.render(
   <React.StrictMode>
-  {/* {window.onbeforeunload = function () {return false}} */}
+    {/* {window.onbeforeunload = function () {return false}} */}
     <App />
   </React.StrictMode>,
   document.getElementById('root'),
