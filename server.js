@@ -1,9 +1,9 @@
 const express = require('express');
-
 const app = express();
 const server = require('http').createServer(app);
 const path = require('path');
 const socketIO = require('socket.io');
+const tileState = require('./tileState');
 
 const io = socketIO(server);
 // app.get('/setCookie', (req, res)=> //set cookie and redirect
@@ -29,7 +29,7 @@ const state = {
     },
     logs: [],
     diceValue: { dice1: ['⚅', 0], dice2: ['⚅', 0] },
-    ownedProps: {},
+    // ownedProps: { 42: {id: d32ger, houses: 2, price: 12}},
   },
   players: {},
   loaded: true,
@@ -45,7 +45,8 @@ const nextTurn = () => {
   if (currentPlayerIndex + 1 < numberOfPlayers) {
     state.boardState.currentPlayer.id = state.boardState.players[currentPlayerIndex + 1];
   } else {
-    state.boardState.currentPlayer.id = state.boardState.players[0];
+    const firstPlayer = state.boardState.players[0];
+    state.boardState.currentPlayer.id = firstPlayer;
   }
 };
 
@@ -106,6 +107,16 @@ io.on('connection', socket => {
   // hasMoved
   socket.on('player has moved', bool => {
     state.boardState.currentPlayer.hasMoved = bool;
+    const { currentTile } = state.players[socket.id];
+    state.boardState.logs = [...state.boardState.logs, `${date()} - ${state.players[socket.id].name} landed on tile nr ${currentTile}!`];
+    // switch (fieldType)
+    //   case normalize
+    //     checkonwership
+    //   case raildorad
+
+    //   case taxoffice
+    //       paytax()
+
     io.emit('update', state);
   });
 

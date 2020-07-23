@@ -1,5 +1,6 @@
 import React, {
   useContext,
+  useRef,
 } from 'react';
 import { stateContext } from '../App';
 
@@ -7,6 +8,7 @@ import './style/Board.css';
 
 export default function Dice() {
   const { state, socketFunctions, playerId } = useContext(stateContext);
+  const btnRef = useRef(null);
 
   function rollDice() {
     const result = Math.floor(Math.random() * 6 + 1);
@@ -28,17 +30,17 @@ export default function Dice() {
         return [];
     }
   }
-
   const clickAndRoll = async () => {
     const dice1 = rollDice();
     const dice2 = rollDice();
+    btnRef.current.disabled = true;
     // setDice({ dice1, dice2 });
     socketFunctions.sendDice({ dice1, dice2 });
     const result = dice1[1] + dice2[1];
-    for (let i = 0; i <= result; i++) {
-      setTimeout(() => {
-        socketFunctions.makeMove(1);
-      }, i * 200);
+    for (let i = 0; i < result; i++) {
+      // eslint-disable-next-line
+      await new Promise(resolve => setTimeout(resolve, 200));
+      socketFunctions.makeMove(1);
     }
     socketFunctions.toggleHasMoved(true);
   };
@@ -47,8 +49,8 @@ export default function Dice() {
       {state.loaded && playerId
         ? (
           <section className="dice">
-            {state.boardState.currentPlayer.id === playerId && !state.boardState.currentPlayer.hasMoved
-              ? <button className="dice__button" type="button" onClick={clickAndRoll}> Roll Dice</button>
+            {state.boardState.currentPlayer.id === playerId
+              ? <button ref={btnRef} className="dice__button" type="button" onClick={clickAndRoll}> Roll Dice</button>
               : <button className="dice__button" type="button" disabled onClick={clickAndRoll}> Roll Dice</button>}
             <h1 className="dice__dices">
               {state.boardState.diceValue.dice1[0] + state.boardState.diceValue.dice2[0]}
