@@ -3,7 +3,7 @@ import './style/Board.css';
 import { stateContext } from '../App';
 
 export default function Log() {
-  const { state, socketsFunctions } = useContext(stateContext);
+  const { state } = useContext(stateContext);
   const scrollRef = useRef(null);
 
   useEffect(() => {

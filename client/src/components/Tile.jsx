@@ -21,7 +21,7 @@ function Tile({ initState, id, position }) {
                 {Object.keys(state.players).map(e => (
                   state.players[e].currentTile === id
                     ? <div key={uuid()} className="player-token" style={{ backgroundColor: state.players[e].color }} />
-                    : <></>
+                    : <div key={uuid()} />
                 ))}
               </div>
               <p className="tile--price">{`$${initState.price}M`}</p>
@@ -35,7 +35,7 @@ function Tile({ initState, id, position }) {
               {Object.keys(state.players).map(e => (
                 state.players[e].currentTile === id
                   ? <div key={uuid()} className="player-token" style={{ backgroundColor: state.players[e].color }} />
-                  : <></>
+                  : <div key={uuid()} />
               ))}
             </div>
           </div>

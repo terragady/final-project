@@ -4,13 +4,13 @@ import './style/Board.css';
 import { stateContext } from '../App';
 
 export default function Dashboard() {
-  const { socketFunctions, state, playerId } = useContext(stateContext);
+  const { socketFunctions, state } = useContext(stateContext);
 
   return (
     <>
       <h3>Dashboard:</h3>
       <section className="center--dashboard">
-        <div className="other-players-info">
+        <div className="center--dashboard__players">
         <h3>General information:</h3>
           {state.loaded
             ? Object.keys(state.players).map(player => (
@@ -23,10 +23,10 @@ export default function Dashboard() {
             ))
             : 'Loading...'}
         </div>
-        <div className="player-info">
+        <div className="center--dashboard__player">
           Your information:
         </div>
-        <button type="button" onClick={() => socketFunctions.endTurn()}>
+        <button className="button__end-turn" type="button" onClick={() => socketFunctions.endTurn()}>
           End your turn
         </button>
       </section>
