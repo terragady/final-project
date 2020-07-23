@@ -12,6 +12,7 @@ const socketFunctions = {
   toggleHasMoved: bool => socket.emit('player has moved', bool),
   endTurn: () => socket.emit('end turn', ''),
   sendDice: dices => socket.emit('send dice', dices),
+  buyProperty: () => socket.emit('buy property', true),
 };
 
 const initialState = { boardState: {}, players: {}, loaded: false };

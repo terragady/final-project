@@ -4,14 +4,14 @@ import './style/Board.css';
 import { stateContext } from '../App';
 
 export default function Dashboard() {
-  const { socketFunctions, state } = useContext(stateContext);
+  const { socketFunctions, state, playerId } = useContext(stateContext);
 
   return (
     <>
       <h3>Dashboard:</h3>
       <section className="center--dashboard">
         <div className="center--dashboard__players">
-        <h3>General information:</h3>
+          <h3>General information:</h3>
           {state.loaded
             ? Object.keys(state.players).map(player => (
               <div key={uuid()} className="player-wrapper">
@@ -26,8 +26,22 @@ export default function Dashboard() {
         <div className="center--dashboard__player">
           Your information:
         </div>
+        {state.loaded
+          && state.boardState.currentPlayer.id === playerId
+          && state.turnInfo.canBuyProp
+          ? (
+            <div className="wanna-buy">
+              <button className="button__end-turn" type="button" onClick={() => socketFunctions.endTurn()}>
+                No
+              </button>
+              <button className="button__end-turn" type="button" onClick={() => socketFunctions.buyProperty()}>
+                Yes
+              </button>
+            </div>
+          )
+          : <></>}
         <button className="button__end-turn" type="button" onClick={() => socketFunctions.endTurn()}>
-          End your turn
+          TURN
         </button>
       </section>
     </>

@@ -1,6 +1,6 @@
 import React, { useContext, useRef, useEffect } from 'react';
 import './style/Board.css';
-import { v4 as uuid} from 'uuid'
+import { v4 as uuid } from 'uuid';
 import { stateContext } from '../App';
 
 export default function Log() {

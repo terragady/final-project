@@ -13,7 +13,12 @@ function Tile({ initState, id, position }) {
           <>
             <div
               className="color-box"
-              style={{ backgroundColor: initState.color }}
+              style={
+                state.loaded
+                && Object.prototype.hasOwnProperty.call(state.boardState.ownedProps, id)
+                  ? { backgroundColor: initState.color, boxShadow: `0px 0px 10px 10px ${state.boardState.ownedProps[id].color}` }
+                  : { backgroundColor: initState.color }
+              }
             />
             <div className="tile--wrapper">
               <p className="tile--street-name">{initState.streetName}</p>

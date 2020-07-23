@@ -397,6 +397,7 @@
   height: 20px;
   border: 1px solid black;
   border-radius: 100%;
+
 }
 
 .tile--wrapper {
@@ -412,6 +413,7 @@
   background: white 0.75;
   color: black;
   font-size: 1.5vmin;
+
 }
 
 .button__end-turn {

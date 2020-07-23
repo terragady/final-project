@@ -1,4 +1,5 @@
 const express = require('express');
+
 const app = express();
 const server = require('http').createServer(app);
 const path = require('path');
@@ -6,10 +7,6 @@ const socketIO = require('socket.io');
 const tileState = require('./tileState');
 
 const io = socketIO(server);
-// app.get('/setCookie', (req, res)=> //set cookie and redirect
-//   res.redirect('')
-// )
-
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, 'client', 'build')));
   app.get('/', (req, res) => {
@@ -29,9 +26,10 @@ const state = {
     },
     logs: [],
     diceValue: { dice1: ['⚅', 0], dice2: ['⚅', 0] },
-    // ownedProps: { 42: {id: d32ger, houses: 2, price: 12}},
+    ownedProps: { 42: 'blue' },
   },
   players: {},
+  turnInfo: {},
   loaded: true,
 };
 
@@ -88,7 +86,6 @@ io.on('connection', socket => {
       state.players[id].currentTile = more;
     }
     io.emit('update', state);
-    console.log(state);
   });
 
   // when log is submitted
@@ -101,6 +98,7 @@ io.on('connection', socket => {
   socket.on('end turn', () => {
     nextTurn();
     state.boardState.currentPlayer.hasMoved = false;
+    state.turnInfo = {};
     io.emit('update', state);
   });
 
@@ -109,14 +107,27 @@ io.on('connection', socket => {
     state.boardState.currentPlayer.hasMoved = bool;
     const { currentTile } = state.players[socket.id];
     state.boardState.logs = [...state.boardState.logs, `${date()} - ${state.players[socket.id].name} landed on tile nr ${currentTile}!`];
-    // switch (fieldType)
-    //   case normalize
-    //     checkonwership
-    //   case raildorad
+    switch (tileState[currentTile].tileType) {
+      case 'normal':
+        if (!Object.prototype.hasOwnProperty.call(state.boardState.ownedProps, currentTile)) {
+          state.turnInfo.canBuyProp = true;
+          io.emit('update', state);
+        }
+        break;
+      default:
+        break;
+    }
+    io.emit('update', state);
+  });
 
-    //   case taxoffice
-    //       paytax()
-
+  // buy property
+  socket.on('buy property', () => {
+    const { currentTile } = state.players[socket.id];
+    state.players[socket.id].accountBalance = state.players[socket.id].accountBalance - tileState[currentTile].price;
+    state.boardState.ownedProps[currentTile] = { id: socket.id, color: state.players[socket.id].color };
+    state.boardState.logs = [...state.boardState.logs, `${date()} - ${state.players[socket.id].name} bought property`];
+    nextTurn();
+    state.turnInfo = {};
     io.emit('update', state);
   });
 
@@ -138,7 +149,11 @@ io.on('connection', socket => {
       delete state.players[socket.id];
     }
     state.boardState.players = Object.keys(state.players);
-    if (state.boardState.players.length === 0) state.boardState.logs = [];
+    if (state.boardState.players.length === 0) {
+      state.boardState.logs = [];
+      state.boardState.ownedProps = {};
+      state.turnInfo = {};
+    }
     console.log(`${socket.id} left`);
     io.emit('update', state);
   });
