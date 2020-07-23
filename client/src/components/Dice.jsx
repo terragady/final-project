@@ -28,7 +28,7 @@ export default function Dice() {
         return [];
     }
   }
-  const [dice, setDice] = useState({ dice1: ['☠', 0], dice2: ['🦋', 0] });
+  const [dice, setDice] = useState({ dice1: ['⚅', 0], dice2: ['⚅', 0] });
 
   const clickAndRoll = async () => {
     const dice1 = rollDice();
