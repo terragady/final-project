@@ -28,8 +28,8 @@ export default function App() {
 
   if (!playerId) {
     socket.on('connect', () => {
-      setPlayerId(1);
-      // setPlayerId(socket.id);
+      // setPlayerId(1);
+      setPlayerId(socket.id);
     });
   }
   useEffect(() => {
@@ -39,7 +39,7 @@ export default function App() {
   return (
     <stateContext.Provider value={{ state, socketFunctions, playerId }}>
       <main className="App">
-        {/* {JSON.stringify(state)} */}
+        {JSON.stringify(state)}
         <Board />
       </main>
     </stateContext.Provider>

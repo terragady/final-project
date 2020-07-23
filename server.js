@@ -17,7 +17,6 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
-
 // io.emit is to everyone
 // socket.broadcast.emit is to everyone except sender
 

@@ -8,10 +8,11 @@ export default function Dashboard() {
     <section className="center--dashboard">
       <h3>Dashboard:</h3>
       <h1>
-        curr
-        {state.currentPlayer}
-        playerId
-        {playerId}
+        {state.loaded ? (
+          state.boardState.currentPlayer.id,
+          playerId
+        )
+          : 'Loading...'}
       </h1>
     </section>
   );

@@ -1,5 +1,5 @@
 import React, {
-  useState, useContext, useEffect, useRef,
+  useState, useContext,
 } from 'react';
 import { stateContext } from '../App';
 
