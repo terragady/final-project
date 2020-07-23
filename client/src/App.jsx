@@ -9,6 +9,9 @@ const socketFunctions = {
   makeMove: num => socket.emit('makeMove', num),
   newPlayer: name => socket.emit('new player', name),
   addToLog: log => socket.emit('log', log),
+  toggleHasMoved: bool => socket.emit('player has moved', bool),
+  endTurn: () => socket.emit('end turn', ''),
+  sendDice: dices => socket.emit('send dice', dices),
 };
 
 const initialState = { boardState: {}, players: {}, loaded: false };

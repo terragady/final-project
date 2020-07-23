@@ -1,5 +1,5 @@
 import React, {
-  useState, useContext,
+  useContext,
 } from 'react';
 import { stateContext } from '../App';
 
@@ -28,33 +28,34 @@ export default function Dice() {
         return [];
     }
   }
-  const [dice, setDice] = useState({ dice1: ['⚅', 0], dice2: ['⚅', 0] });
 
   const clickAndRoll = async () => {
     const dice1 = rollDice();
     const dice2 = rollDice();
-    setDice({ dice1, dice2 });
+    // setDice({ dice1, dice2 });
+    socketFunctions.sendDice({ dice1, dice2 });
     const result = dice1[1] + dice2[1];
     for (let i = 0; i <= result; i++) {
       setTimeout(() => {
         socketFunctions.makeMove(1);
       }, i * 200);
     }
+    socketFunctions.toggleHasMoved(true);
   };
   return (
     <>
-      {state.loaded
+      {state.loaded && playerId
         ? (
           <section className="dice">
-            {state.boardState.currentPlayer === playerId
+            {state.boardState.currentPlayer.id === playerId && !state.boardState.currentPlayer.hasMoved
               ? <button className="dice__button" type="button" onClick={clickAndRoll}> Roll Dice</button>
               : <button className="dice__button" type="button" disabled onClick={clickAndRoll}> Roll Dice</button>}
             <h1 className="dice__dices">
-              {dice.dice1[0] + dice.dice2[0]}
+              {state.boardState.diceValue.dice1[0] + state.boardState.diceValue.dice2[0]}
             </h1>
             <h2 className="dice__result">
               {'Result: '}
-              {dice.dice1[1] + dice.dice2[1]}
+              {state.boardState.diceValue.dice1[1] + state.boardState.diceValue.dice2[1]}
             </h2>
             {/* {dice.dice1[1] === dice.dice2[1] ? <h2>🤩DOUBLE🤩</h2> : ''} */}
           </section>

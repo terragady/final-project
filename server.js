@@ -28,6 +28,8 @@ const state = {
       hasMoved: false,
     },
     logs: [],
+    diceValue: { dice1: ['⚅', 0], dice2: ['⚅', 0] },
+    ownedProps: {},
   },
   players: {},
   loaded: true,
@@ -35,16 +37,21 @@ const state = {
 
 // player change
 const nextTurn = () => {
-  if (state.boardState.players.includes(state.boardState.currentPlayer.id) === -1) state.boardState.currentPlayer.id = state.boardState.players[0] || 0;
-  // if (!state.boardState.currentPlayer.id) {
-  //   state.boardState.currentPlayer.id = state.boardState.players[0];
+  if (state.boardState.players.includes(state.boardState.currentPlayer.id) === -1) {
+    state.boardState.currentPlayer.id = state.boardState.players[0] || 0;
+  }
   const numberOfPlayers = state.boardState.players.length;
   const currentPlayerIndex = state.boardState.players.indexOf(state.boardState.currentPlayer.id);
-  state.boardState.currentPlayer.id = state.boardState.players[currentPlayerIndex + 1];
+  if (currentPlayerIndex + 1 < numberOfPlayers) {
+    state.boardState.currentPlayer.id = state.boardState.players[currentPlayerIndex + 1];
+  } else {
+    state.boardState.currentPlayer.id = state.boardState.players[0];
+  }
 };
 
 // color array for players
 const colors = ['white', 'black', 'red', 'blue', 'green', 'yellow'];
+const date = () => (new Date(Date.now())).toLocaleTimeString('en-GB', { hour12: false });
 
 // On client connection
 io.on('connection', socket => {
@@ -58,13 +65,13 @@ io.on('connection', socket => {
       name: newName,
       currentTile: 0,
       color: colors.pop(),
+      accountBalance: 1500,
     };
     state.boardState.logs = [
       ...state.boardState.logs,
-      `${(new Date(Date.now())).toLocaleTimeString('en-GB', { hour12: false })} - ${newName} joined the game as ${state.players[socket.id].color}`,
+      `${date()} - ${newName} joined the game as ${state.players[socket.id].color}`,
     ];
     state.boardState.players = Object.keys(state.players);
-    nextTurn();
     io.emit('update', state);
   });
 
@@ -85,7 +92,27 @@ io.on('connection', socket => {
 
   // when log is submitted
   socket.on('log', logText => {
-    state.boardState.logs = [...state.boardState.logs, `${(new Date(Date.now())).toLocaleTimeString('en-GB', { hour12: false })} ${logText}`];
+    state.boardState.logs = [...state.boardState.logs, `${date()} - ${logText}`];
+    io.emit('update', state);
+  });
+
+  // next turn
+  socket.on('end turn', () => {
+    nextTurn();
+    state.boardState.currentPlayer.hasMoved = false;
+    io.emit('update', state);
+  });
+
+  // hasMoved
+  socket.on('player has moved', bool => {
+    state.boardState.currentPlayer.hasMoved = bool;
+    io.emit('update', state);
+  });
+
+  // update dice state
+  socket.on('send dice', dices => {
+    state.boardState.diceValue = dices;
+    state.boardState.logs = [...state.boardState.logs, `${date()} - ${state.players[socket.id].name} rolled an ${dices.dice1[1] + dices.dice2[1]}!`];
     io.emit('update', state);
   });
 
@@ -95,7 +122,7 @@ io.on('connection', socket => {
       colors.push(state.players[socket.id].color);
       state.boardState.logs = [
         ...state.boardState.logs,
-        `${(new Date(Date.now())).toLocaleTimeString('en-GB', { hour12: false })} ${state.players[socket.id].name} left the game`,
+        `${date()} - ${state.players[socket.id].name} left the game`,
       ];
       delete state.players[socket.id];
     }

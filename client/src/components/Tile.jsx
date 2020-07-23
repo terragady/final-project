@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { v4 as uuid } from 'uuid';
 import PropTypes from 'prop-types';
 import './style/Board.css';
 import { stateContext } from '../App';
@@ -12,16 +13,14 @@ function Tile({ initState, id, position }) {
           <>
             <div
               className="color-box"
-              style={initState.color
-                ? { backgroundColor: initState.color }
-                : { color: 'black' }}
+              style={{ backgroundColor: initState.color }}
             />
             <div className="tile--wrapper">
               <p className="tile--street-name">{initState.streetName}</p>
               <div className="token-wrapper">
                 {Object.keys(state.players).map(e => (
                   state.players[e].currentTile === id
-                    ? <div className="player-token" style={{ backgroundColor: state.players[e].color }} />
+                    ? <div key={uuid()} className="player-token" style={{ backgroundColor: state.players[e].color }} />
                     : <></>
                 ))}
               </div>
@@ -35,7 +34,7 @@ function Tile({ initState, id, position }) {
             <div className="token-wrapper">
               {Object.keys(state.players).map(e => (
                 state.players[e].currentTile === id
-                  ? <div className="player-token" style={{ backgroundColor: state.players[e].color }} />
+                  ? <div key={uuid()} className="player-token" style={{ backgroundColor: state.players[e].color }} />
                   : <></>
               ))}
             </div>
