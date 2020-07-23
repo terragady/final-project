@@ -37,6 +37,10 @@
 
 .tile4 {
   grid-area: 11 / 7 / 12 / 8;
+  background-image: url('https://www.pinclipart.com/picdir/big/389-3897122_taxes-clipart.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 6vh;
 }
 
 .tile5 {
@@ -49,6 +53,10 @@
 
 .tile7 {
   grid-area: 11 / 4 / 12 / 5;
+  background-image: url('https://pngimg.com/uploads/question_mark/question_mark_PNG121.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 4vh;
 }
 
 .tile8 {
@@ -89,6 +97,10 @@
 
 .tile17 {
   grid-area: 4 / 1 / 5 / 2;
+  background-image: url('https://pngimg.com/uploads/question_mark/question_mark_PNG121.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 4vh;
 }
 
 .tile18 {
@@ -109,6 +121,10 @@
 
 .tile22 {
   grid-area: 1 / 3 / 2 / 4;
+  background-image: url('https://pngimg.com/uploads/question_mark/question_mark_PNG121.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 4vh;
 }
 
 .tile23 {
@@ -169,6 +185,10 @@
 
 .tile36 {
   grid-area: 7 / 11 / 8 / 12;
+  background-image: url('https://pngimg.com/uploads/question_mark/question_mark_PNG121.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 4vh;
 }
 
 .tile37 {

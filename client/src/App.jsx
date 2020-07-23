@@ -8,6 +8,7 @@ const socket = io.connect('http://localhost:8080');
 const socketFunctions = {
   makeMove: num => socket.emit('makeMove', num),
   newPlayer: name => socket.emit('new player', name),
+  addToLog: log => socket.emit('log', log),
 };
 
 const initialState = { boardState: {}, players: {}, loaded: false };
@@ -27,7 +28,7 @@ export default function App() {
 
   if (!playerId) {
     socket.on('connect', () => {
-      setPlayerId(true);
+      setPlayerId(1);
       // setPlayerId(socket.id);
     });
   }
@@ -38,7 +39,7 @@ export default function App() {
   return (
     <stateContext.Provider value={{ state, socketFunctions, playerId }}>
       <main className="App">
-      {JSON.stringify(state)}
+        {JSON.stringify(state)}
         <Board />
       </main>
     </stateContext.Provider>

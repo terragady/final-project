@@ -8,8 +8,10 @@ export default function Dashboard() {
     <section className="center--dashboard">
       <h3>Dashboard:</h3>
       <h1>
-        curr{state.currentPlayer}
-        playerId{playerId}
+        curr
+        {state.currentPlayer}
+        playerId
+        {playerId}
       </h1>
     </section>
   );

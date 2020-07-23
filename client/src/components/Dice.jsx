@@ -1,4 +1,6 @@
-import React, { useState, useContext, useEffect, useRef } from 'react';
+import React, {
+  useState, useContext, useEffect, useRef,
+} from 'react';
 import { stateContext } from '../App';
 
 import './style/Board.css';
@@ -44,7 +46,9 @@ export default function Dice() {
       {state.loaded
         ? (
           <section className="dice">
-            {state.boardState.currentPlayer === playerId ? <button type="button" onClick={clickAndRoll}> Roll Dice</button> : <button type="button" disabled onClick={clickAndRoll}> Roll Dice</button>}
+            {state.boardState.currentPlayer === playerId 
+              ? <button type="button" onClick={clickAndRoll}> Roll Dice</button> 
+              : <button type="button" disabled onClick={clickAndRoll}> Roll Dice</button>}
             <h1 className="dice__dices">
               {dice.dice1[0] + dice.dice2[0]}
             </h1>
@@ -55,7 +59,7 @@ export default function Dice() {
             {/* {dice.dice1[1] === dice.dice2[1] ? <h2>🤩DOUBLE🤩</h2> : ''} */}
           </section>
         )
-        : null}
+        : 'loading...'}
     </>
   );
 }
