@@ -1,21 +1,32 @@
-import React, { useContext } from 'react';
+import React, { useContext, useRef, useEffect } from 'react';
 import './style/Board.css';
 import { stateContext } from '../App';
 
 export default function Log() {
-	const { state, socketsFunctions } = useContext(stateContext);
+  const { state, socketsFunctions } = useContext(stateContext);
+  const scrollRef = useRef(null);
 
-	const mapLogs = () => {
-    state.boardState.logs.map( e => {
-      return e
-    })
-	};
+  
+  function scrollToBottom (id) {
+   var div = document.querySelectorAll('waiting-log');
+   div.scrollTop = div.scrollHeight - div.clientHeight;
+}
+
+  useEffect(() => {
+    scrollRef.current.scrollIntoView({
+      behavior: 'smooth',
+      block: 'nearest',
+      inline: 'start',
+    });
+  }, [state.boardState.logs])
+
+
 
 	return (
 		<div className="waiting-room">
-			<section className="waiting-log">
 				<h3>Log:</h3>
-				{state.loaded ? mapLogs() : <p>Loading...</p>}
+			<section ref={scrollRef} className="waiting-log">
+        {state.loaded ? state.boardState.logs.map(e => <p>{e}</p>): <p>Loading...</p>}
 			</section>
 			<section className="waiting-log__game">
 				<h3>Log:</h3>

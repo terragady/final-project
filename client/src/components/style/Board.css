@@ -321,19 +321,21 @@
   justify-content: center;
   background: white;
   border: 1px solid black;
-  margin-left: -50vw;
+  margin-left: -49vw;
   width: 50vw;
   opacity: 50%;
 }
 
 .waiting-log, .waiting-log__game {
   /* display: none; */
-  width: 22vw;
+  width: 35vw;
   height: 20vh;
   background: rgb(199, 199, 199);
   color: rgb(0, 0, 0);
-  margin: 1vw;
-  padding: 2vw;
+  margin: 0;
+  padding: 4px;
+  overflow-y: auto;
+
 }
 
 .waiting-log__game {
