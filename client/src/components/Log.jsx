@@ -1,18 +1,35 @@
-import React, { useContext, useRef, useEffect } from 'react';
+import React, { useContext, useRef, useEffect, useState } from 'react';
 import './style/Board.css';
 import { v4 as uuid } from 'uuid';
 import { stateContext } from '../App';
 
 export default function Log() {
-  const { state } = useContext(stateContext);
+  const { state, socketFunctions } = useContext(stateContext);
+  const [chat, setChat] = useState('');
   const scrollRef = useRef(null);
 
   useEffect(() => {
     scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
   }, [state.boardState.logs]);
+
+  const sendChat = (e) => {
+    e.preventDefault();
+    console.log(chat);
+    socketFunctions.sendChat(chat);
+    e.target.reset();
+  };
   return (
-    <section ref={scrollRef} className="waiting-log">
-      {state.loaded ? state.boardState.logs.map(e => <p key={uuid()} className="waiting-log__item">{e}</p>) : <p>Loading...</p>}
-    </section>
+    <>
+      <section ref={scrollRef} className="waiting-log">
+        {state.loaded ? state.boardState.logs.map(e => <p key={uuid()} className="waiting-log__item">{e}</p>) : <p>Loading...</p>}
+      </section>
+        <div className="chat">
+          <form onSubmit={(e) => sendChat(e)}>
+            Chat:
+            <input className="chat__input" onChange={(e) => setChat(e.target.value)} type="text" name="chat" id="chat" autoComplete="off" />
+          </form>
+        </div>
+
+    </>
   );
 }

@@ -13,6 +13,7 @@ const socketFunctions = {
   endTurn: () => socket.emit('end turn', ''),
   sendDice: dices => socket.emit('send dice', dices),
   buyProperty: () => socket.emit('buy property', true),
+  sendChat: message => socket.emit('send chat', message),
 };
 
 const initialState = { boardState: {}, players: {}, loaded: false };

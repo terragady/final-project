@@ -373,6 +373,7 @@
   text-align: left;
   line-height: 2vmin;
   border-bottom: 1px dashed black;
+  scroll-padding: 2vmin;
 }
 
 .dice {
@@ -486,4 +487,15 @@ button {
 
 .tile__special--price {
   color: red;
+}
+
+.chat {
+  position: absolute;
+  top: 31%;
+  left: 51.5%;
+}
+
+.chat__input {
+  width: 20vmin;
+  margin: 0.5vmin;
 }

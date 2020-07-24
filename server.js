@@ -94,6 +94,12 @@ io.on('connection', socket => {
     io.emit('update', state);
   });
 
+    // send chat
+    socket.on('send chat', message => {
+    state.boardState.logs = [...state.boardState.logs, `${date()} - ${state.players[socket.id].name} says: ${message}`];
+    io.emit('update', state);
+  });
+
   // next turn
   socket.on('end turn', () => {
     nextTurn();

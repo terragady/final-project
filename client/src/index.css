@@ -4,9 +4,12 @@
   box-sizing: border-box;
   font-family: 'Avenir', sans-serif;
   font-size: 0.8vw;
+
 }
 
-h1 {
+body {
+  cursor: url('./cursor-xxl.png');	
+
   /* font-size: 3vw; */
 }
 
