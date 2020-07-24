@@ -357,6 +357,10 @@
   display: flex;
 }
 
+.center--dashboard__players {
+  margin-bottom: 1vmin;
+}
+
 .waiting-log {
   position: absolute;
   left: 50%;
@@ -368,6 +372,7 @@
   overflow-wrap: break-word;
   text-align: left;
   line-height: 2vmin;
+  border-bottom: 1px dashed black;
 }
 
 .dice {
@@ -385,6 +390,10 @@
 
 .dice__dices {
   font-size: 10vh;
+}
+
+.dice__result {
+  font-size: 2vmin;
 }
 
 .token-wrapper {
@@ -416,9 +425,9 @@
 
 }
 
-.button__end-turn {
+.button__purchase--yes {
   align-self: center;
-  border: 1px solid black;
+  border: 1px solid rgba(0, 128, 0, 0.50);
   border-radius: 0.5vmin;
   padding: 0.5vmin 1vmin;
   background: rgb(191, 234, 163, 0.25);
@@ -427,6 +436,32 @@
   position: absolute;
   left: 26.5%;
   top: 8vmin;
+}
+
+.button__purchase--no {
+  align-self: center;
+  border: 1px solid rgba(255, 0, 0, 0.50);
+  border-radius: 0.5vmin;
+  padding: 0.5vmin 1vmin;
+  background: rgb(191, 234, 163, 0.25);
+  color: black;
+  font-size: 1.5vmin;
+  position: absolute;
+  left: 26.5%;
+  top: 12vmin;
+}
+
+.button__end-turn {
+  align-self: center;
+  border: 1px solid grey;
+  border-radius: 0.5vmin;
+  padding: 0.5vmin 1vmin;
+  background: rgb(191, 234, 163, 0.25);
+  color: black;
+  font-size: 1.5vmin;
+  position: absolute;
+  left: 26.5%;
+  top: 16vmin;
 }
 
 .center--dashboard__block {
@@ -444,7 +479,11 @@
   font-size: 1.5vmin;
 }
 
-.center--dashboard__actions {
-  margin-right: 2vmin;
-  padding: 1vmin;
+button {
+  outline: none;
+
+}
+
+.tile__special--price {
+  color: red;
 }

@@ -44,6 +44,8 @@ export default function Dice() {
     }
     socketFunctions.toggleHasMoved(true);
   };
+
+  const dice = state.boardState.diceValue;
   return (
     <>
       {state.loaded && playerId
@@ -53,13 +55,13 @@ export default function Dice() {
               ? <button ref={btnRef} className="dice__button" type="button" onClick={clickAndRoll}> Roll Dice</button>
               : <button className="dice__button" type="button" disabled onClick={clickAndRoll}> Roll Dice</button>}
             <h1 className="dice__dices">
-              {state.boardState.diceValue.dice1[0] + state.boardState.diceValue.dice2[0]}
+              {dice.dice1[0] + dice.dice2[0]}
             </h1>
             <h2 className="dice__result">
               {'Result: '}
-              {state.boardState.diceValue.dice1[1] + state.boardState.diceValue.dice2[1]}
+              {dice.dice1[1] + dice.dice2[1]}
+              <h2>{dice.dice1[1] === dice.dice2[1] ? <span className="dice__result" role="img" aria-label="emoji">🤩DOUBLE🤩</span> : ''}</h2>
             </h2>
-            {/* {dice.dice1[1] === dice.dice2[1] ? <h2>🤩DOUBLE🤩</h2> : ''} */}
           </section>
         )
         : 'loading...'}

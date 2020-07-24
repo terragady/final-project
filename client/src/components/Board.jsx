@@ -11,9 +11,9 @@ import Log from './Log';
 function Board() {
   const [tiles] = useState(initialState);
   const { socketFunctions } = useContext(stateContext);
-  const playerName = 'DefaultPlayer';
+  let playerName = '';
   useEffect(() => {
-    // while (!playerName) playerName = prompt('What is your name?');
+    while (!playerName) playerName = prompt('What is your name?');
     socketFunctions.newPlayer(playerName);
   }, [socketFunctions, playerName]);
 

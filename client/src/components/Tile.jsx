@@ -15,8 +15,8 @@ function Tile({ initState, id, position }) {
               className="color-box"
               style={
                 state.loaded
-                && Object.prototype.hasOwnProperty.call(state.boardState.ownedProps, id)
-                  ? { backgroundColor: initState.color, boxShadow: `0px 0px 10px 10px ${state.boardState.ownedProps[id].color}` }
+                  && Object.prototype.hasOwnProperty.call(state.boardState.ownedProps, id)
+                  ? { backgroundColor: initState.color, boxShadow: `0px 0px 1px 3px ${state.boardState.ownedProps[id].color}` }
                   : { backgroundColor: initState.color }
               }
             />
@@ -43,6 +43,7 @@ function Tile({ initState, id, position }) {
                   : <div key={uuid()} />
               ))}
             </div>
+            {/* <p className="tile__special--price">{`$${initState.price}M`}</p> */}
           </div>
         )}
     </article>

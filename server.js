@@ -122,8 +122,10 @@ io.on('connection', socket => {
 
   // buy property
   socket.on('buy property', () => {
+    const { accountBalance } = state.players[socket.id];
     const { currentTile } = state.players[socket.id];
-    state.players[socket.id].accountBalance = state.players[socket.id].accountBalance - tileState[currentTile].price;
+    state.players[socket.id].accountBalance = accountBalance - tileState[currentTile].price;
+    // eslint-disable-next-line
     state.boardState.ownedProps[currentTile] = { id: socket.id, color: state.players[socket.id].color };
     state.boardState.logs = [...state.boardState.logs, `${date()} - ${state.players[socket.id].name} bought property`];
     nextTurn();
@@ -134,7 +136,7 @@ io.on('connection', socket => {
   // update dice state
   socket.on('send dice', dices => {
     state.boardState.diceValue = dices;
-    state.boardState.logs = [...state.boardState.logs, `${date()} - ${state.players[socket.id].name} rolled an ${dices.dice1[1] + dices.dice2[1]}!`];
+    state.boardState.logs = [...state.boardState.logs, `${date()} - ${state.players[socket.id].name} rolled ${dices.dice1[1] + dices.dice2[1]}!`];
     io.emit('update', state);
   });
 

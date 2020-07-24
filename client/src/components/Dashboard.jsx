@@ -10,19 +10,20 @@ export default function Dashboard() {
     <>
       <h3>Dashboard:</h3>
       <section className="center--dashboard">
-        <div className="center--dashboard__block">
+        <section className="center--dashboard__block">
           <h3 className="center--dashboard__title">Players:</h3>
           {state.loaded
             ? Object.keys(state.players).map(player => (
-              <div key={uuid()} className="player-wrapper">
-                <h3 className="center--dashboard__player-info"style={{ color: state.players[player].color }}>
+              <section key={uuid()} className="center--dashboard__players">
+                <h3 className="center--dashboard__player-info" style={{ color: state.players[player].color }}>
                   {state.players[player].name}
                 </h3>
                 <p className="center--dashboard__player-info">{`Account balance: $${state.players[player].accountBalance}M`}</p>
-              </div>
+              </section>
             ))
             : 'Loading...'}
-        </div>
+        </section>
+
         <div className="center--dashboard__block">
           <h3 className="center--dashboard__title">Actions:</h3>
         </div>
@@ -30,15 +31,15 @@ export default function Dashboard() {
           && state.boardState.currentPlayer.id === playerId
           && state.turnInfo.canBuyProp
           ? (
-            <div className="wanna-buy">
-              <button className="button__end-turn" type="button" onClick={() => socketFunctions.endTurn()}>
-                No
-              </button>
-              <button className="button__end-turn" type="button" onClick={() => socketFunctions.buyProperty()}>
-                Yes
-              </button>
-            </div>
-          )
+        <section className="center--dashboard__button__purchase">
+          <button className="button__purchase--no" type="button" onClick={() => socketFunctions.endTurn()}>
+            Do not buy property
+          </button>
+          <button className="button__purchase--yes" type="button" onClick={() => socketFunctions.buyProperty()}>
+            Buy property
+          </button>
+        </section>
+        )
           : <></>}
         <button className="button__end-turn" type="button" onClick={() => socketFunctions.endTurn()}>
           End turn

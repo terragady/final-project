@@ -43,7 +43,7 @@ export default function App() {
   return (
     <stateContext.Provider value={{ state, socketFunctions, playerId }}>
       <main className="App">
-        {JSON.stringify(state)}
+        {/* {JSON.stringify(state)} */}
         <Board />
       </main>
     </stateContext.Provider>
