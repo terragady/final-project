@@ -16,7 +16,8 @@ export default function Log() {
 
   const sendChat = e => {
     e.preventDefault();
-    socketFunctions.sendChat(chat);
+    if (chat) socketFunctions.sendChat(chat);
+    setChat('');
     e.target.reset();
   };
   return (
