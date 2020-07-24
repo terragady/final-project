@@ -31,15 +31,15 @@ export default function Dashboard() {
           && state.boardState.currentPlayer.id === playerId
           && state.turnInfo.canBuyProp
           ? (
-        <section className="center--dashboard__button__purchase">
-          <button className="button__purchase--no" type="button" onClick={() => socketFunctions.endTurn()}>
-            Do not buy property
-          </button>
-          <button className="button__purchase--yes" type="button" onClick={() => socketFunctions.buyProperty()}>
-            Buy property
-          </button>
-        </section>
-        )
+            <section className="center--dashboard__button__purchase">
+              <button className="button__purchase--no" type="button" onClick={() => socketFunctions.endTurn()}>
+                Do not buy property
+              </button>
+              <button className="button__purchase--yes" type="button" onClick={() => socketFunctions.buyProperty()}>
+                Buy property
+              </button>
+            </section>
+          )
           : <></>}
         <button className="button__end-turn" type="button" onClick={() => socketFunctions.endTurn()}>
           End turn

@@ -8,7 +8,7 @@
 }
 
 body {
-  cursor: url('./cursor-xxl.png');	
+  cursor: url('./cursor.png'), auto;	
 
   /* font-size: 3vw; */
 }

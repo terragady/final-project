@@ -373,7 +373,15 @@
   text-align: left;
   line-height: 2vmin;
   border-bottom: 1px dashed black;
-  scroll-padding: 2vmin;
+  scroll-margin-top: 4vmin;
+  padding-bottom: 2.5vmin;
+}
+
+.waiting-log__log {
+  background: red;
+  border: 1px solid black;
+  height: 100px;
+  width: 90%;
 }
 
 .dice {
@@ -496,6 +504,10 @@ button {
 }
 
 .chat__input {
-  width: 20vmin;
+  width: 40vmin;
   margin: 0.5vmin;
+  background: rgb(191, 234, 163, 0.25);
+  border: 1px solid grey;
+  border-radius: 0.5vmin;
+  padding: 0vmin 0.5vmin;
 }
