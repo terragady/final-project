@@ -30,6 +30,7 @@ const tileState = [
     streetName: 'Reading Railroad',
     tileType: 'railroad',
     color: 'railroad',
+    price: 200,
   },
   {
     streetName: 'Brighton Vale',
@@ -69,7 +70,7 @@ const tileState = [
   },
   {
     streetName: 'Electric Company',
-    tileType: 'electro',
+    tileType: 'company',
   },
   {
     streetName: 'Mere Fold',
@@ -89,6 +90,7 @@ const tileState = [
     streetName: 'Pennsylvania Railroad',
     tileType: 'railroad',
     color: 'railroad',
+    price: 200,
   },
   {
     streetName: 'Danthorpe Lodge',
@@ -148,6 +150,7 @@ const tileState = [
     streetName: 'Short Line',
     color: 'railroad',
     tileType: 'railroad',
+    price: 200,
   },
   {
     streetName: 'Elms Villas',
@@ -165,7 +168,7 @@ const tileState = [
   },
   {
     streetName: 'Electric Company',
-    tileType: 'electric',
+    tileType: 'company',
   },
   {
     streetName: 'Moorcraft Villas',
@@ -207,6 +210,7 @@ const tileState = [
     streetName: 'B. & O. Railroad',
     color: 'railroad',
     tileType: 'railroad',
+    price: 200,
   },
   {
     streetName: 'Chance',

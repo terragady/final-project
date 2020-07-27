@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import './style/Board.css';
-import { stateContext } from '../App';
+import stateContext from '../internal';
 import Tile from './Tile';
 import initialState from './BoardInitState';
 import Dice from './Dice';

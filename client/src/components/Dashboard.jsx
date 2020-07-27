@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { v4 as uuid } from 'uuid';
 import './style/Dashboard.css';
-import { stateContext } from '../App';
+import stateContext from '../internal';
 
 export default function Dashboard() {
   const { socketFunctions, state, playerId } = useContext(stateContext);

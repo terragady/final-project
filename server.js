@@ -138,18 +138,14 @@ io.on('connection', socket => {
         if (!Object.prototype.hasOwnProperty.call(state.boardState.ownedProps, currentTile)) {
           state.turnInfo.canBuyProp = true;
         } else {
-          // const railRoadArray = [5, 15, 25, 35];
+          const railRoadArray = [5, 15, 25, 35];
+          const tileOwner = state.boardState.ownedProps[currentTile].id;
           let ownedRailroads = 0;
-          // const count = railRoadArray.forEach(tileNumb => {
-          //   if (state.boardState.ownedProps[tileNumb] && state.boardState.ownedProps[tileNumb].id === tileOwner) {
-          //     count += 1
-          //   }
-          // });
-          if (state.boardState.ownedProps[5] && state.boardState.ownedProps[5].id === tileOwner) ownedRailroads += 1
-          if (state.boardState.ownedProps[15] && state.boardState.ownedProps[15].id === tileOwner) ownedRailroads += 1
-          if (state.boardState.ownedProps[25] && state.boardState.ownedProps[25].id === tileOwner) ownedRailroads += 1
-          if (state.boardState.ownedProps[35] && state.boardState.ownedProps[35].id === tileOwner) ownedRailroads += 1
-          
+           railRoadArray.forEach(tileNumb => {
+            if (state.boardState.ownedProps[tileNumb] && state.boardState.ownedProps[tileNumb].id === tileOwner) {
+              ownedRailroads += 1
+            }
+          });
           const priceToPay = 25 * 2 ** (ownedRailroads - 1)
           state.players[socket.id].accountBalance -= priceToPay;
           state.players[state.boardState.ownedProps[currentTile].id].accountBalance += priceToPay;
@@ -161,8 +157,8 @@ io.on('connection', socket => {
           state.boardState.logs = [
             ...state.boardState.logs, `${date()} - ${state.players[socket.id].name} have paid rent $${priceToPay}M to ${state.players[state.boardState.ownedProps[currentTile].id].name}`
           ];}
+          nextTurn();
         }
-        nextTurn();
         break;
       }
       default:

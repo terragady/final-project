@@ -1,8 +1,9 @@
 import React, {
-  useEffect, useReducer, createContext, useState,
+  useEffect, useReducer, useState,
 } from 'react';
 import io from 'socket.io-client';
 import Board from './components/Board';
+import stateContext from './internal';
 
 const socket = io.connect('http://localhost:8080');
 const socketFunctions = {
@@ -27,7 +28,6 @@ const reducer = (state, action) => {
 };
 
 // TODO: make into function and export it as function ??
-export const stateContext = createContext();
 
 export default function App() {
   const [state, dispatch] = useReducer(reducer, initialState);

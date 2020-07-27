@@ -3,7 +3,7 @@ import React, {
 } from 'react';
 import './style/Log.css';
 import { v4 as uuid } from 'uuid';
-import { stateContext } from '../App';
+import stateContext from '../internal';
 
 export default function Log() {
   const { state, socketFunctions } = useContext(stateContext);
@@ -28,7 +28,7 @@ export default function Log() {
       <section className="center__chat">
         <form className="center__chat--form" onSubmit={e => sendChat(e)}>
           <input className="center__chat--input" onChange={e => setChat(e.target.value)} type="text" name="chat" id="chat" autoComplete="off" placeholder="Write message..." />
-          <button className="center__chat--button">Send</button>
+          <button className="center__chat--button" type="button">Send</button>
         </form>
       </section>
 
