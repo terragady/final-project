@@ -12,7 +12,7 @@ function Tile({ initState, id, position }) {
         ? (
           <>
             <div
-              className="color-box"
+              className="tile__color-box"
               style={
                 state.loaded
                   && Object.prototype.hasOwnProperty.call(state.boardState.ownedProps, id)
@@ -20,30 +20,30 @@ function Tile({ initState, id, position }) {
                   : { backgroundColor: initState.color }
               }
             />
-            <div className="tile--wrapper">
-              <p className="tile--street-name">{initState.streetName}</p>
-              <div className="token-wrapper">
+            <div className="tile__wrapper">
+              <p className="tile__street-name">{initState.streetName}</p>
+              <div className="player__token--wrapper">
                 {Object.keys(state.players).map(e => (
                   state.players[e].currentTile === id
-                    ? <div key={uuid()} className="player-token" style={{ backgroundColor: state.players[e].color }} />
+                    ? <div key={uuid()} className="player__token" style={{ backgroundColor: state.players[e].color }} />
                     : <div key={uuid()} />
                 ))}
               </div>
-              <p className="tile--price">{`$${initState.price}M`}</p>
+              <p className="tile__price">{`$${initState.price}M`}</p>
             </div>
           </>
         )
         : (
-          <div className="tile--wrapper">
-            <p className="tile--special-name">{initState.streetName}</p>
-            <div className="token-wrapper">
+          <div className="tile__wrapper">
+            <p className="tile__special-name">{initState.streetName}</p>
+            <div className="player__token--wrapper">
               {Object.keys(state.players).map(e => (
                 state.players[e].currentTile === id
-                  ? <div key={uuid()} className="player-token" style={{ backgroundColor: state.players[e].color }} />
+                  ? <div key={uuid()} className="player__token" style={{ backgroundColor: state.players[e].color }} />
                   : <div key={uuid()} />
               ))}
             </div>
-            {/* <p className="tile__special--price">{`$${initState.price}M`}</p> */}
+            <p className="tile__special-price">{`$${initState.price}M`}</p>
           </div>
         )}
     </article>

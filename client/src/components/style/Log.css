@@ -1,0 +1,52 @@
+.center__room {
+position: absolute;
+left: 50%;
+width: 50%;
+height: 35%;
+border-bottom: 1px dashed black;
+display: flex;
+flex-direction: column;
+}
+
+.center__log {
+  flex: 1;
+  margin: 1vmin;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overflow-wrap: break-word;
+  text-align: left;
+  line-height: 2vmin;
+}
+
+.center__chat {
+  width: 100%;
+  margin: 1vmin;
+}
+
+.center__chat--form {
+  display: flex;
+  justify-content: center;
+  width: 95%;
+}
+
+.center__chat--input {
+  width: 90%;
+  background: rgb(191, 234, 163, 0.25);
+  border: 1px solid grey;
+  border-right: 0px;
+  border-radius: 0.5vmin 0vmin 0vmin 0.5vmin;
+  padding: 0vmin 1vmin;
+  height: 3vmin;
+}
+
+.center__chat--button {
+  height: 3vmin;
+  align-self: center;
+  width: 10%;
+  align-self: left;
+  border-radius: 0.5vmin;
+  color: black;
+  border: 1px solid grey;
+  border-radius: 0vmin 0.5vmin 0.5vmin 0vmin;
+  background: rgb(191, 234, 163, 0.25);
+}

@@ -25,6 +25,8 @@ const reducer = (state, action) => {
       return state;
   }
 };
+
+// TODO: make into function and export it as function ??
 export const stateContext = createContext();
 
 export default function App() {

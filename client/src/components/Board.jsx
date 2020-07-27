@@ -11,9 +11,9 @@ import Log from './Log';
 function Board() {
   const [tiles] = useState(initialState);
   const { socketFunctions } = useContext(stateContext);
-  let playerName = '';
+  let playerName = 'Default player';
   useEffect(() => {
-    while (!playerName) playerName = prompt('What is your name?');
+  //   while (!playerName) playerName = prompt('What is your name?');
     socketFunctions.newPlayer(playerName);
   }, [socketFunctions, playerName]);
 
@@ -23,28 +23,28 @@ function Board() {
         {
           tiles.map((tile, index) => {
             if (index === 0) {
-              return <Tile key={uuidv4()} position="tile--start" id={index} initState={tile} />;
+              return <Tile key={uuidv4()} position="tile__start" id={index} initState={tile} />;
             }
             if (index > 0 && index <= 10) {
-              return <Tile key={uuidv4()} position="horizontal--bottom" id={index} initState={tile} />;
+              return <Tile key={uuidv4()} position="tile__horizontal--bottom" id={index} initState={tile} />;
             }
             if (index >= 11 && index <= 19) {
-              return <Tile key={uuidv4()} position="vertical--left" id={index} initState={tile} />;
+              return <Tile key={uuidv4()} position="tile__vertical--left" id={index} initState={tile} />;
             }
             if (index >= 20 && index <= 30) {
-              return <Tile key={uuidv4()} position="horizontal--top" id={index} initState={tile} />;
+              return <Tile key={uuidv4()} position="tile__horizontal--top" id={index} initState={tile} />;
             }
             if (index >= 31 && index <= 39) {
-              return <Tile key={uuidv4()} position="vertical--right" id={index} initState={tile} />;
+              return <Tile key={uuidv4()} position="tile__vertical--right" id={index} initState={tile} />;
             }
             return <></>;
           })
         }
-        <div className="center">
+        <section className="center">
           <Dice />
           <Log />
           <Dashboard />
-        </div>
+        </section>
 
       </section>
     </>

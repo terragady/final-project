@@ -3,8 +3,7 @@ import React, {
   useRef,
 } from 'react';
 import { stateContext } from '../App';
-
-import './style/Board.css';
+import './style/Dice.css'
 
 export default function Dice() {
   const { state, socketFunctions, playerId } = useContext(stateContext);

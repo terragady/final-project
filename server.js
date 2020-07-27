@@ -96,7 +96,7 @@ io.on('connection', socket => {
 
   // send chat
   socket.on('send chat', message => {
-    state.boardState.logs = [...state.boardState.logs, `${date()} - ** ${state.players[socket.id].name} says: ${message} **`];
+    state.boardState.logs = [...state.boardState.logs, `${date()} - ${state.players[socket.id].name} says: ${message}`];
     io.emit('update', state);
   });
 
@@ -112,15 +112,35 @@ io.on('connection', socket => {
   socket.on('player has moved', bool => {
     state.boardState.currentPlayer.hasMoved = bool;
     const { currentTile } = state.players[socket.id];
-    state.boardState.logs = [...state.boardState.logs, `${date()} - ${state.players[socket.id].name} landed on tile nr ${currentTile}!`];
+    const { accountBalance } = state.players[socket.id];
+    // state.boardState.logs = [...state.boardState.logs, `${date()} - ${state.players[socket.id].name} landed on tile nr ${currentTile}!`];
     switch (tileState[currentTile].tileType) {
       case 'normal':
         if (!Object.prototype.hasOwnProperty.call(state.boardState.ownedProps, currentTile)) {
           state.turnInfo.canBuyProp = true;
-          io.emit('update', state);
+        } else if (state.boardState.ownedProps[currentTile].id !== socket.id) {
+          state.players[socket.id].accountBalance -= tileState[currentTile].rent;
+          state.players[state.boardState.ownedProps[currentTile].id].accountBalance += tileState[currentTile].rent
+          state.boardState.logs = [...state.boardState.logs, `${date()} - ${state.players[socket.id].name} have paid rent $${tileState[currentTile].rent}M to ${state.players[state.boardState.ownedProps[currentTile].id].name}`];
+          nextTurn();
+        } else {
+          nextTurn();
         }
         break;
+      case 'expense':
+        state.players[socket.id].accountBalance -= tileState[currentTile].rent;
+        state.boardState.logs = [...state.boardState.logs, `${date()} - ${state.players[socket.id].name} paid ${tileState[currentTile].rent} in taxes.`];
+        nextTurn();
+        break;
+      case 'railroad': {
+        if (!Object.prototype.hasOwnProperty.call(state.boardState.ownedProps, currentTile)) {
+          state.turnInfo.canBuyProp = true;
+        } else {
+          // heelllooooo
+        }
+      }
       default:
+        nextTurn();
         break;
     }
     io.emit('update', state);
@@ -167,6 +187,6 @@ io.on('connection', socket => {
   });
 });
 
-const port = 8080;
+const PORT = process.env.PORT || 8080;
 
-server.listen(port, () => console.log(`Server is running on ${port}`));
+server.listen(PORT, () => console.log(`Server is running on ${PORT}`));

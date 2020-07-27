@@ -1,7 +1,7 @@
 import React, {
   useContext, useRef, useEffect, useState,
 } from 'react';
-import './style/Board.css';
+import './style/Log.css';
 import { v4 as uuid } from 'uuid';
 import { stateContext } from '../App';
 
@@ -21,17 +21,17 @@ export default function Log() {
     e.target.reset();
   };
   return (
-    <>
-      <section ref={scrollRef} className="waiting-log">
-        {state.loaded ? state.boardState.logs.map(e => <p key={uuid()} className="waiting-log__item">{e}</p>) : <p>Loading...</p>}
+    <section className="center__room">
+      <section ref={scrollRef} className="center__log">
+        {state.loaded ? state.boardState.logs.map(e => <p key={uuid()}>{e}</p>) : <p>Loading...</p>}
       </section>
-      <div className="chat">
-        <form onSubmit={e => sendChat(e)}>
-          Chat:
-          <input className="chat__input" onChange={e => setChat(e.target.value)} type="text" name="chat" id="chat" autoComplete="off" />
+      <section className="center__chat">
+        <form className="center__chat--form" onSubmit={e => sendChat(e)}>
+          <input className="center__chat--input" onChange={e => setChat(e.target.value)} type="text" name="chat" id="chat" autoComplete="off" placeholder="Write message..."/>
+          <button className="center__chat--button">Send</button>
         </form>
-      </div>
+      </section>
 
-    </>
+    </section>
   );
 }

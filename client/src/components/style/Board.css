@@ -9,6 +9,15 @@
   border: 2px solid black;
 }
 
+.Tile {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+}
+
 .tile0 {
   grid-area: 11 / 11 / 12 / 12;
   background-image: url('https://i.pinimg.com/originals/a9/b6/8a/a9b68a1213ecc93ee5f07b3423d0e913.gif');
@@ -243,97 +252,6 @@
 
 .center {
   grid-area: 2 / 2 / 11 / 11;
-}
-
-.tile--start {
-  border-top: 1px solid black;
-  border-left: 1px solid black;
-}
-
-.Tile {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  width: 100%;
-  height: 100%;
-  text-align: center;
-}
-
-.tile--street-name {
-  margin-top: 2.5vh;
-  margin-bottom: 0.5vh;
-}
-
-.tile--price {
-  font-weight: bold;
-}
-
-.tile--special-name {
-  width: 100%;
-  margin-top: 0.4vmin;
-  font-weight: bold;
-}
-
-.horizontal--top {
-  border-top: 1px solid black;
-  border-bottom: 1px solid black;
-  border-left: 1px solid black;
-}
-
-.horizontal--top .color-box {
-  order: 1;
-  height: 1.5vh;
-  border-top: 1px solid black;
-}
-
-.vertical--right {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  border-top: 1px solid black;
-  border-left: 1px solid black;
-}
-
-.vertical--right .color-box {
-  width: 1.5vh;
-  height: 100%;
-  margin-right: 1.5vh;
-  border-right: 1px solid black;
-}
-
-.horizontal--bottom {
-  border-top: 1px solid black;
-  border-left: 1px solid black;
-}
-
-.horizontal--bottom .tile--street-name {
-  margin-top: -6vh;
-  margin-bottom: 0.5vh;
-}
-
-.horizontal--bottom .color-box {
-  height: 1.5vh;
-  border-bottom: 1px solid black;
-}
-
-.vertical--left {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
-  border-top: 1px solid black;
-  border-right: 1px solid black;
-}
-
-.vertical--left .color-box {
-  order: 1;
-  width: 1.5vh;
-  height: 100%;
-  margin-left: 1.5vh;
-  border-bottom: 0;
-  border-left: 1px solid black;
-}
-
-.center {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-areas:
@@ -346,168 +264,106 @@
   background:rgba(255, 255, 255, 0.50);
 }
 
-.center--dashboard {
-  grid-area: 'dashboard';
-  position: absolute;
-  bottom: 0;
+.tile__start {
+  border-top: 1px solid black;
+  border-left: 1px solid black;
+}
+
+.tile__horizontal--top {
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  border-left: 1px solid black;
+}
+
+.tile__horizontal--top .tile__color-box {
+  order: 1;
+  height: 1.5vh;
+  border-top: 1px solid black;
+}
+
+.tile__vertical--right {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  border-top: 1px solid black;
+  border-left: 1px solid black;
+}
+
+.tile__vertical--right .tile__color-box {
+  width: 1.5vh;
+  height: 100%;
+  margin-right: 1.5vh;
+  border-right: 1px solid black;
+}
+
+.tile__horizontal--bottom {
+  border-top: 1px solid black;
+  border-left: 1px solid black;
+}
+
+.tile__horizontal--bottom .tile__street-name {
+  margin-top: -6vh;
+  margin-bottom: 0.5vh;
+}
+
+.tile__horizontal--bottom .tile__color-box {
+  height: 1.5vh;
+  border-bottom: 1px solid black;
+}
+
+.tile__vertical--left {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  border-top: 1px solid black;
+  border-right: 1px solid black;
+}
+
+.tile__vertical--left .tile__color-box {
+  order: 1;
+  width: 1.5vh;
+  height: 100%;
+  margin-left: 1.5vh;
+  border-bottom: 0;
+  border-left: 1px solid black;
+}
+
+.tile__wrapper {
   width: 100%;
-  height: 65%;
-  margin-top: 1vmin;
-  padding: 2vmin;
-  display: flex;
-}
-
-.center--dashboard__players {
-  margin-bottom: 1vmin;
-}
-
-.waiting-log {
-  position: absolute;
-  left: 50%;
-  width: 50%;
-  height: 35%;
-  padding: 2vmin;
-  overflow-x: hidden;
-  overflow-y: auto;
-  overflow-wrap: break-word;
-  text-align: left;
-  line-height: 2vmin;
-  border-bottom: 1px dashed black;
-  scroll-margin-top: 4vmin;
-  padding-bottom: 2.5vmin;
-}
-
-.waiting-log__log {
-  background: red;
-  border: 1px solid black;
-  height: 100px;
-  width: 90%;
-}
-
-.dice {
-  grid-area: 'dice';
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  position: absolute;
-  width: 50%;
-  height: 35%;
-  margin: 0vmin 0 0 0vmin;
-  background: rgb(191, 234, 163);
   text-align: center;
 }
 
-.dice__dices {
-  font-size: 10vh;
+.tile__street-name {
+  margin-top: 2.5vh;
+  margin-bottom: 0.5vh;
 }
 
-.dice__result {
-  font-size: 2vmin;
+.tile__special-name {
+  width: 100%;
+  margin-top: 0.4vmin;
+  font-weight: bold;
 }
 
-.token-wrapper {
+.tile__price {
+  font-weight: bold;
+}
+
+.tile__special-price {
+  color: red;
+}
+
+.player__token--wrapper {
   display: flex;
   position: absolute;
 }
 
-.player-token {
-  width: 20px;
-  height: 20px;
+.player__token {
+  width: 2vmin;
+  height: 2vmin;
   border: 1px solid black;
   border-radius: 100%;
-
-}
-
-.tile--wrapper {
-  width: 100%;
-  text-align: center;
-}
-
-.dice__button {
-  align-self: center;
-  border: 1px solid black;
-  border-radius: 0.5vmin;
-  padding: 0.5vmin 1vmin;
-  background: white 0.75;
-  color: black;
-  font-size: 1.5vmin;
-
-}
-
-.button__purchase--yes {
-  align-self: center;
-  border: 1px solid rgba(0, 128, 0, 0.50);
-  border-radius: 0.5vmin;
-  padding: 0.5vmin 1vmin;
-  background: rgb(191, 234, 163, 0.25);
-  color: black;
-  font-size: 1.5vmin;
-  position: absolute;
-  left: 26.5%;
-  top: 8vmin;
-}
-
-.button__purchase--no {
-  align-self: center;
-  border: 1px solid rgba(255, 0, 0, 0.50);
-  border-radius: 0.5vmin;
-  padding: 0.5vmin 1vmin;
-  background: rgb(191, 234, 163, 0.25);
-  color: black;
-  font-size: 1.5vmin;
-  position: absolute;
-  left: 26.5%;
-  top: 12vmin;
-}
-
-.button__end-turn {
-  align-self: center;
-  border: 1px solid grey;
-  border-radius: 0.5vmin;
-  padding: 0.5vmin 1vmin;
-  background: rgb(191, 234, 163, 0.25);
-  color: black;
-  font-size: 1.5vmin;
-  position: absolute;
-  left: 26.5%;
-  top: 16vmin;
-}
-
-.center--dashboard__block {
-  width: 24%;
-  margin-right: 1%;
-  padding: 1%;
-}
-
-.center--dashboard__title {
-  font-size: 2.25vmin;
-  margin-bottom: 1.5vmin;
-}
-
-.center--dashboard__player-info {
-  font-size: 1.5vmin;
 }
 
 button {
   outline: none;
-
-}
-
-.tile__special--price {
-  color: red;
-}
-
-.chat {
-  position: absolute;
-  top: 31%;
-  left: 51.5%;
-}
-
-.chat__input {
-  width: 40vmin;
-  margin: 0.5vmin;
-  background: rgb(191, 234, 163, 0.25);
-  border: 1px solid grey;
-  border-radius: 0.5vmin;
-  padding: 0vmin 0.5vmin;
 }

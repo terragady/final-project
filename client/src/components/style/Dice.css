@@ -1,0 +1,29 @@
+.dice {
+  grid-area: 'dice';
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: absolute;
+  width: 50%;
+  height: 35%;
+  background: rgb(191, 234, 163);
+  text-align: center;
+}
+
+.dice__dices {
+  font-size: 10vh;
+}
+
+.dice__result {
+  font-size: 2vmin;
+}
+
+.dice__button {
+  align-self: center;
+  border: 1px solid black;
+  border-radius: 0.5vmin;
+  padding: 0.5vmin 1vmin;
+  background: white 0.75;
+  color: black;
+  font-size: 1.5vmin;
+}
