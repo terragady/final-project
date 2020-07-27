@@ -21,11 +21,12 @@ const initialState = [
   },
   {
     streetName: 'Income Tax',
-    price: 100,
+    price: 200,
   },
   {
     streetName: 'Reading Railroad',
     color: 'railroad',
+    price: 200,
   },
   {
     streetName: 'Brighton Vale',
@@ -63,6 +64,7 @@ const initialState = [
   },
   {
     streetName: 'Electric Company',
+    price: 150,
   },
   {
     streetName: 'Mere Fold',
@@ -81,6 +83,7 @@ const initialState = [
   {
     streetName: 'Pennsylvania Railroad',
     color: 'railroad',
+    price: 200,
   },
   {
     streetName: 'Danthorpe Lodge',
@@ -136,6 +139,7 @@ const initialState = [
   {
     streetName: 'Short Line',
     color: 'railroad',
+    price: 200,
   },
   {
     streetName: 'Elms Villas',
@@ -152,7 +156,8 @@ const initialState = [
     houses: 0,
   },
   {
-    streetName: 'Electric Company',
+    streetName: 'Water Company',
+    price: 150,
   },
   {
     streetName: 'Moorcraft Villas',
@@ -191,6 +196,7 @@ const initialState = [
   {
     streetName: 'B. & O. Railroad',
     color: 'railroad',
+    price: 200,
   },
   {
     streetName: 'Chance',
@@ -204,6 +210,7 @@ const initialState = [
   },
   {
     streetName: 'Luxury Tax',
+    price: 75,
   },
   {
     streetName: 'Meadowlands Avenue',

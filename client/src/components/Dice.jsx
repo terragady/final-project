@@ -2,8 +2,8 @@ import React, {
   useContext,
   useRef,
 } from 'react';
+import './style/Dice.css';
 import { stateContext } from '../App';
-import './style/Dice.css'
 
 export default function Dice() {
   const { state, socketFunctions, playerId } = useContext(stateContext);

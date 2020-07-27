@@ -33,9 +33,9 @@
 .tile2 {
   grid-area: 11 / 9 / 12 / 10;
   background-image: url('https://i.pinimg.com/originals/aa/98/84/aa98846a483c4de09ea31b9c1e3fd8a1.gif');
-  background-position: center 2.5vmin;
+  background-position: center 1.5vmin;
   background-repeat: no-repeat;
-  background-size: 6vmin;
+  background-size: 7.25vmin;
 }
 
 .tile3 {
@@ -45,15 +45,15 @@
 .tile4 {
   grid-area: 11 / 7 / 12 / 8;
   background-image: url('https://cdn4.iconfinder.com/data/icons/business-bicolor-1/512/salary-512.png');
-  background-position: center 2.7vmin;
+  background-position: center 2.5vmin;
   background-repeat: no-repeat;
-  background-size: 5vmin;
+  background-size: 4vmin;
 }
 
 .tile5 {
   grid-area: 11 / 6 / 12 / 7;
   background-image: url('https://i.pinimg.com/originals/02/43/87/0243879c56257b841de3a891941b48ad.png');
-  background-position: center 3vmin;
+  background-position: center 2vmin;
   background-repeat: no-repeat;
   background-size: 5vmin;
 }
@@ -65,9 +65,9 @@
 .tile7 {
   grid-area: 11 / 4 / 12 / 5;
   background-image: url('https://pngimg.com/uploads/question_mark/question_mark_PNG121.png');
-  background-position: center 3vmin;
+  background-position: center 2.5vmin;
   background-repeat: no-repeat;
-  background-size: 3vmin;
+  background-size: 3.5vmin;
 }
 
 .tile8 {
@@ -83,7 +83,7 @@
   background-image: url('https://cdn.iconscout.com/icon/premium/png-256-thumb/jail-1488489-1259723.png');
   background-position: center 2.5vmin;
   background-repeat: no-repeat;
-  background-size: 5vmin;
+  background-size: 5.25vmin;
 }
 
 .tile11 {
@@ -93,9 +93,9 @@
 .tile12 {
   grid-area: 9 / 1 / 10 / 2;
   background-image: url('https://i.pinimg.com/originals/a8/a6/20/a8a620c5f79c2b85554352148eac732f.gif');
-  background-position: center 2.5vmin;
+  background-position: center 2vmin;
   background-repeat: no-repeat;
-  background-size: 4.5vmin;
+  background-size: 3.5vmin;
 }
 
 .tile13 {
@@ -109,7 +109,7 @@
 .tile15 {
   grid-area: 6 / 1 / 7 / 2;
   background-image: url('https://i.pinimg.com/originals/02/43/87/0243879c56257b841de3a891941b48ad.png');
-  background-position: center 3vmin;
+  background-position: center 2vmin;
   background-repeat: no-repeat;
   background-size: 5vmin;
 }
@@ -121,9 +121,9 @@
 .tile17 {
   grid-area: 4 / 1 / 5 / 2;
   background-image: url('https://pngimg.com/uploads/question_mark/question_mark_PNG121.png');
-  background-position: center 3vmin;
+  background-position: center 2.5vmin;
   background-repeat: no-repeat;
-  background-size: 3vmin;
+  background-size: 3.5vmin;
 }
 
 .tile18 {
@@ -149,9 +149,9 @@
 .tile22 {
   grid-area: 1 / 3 / 2 / 4;
   background-image: url('https://pngimg.com/uploads/question_mark/question_mark_PNG121.png');
-  background-position: center 3vmin;
+  background-position: center 2.5vmin;
   background-repeat: no-repeat;
-  background-size: 3vmin;
+  background-size: 3.5vmin;
 }
 
 .tile23 {
@@ -165,7 +165,7 @@
 .tile25 {
   grid-area: 1 / 6 / 2 / 7;
   background-image: url('https://i.pinimg.com/originals/02/43/87/0243879c56257b841de3a891941b48ad.png');
-  background-position: center 3vmin;
+  background-position: center 2vmin;
   background-repeat: no-repeat;
   background-size: 5vmin;
 }
@@ -181,9 +181,9 @@
 .tile28 {
   grid-area: 1 / 9 / 2 / 10;
   background-image: url('https://i.pinimg.com/originals/a8/a6/20/a8a620c5f79c2b85554352148eac732f.gif');
-  background-position: center 2.5vmin;
+  background-position: center 2vmin;
   background-repeat: no-repeat;
-  background-size: 4.5vmin;
+  background-size: 3.5vmin;
 }
 
 .tile29 {
@@ -209,9 +209,9 @@
 .tile33 {
   grid-area: 4 / 11 / 5 / 12;
   background-image: url('https://i.pinimg.com/originals/aa/98/84/aa98846a483c4de09ea31b9c1e3fd8a1.gif');
-  background-position: center 2.5vmin;
+  background-position: center 1.5vmin;
   background-repeat: no-repeat;
-  background-size: 6vmin;
+  background-size: 7.25vmin;
 }
 
 .tile34 {
@@ -221,7 +221,7 @@
 .tile35 {
   grid-area: 6 / 11 / 7 / 12;
   background-image: url('https://i.pinimg.com/originals/02/43/87/0243879c56257b841de3a891941b48ad.png');
-  background-position: center 3vmin;
+  background-position: center 2vmin;
   background-repeat: no-repeat;
   background-size: 5vmin;
 }
@@ -229,9 +229,9 @@
 .tile36 {
   grid-area: 7 / 11 / 8 / 12;
   background-image: url('https://pngimg.com/uploads/question_mark/question_mark_PNG121.png');
-  background-position: center 3vmin;
+  background-position: center 2.5vmin;
   background-repeat: no-repeat;
-  background-size: 3vmin;
+  background-size: 3.5vmin;
 }
 
 .tile37 {
@@ -241,9 +241,9 @@
 .tile38 {
   grid-area: 9 / 11 / 10 / 12;
   background-image: url('https://cdn4.iconfinder.com/data/icons/business-bicolor-1/512/salary-512.png');
-  background-position: center 2.7vmin;
+  background-position: center 2.5vmin;
   background-repeat: no-repeat;
-  background-size: 5vmin;
+  background-size: 4vmin;
 }
 
 .tile39 {
@@ -323,13 +323,22 @@
   order: 1;
   width: 1.5vh;
   height: 100%;
-  margin-left: 1.5vh;
   border-bottom: 0;
+  margin-left: 1.5vh;
   border-left: 1px solid black;
 }
 
 .tile__wrapper {
   width: 100%;
+  text-align: center;
+}
+
+.tile__special--wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
   text-align: center;
 }
 
@@ -339,7 +348,6 @@
 }
 
 .tile__special-name {
-  width: 100%;
   margin-top: 0.4vmin;
   font-weight: bold;
 }
@@ -348,8 +356,9 @@
   font-weight: bold;
 }
 
-.tile__special-price {
-  color: red;
+.tile__special--price {
+  margin-bottom: 0.4vmin;
+  font-weight: bold;
 }
 
 .player__token--wrapper {
@@ -362,8 +371,4 @@
   height: 2vmin;
   border: 1px solid black;
   border-radius: 100%;
-}
-
-button {
-  outline: none;
 }

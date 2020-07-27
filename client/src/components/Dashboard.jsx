@@ -25,24 +25,24 @@ export default function Dashboard() {
 
         <section className="center__dashboard__block">
           <h3 className="center__dashboard__title">Actions:</h3>
-        {state.loaded
+          {state.loaded
           && state.boardState.currentPlayer.id === playerId
           && state.turnInfo.canBuyProp
-          ? (
-            <section className="center__dashboard__button__purchase">
-              <button className="button__purchase--no" type="button" onClick={() => socketFunctions.endTurn()}>
-                Do not buy property
-              </button>
-              <button className="button__purchase--yes" type="button" onClick={() => socketFunctions.buyProperty()}>
-                Buy property
-              </button>
-            </section>
-          )
-          : <></>}
-        <button className="button__end-turn" type="button" onClick={() => socketFunctions.endTurn()}>
-          End turn
-        </button>
-          </section>
+            ? (
+              <section className="center__dashboard__button__purchase">
+                <button className="button__purchase--no" type="button" onClick={() => socketFunctions.endTurn()}>
+                  Do not buy property
+                </button>
+                <button className="button__purchase--yes" type="button" onClick={() => socketFunctions.buyProperty()}>
+                  Buy property
+                </button>
+              </section>
+            )
+            : <></>}
+          <button className="button__end-turn" type="button" onClick={() => socketFunctions.endTurn()}>
+            End turn
+          </button>
+        </section>
       </section>
     </>
   );

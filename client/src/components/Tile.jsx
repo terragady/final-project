@@ -34,7 +34,7 @@ function Tile({ initState, id, position }) {
           </>
         )
         : (
-          <div className="tile__wrapper">
+          <div className="tile__special--wrapper">
             <p className="tile__special-name">{initState.streetName}</p>
             <div className="player__token--wrapper">
               {Object.keys(state.players).map(e => (
@@ -43,7 +43,7 @@ function Tile({ initState, id, position }) {
                   : <div key={uuid()} />
               ))}
             </div>
-            <p className="tile__special-price">{`$${initState.price}M`}</p>
+            <p className="tile__special--price">{initState.price ? `$${initState.price}M` : ''}</p>
           </div>
         )}
     </article>

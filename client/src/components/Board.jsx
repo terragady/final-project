@@ -1,17 +1,17 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import './style/Board.css';
+import { stateContext } from '../App';
 import Tile from './Tile';
 import initialState from './BoardInitState';
-import { stateContext } from '../App';
-import Dashboard from './Dashboard';
 import Dice from './Dice';
 import Log from './Log';
+import Dashboard from './Dashboard';
 
 function Board() {
   const [tiles] = useState(initialState);
   const { socketFunctions } = useContext(stateContext);
-  let playerName = 'Default player';
+  const playerName = 'Default player';
   useEffect(() => {
   //   while (!playerName) playerName = prompt('What is your name?');
     socketFunctions.newPlayer(playerName);
