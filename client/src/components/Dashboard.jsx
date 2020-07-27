@@ -9,6 +9,7 @@ export default function Dashboard() {
   return (
     <>
       <section className="center__dashboard">
+        <article className="center__dashboard--img"></article>
         <section className="center__dashboard__block">
           <h3 className="center__dashboard__title">Players:</h3>
           {state.loaded

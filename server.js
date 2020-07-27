@@ -112,7 +112,7 @@ io.on('connection', socket => {
   socket.on('player has moved', bool => {
     state.boardState.currentPlayer.hasMoved = bool;
     const { currentTile } = state.players[socket.id];
-    const { accountBalance } = state.players[socket.id];
+    // const { accountBalance } = state.players[socket.id];
     // state.boardState.logs = [...state.boardState.logs, `${date()} - ${state.players[socket.id].name} landed on tile nr ${currentTile}!`];
     switch (tileState[currentTile].tileType) {
       case 'normal':
@@ -157,6 +157,25 @@ io.on('connection', socket => {
           state.boardState.logs = [
             ...state.boardState.logs, `${date()} - ${state.players[socket.id].name} have paid rent $${priceToPay}M to ${state.players[state.boardState.ownedProps[currentTile].id].name}`
           ];}
+          nextTurn();
+        }
+        break;
+      }
+      case 'company': {
+        if (!Object.prototype.hasOwnProperty.call(state.boardState.ownedProps, currentTile)) {
+          state.turnInfo.canBuyProp = true;
+        } else {
+          const diceResult = state.boardState.diceValue.dice1[1] + state.boardState.diceValue.dice2[1];
+          const tileOwner = state.boardState.ownedProps[currentTile].id;
+          let priceToPay = 0;
+          if (state.boardState.ownedProps[12] && state.boardState.ownedProps[28] && state.boardState.ownedProps[12].id === tileOwner && state.boardState.ownedProps[28].id === tileOwner) {
+            priceToPay = diceResult * 10
+          } else { priceTopay =  diceResult *4}
+          state.players[socket.id].accountBalance -= priceToPay;
+          state.players[state.boardState.ownedProps[currentTile].id].accountBalance += priceToPay;
+          state.boardState.logs = [
+            ...state.boardState.logs, `${date()} - ${state.players[socket.id].name} have paid rent $${priceToPay}M to ${state.players[state.boardState.ownedProps[currentTile].id].name}`
+          ];
           nextTurn();
         }
         break;

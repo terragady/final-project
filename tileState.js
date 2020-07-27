@@ -71,6 +71,7 @@ const tileState = [
   {
     streetName: 'Electric Company',
     tileType: 'company',
+    price: 150,
   },
   {
     streetName: 'Mere Fold',
@@ -167,8 +168,9 @@ const tileState = [
     rent: 22,
   },
   {
-    streetName: 'Electric Company',
+    streetName: 'Water Company',
     tileType: 'company',
+    price: 150,
   },
   {
     streetName: 'Moorcraft Villas',
