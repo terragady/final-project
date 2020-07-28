@@ -7,6 +7,8 @@ import initialState from './BoardInitState';
 import Dice from './Dice';
 import Log from './Log';
 import Dashboard from './Dashboard';
+import cardFlipContext from '../cardFlipContext';
+import backOfCards from './backOfCards';
 
 function Board() {
   const [tiles] = useState(initialState);
@@ -18,7 +20,7 @@ function Board() {
   }, [socketFunctions, playerName]);
 
   return (
-    <>
+    <cardFlipContext.Provider value={backOfCards}>
       <section className="Board">
         {
           tiles.map((tile, index) => {
@@ -47,7 +49,7 @@ function Board() {
         </section>
 
       </section>
-    </>
+    </cardFlipContext.Provider>
   );
 }
 

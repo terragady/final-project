@@ -3,6 +3,7 @@ const backOfCards = [
     cardName: 'Start',
     type: 'Event',
     details: 'When a player passes start they receive 200M',
+    clicked: false,
   },
   {
     cardName: 'Parker St.',
@@ -10,9 +11,11 @@ const backOfCards = [
     price: 60,
     rent: 8,
     details: 'This property can be purchased. If already owned, the player who lands on the property must pay rent to the owner.',
+    clicked: false,
   },
   {
     cardName: 'Chest',
+    clicked: false,
   },
   {
     cardName: 'Tyne St.',
@@ -20,16 +23,19 @@ const backOfCards = [
     price: 60,
     rent: 8,
     details: 'This property can be purchased. If already owned, the player who lands on the property must pay rent to the owner.',
+    clicked: false,
   },
   {
     cardName: 'Income Tax',
     price: 200,
     details: 'When a player on this tile, tax must be paid to the bank',
+    clicked: false,
   },
   {
     cardName: 'Reading Railroad',
     color: 'railroad',
     price: 200,
+    clicked: false,
   },
   {
     cardName: 'Brighton Vale',

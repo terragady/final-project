@@ -4,16 +4,20 @@ import PropTypes from 'prop-types';
 import './style/Board.css';
 import stateContext from '../internal';
 import BackOfCard from './BackOfCard';
+import cardFlipContext from '../cardFlipContext';
 
 function Tile({ initState, id, position }) {
   const { state } = useContext(stateContext);
-  const [cardClicked, setCardClicked] = useState({ clicked: false });
+  const cardFlip = useContext(cardFlipContext);
 
   const handleCardClick = () => {
-    setCardClicked({ clicked: !cardClicked.clicked });
+    const foundIndex = cardFlip.findIndex(card => card.clicked);
+    console.log(foundIndex);
+    if (foundIndex !== -1) cardFlip[foundIndex].clicked = false;
+    cardFlip[id].clicked = true;
   };
 
-  if (!cardClicked.clicked) {
+  if (!cardFlip[id].clicked) {
     return (
       <article role="presentation" onClick={handleCardClick} className={`Tile tile${id} ${position}`} id={id}>
         {initState.color && initState.color !== 'railroad'
@@ -64,9 +68,8 @@ function Tile({ initState, id, position }) {
           )}
       </article>
     );
-  } else {
-    return <BackOfCard id={id} handleCardClick={handleCardClick} />;
   }
+  return <BackOfCard id={id} handleCardClick={handleCardClick} />;
 }
 
 Tile.propTypes = {
