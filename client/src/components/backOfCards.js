@@ -1,4 +1,4 @@
-const initialState = [
+const backOfCards = [
   {
     cardName: 'Start',
     type: 'Event',
@@ -16,14 +16,15 @@ const initialState = [
   },
   {
     cardName: 'Tyne St.',
-    color: 'brown',
+    type: 'Property',
     price: 60,
-    ownedBy: false,
-    houses: 0,
+    rent: 8,
+    details: 'This property can be purchased. If already owned, the player who lands on the property must pay rent to the owner.',
   },
   {
     cardName: 'Income Tax',
     price: 200,
+    details: 'When a player on this tile, tax must be paid to the bank',
   },
   {
     cardName: 'Reading Railroad',
@@ -223,4 +224,4 @@ const initialState = [
   },
 ];
 
-export default initialState;
+export default backOfCards;

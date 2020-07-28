@@ -5,6 +5,7 @@ const server = require('http').createServer(app);
 const path = require('path');
 const socketIO = require('socket.io');
 const tileState = require('./tileState');
+const chestCards = require('./chestCards');
 
 const io = socketIO(server);
 if (process.env.NODE_ENV === 'production') {
@@ -201,6 +202,19 @@ io.on('connection', socket => {
         }
         break;
       }
+      case 'chance': {
+        const randomNumber = Math.floor(Math.random() * (chestCards.length));
+        const chestCard = chestCards[randomNumber];
+        state.players[socket.id].accountBalance += chestCard.reward;
+        state.players[socket.id].accountBalance -= chestCard.penalty;
+        state.players[socket.id].currentTile = chestCard.moveToTile;
+
+        if (chestCard.moveToTile === 10) { state.players[socket.id].isJail = true; }
+
+        state.boardState.logs = [...state.boardState.logs, `${date()} - ${state.players[socket.id].name} ${chestCard.message}`];
+        nextTurn();
+        break;
+      }
       default:
         nextTurn();
         break;
@@ -267,6 +281,7 @@ io.on('connection', socket => {
       state.players[socket.id].jailRounds += 1;
       state.boardState.logs = [...state.boardState.logs, `${date()} - ${state.players[socket.id].name} has to stay in jail.`];
     }
+    state.boardState.diceValue = dices;
     nextTurn();
     io.emit('update', state);
   });

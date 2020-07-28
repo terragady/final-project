@@ -3,7 +3,7 @@ const chestCards = [
     message: 'Oh no! You forgot to pay your mortgage on time! Move to jail and pay a fine of $100M',
     penalty: 100,
     reward: 0,
-    moveToTile: 30,
+    moveToTile: 10,
   },
   {
     message: 'Yay! You won it big playing the lotto. Move to start and collect $200M',
