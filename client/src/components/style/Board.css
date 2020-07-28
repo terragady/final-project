@@ -28,6 +28,11 @@
 
 .tile1 {
   grid-area: 11 / 10 / 12 / 11;
+  position: relative;
+}
+
+.tile1:hover {
+  color: red;
 }
 
 .tile2 {

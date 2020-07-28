@@ -32,16 +32,20 @@ export default function Dice() {
   const clickAndRoll = async () => {
     const dice1 = rollDice();
     const dice2 = rollDice();
-    btnRef.current.disabled = true;
-    // setDice({ dice1, dice2 });
-    socketFunctions.sendDice({ dice1, dice2 });
-    const result = dice1[1] + dice2[1];
-    for (let i = 0; i < result; i++) {
-      // eslint-disable-next-line
-      await new Promise(resolve => setTimeout(resolve, 200));
-      socketFunctions.makeMove(1);
+    if (state.players[playerId].isJail) {
+      socketFunctions.inJail({ dice1, dice2 });
+    } else {
+      btnRef.current.disabled = true;
+      // setDice({ dice1, dice2 });
+      socketFunctions.sendDice({ dice1, dice2 });
+      const result = dice1[1] + dice2[1];
+      for (let i = 0; i < result; i++) {
+        // eslint-disable-next-line
+        await new Promise(resolve => setTimeout(resolve, 200));
+        socketFunctions.makeMove(1);
+      }
+      socketFunctions.toggleHasMoved(true);
     }
-    socketFunctions.toggleHasMoved(true);
   };
 
   const dice = state.boardState.diceValue;

@@ -13,6 +13,7 @@ const socketFunctions = {
   toggleHasMoved: bool => socket.emit('player has moved', bool),
   endTurn: () => socket.emit('end turn', ''),
   sendDice: dices => socket.emit('send dice', dices),
+  inJail: dices => socket.emit('in jail', dices),
   buyProperty: () => socket.emit('buy property', true),
   sendChat: message => socket.emit('send chat', message),
 };

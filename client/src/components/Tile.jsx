@@ -20,8 +20,8 @@ function Tile({ initState, id, position }) {
                   : { backgroundColor: initState.color }
               }
             />
-            <div className="tile__wrapper"
-            >
+            <div className="tile__hover" />
+            <div className="tile__wrapper">
               <p className="tile__street-name">{initState.streetName}</p>
               <div className="player__token--wrapper">
                 {Object.keys(state.players).map(e => (
@@ -38,11 +38,11 @@ function Tile({ initState, id, position }) {
           <div
             className="tile__special--wrapper"
             style={
-                state.loaded
-                  && Object.prototype.hasOwnProperty.call(state.boardState.ownedProps, id)
-                  ? { boxShadow: `0px 0px 1px 3px ${state.boardState.ownedProps[id].color}` }
-                  : {}
-              }
+              state.loaded
+                && Object.prototype.hasOwnProperty.call(state.boardState.ownedProps, id)
+                ? { boxShadow: `0px 0px 1px 3px ${state.boardState.ownedProps[id].color}` }
+                : {}
+            }
           >
             <p className="tile__special-name">{initState.streetName}</p>
             <div className="player__token--wrapper">

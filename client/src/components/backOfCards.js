@@ -1,0 +1,226 @@
+const initialState = [
+  {
+    cardName: 'Start',
+    type: 'Event',
+    details: 'When a player passes start they receive 200M',
+  },
+  {
+    cardName: 'Parker St.',
+    type: 'Property',
+    price: 60,
+    rent: 8,
+    details: 'This property can be purchased. If already owned, the player who lands on the property must pay rent to the owner.',
+  },
+  {
+    cardName: 'Chest',
+  },
+  {
+    cardName: 'Tyne St.',
+    color: 'brown',
+    price: 60,
+    ownedBy: false,
+    houses: 0,
+  },
+  {
+    cardName: 'Income Tax',
+    price: 200,
+  },
+  {
+    cardName: 'Reading Railroad',
+    color: 'railroad',
+    price: 200,
+  },
+  {
+    cardName: 'Brighton Vale',
+    color: 'lightblue',
+    price: 100,
+    ownedBy: false,
+    houses: 0,
+  },
+  {
+    cardName: 'Chance',
+  },
+  {
+    cardName: 'Granary Vale',
+    color: 'lightblue',
+    price: 100,
+    ownedBy: false,
+    houses: 0,
+  },
+  {
+    cardName: 'Burford Vale',
+    color: 'lightblue',
+    price: 120,
+    ownedBy: false,
+    houses: 0,
+  },
+  {
+    cardName: 'Jail',
+  },
+  {
+    cardName: 'Holden Fold',
+    color: 'pink',
+    price: 140,
+    ownedBy: false,
+    houses: 0,
+  },
+  {
+    cardName: 'Electric Company',
+    price: 150,
+  },
+  {
+    cardName: 'Mere Fold',
+    color: 'pink',
+    price: 140,
+    ownedBy: false,
+    houses: 0,
+  },
+  {
+    cardName: 'Hedger Fold',
+    color: 'pink',
+    price: 160,
+    ownedBy: false,
+    houses: 0,
+  },
+  {
+    cardName: 'Pennsylvania Railroad',
+    color: 'railroad',
+    price: 200,
+  },
+  {
+    cardName: 'Danthorpe Lodge',
+    color: 'orange',
+    price: 180,
+    ownedBy: false,
+    houses: 0,
+  },
+  {
+    cardName: 'Chance',
+  },
+  {
+    cardName: 'Rockingham Lodge',
+    color: 'orange',
+    price: 180,
+    ownedBy: false,
+    houses: 0,
+  },
+  {
+    cardName: 'Aveling Lodge',
+    color: 'orange',
+    price: 200,
+    ownedBy: false,
+    houses: 0,
+  },
+  {
+    cardName: '',
+  },
+  {
+    cardName: 'Brambleberry Lane',
+    color: 'red',
+    price: 220,
+    ownedBy: false,
+    houses: 0,
+  },
+  {
+    cardName: 'Chance',
+  },
+  {
+    cardName: 'Guildford Lane',
+    color: 'red',
+    price: 220,
+    ownedBy: false,
+    houses: 0,
+  },
+  {
+    cardName: 'Albany Lane',
+    color: 'red',
+    price: 240,
+    ownedBy: false,
+    houses: 0,
+  },
+  {
+    cardName: 'Short Line',
+    color: 'railroad',
+    price: 200,
+  },
+  {
+    cardName: 'Elms Villas',
+    color: 'yellow',
+    price: 260,
+    ownedBy: false,
+    houses: 0,
+  },
+  {
+    cardName: 'Keepers Villas',
+    color: 'yellow',
+    price: 260,
+    ownedBy: false,
+    houses: 0,
+  },
+  {
+    cardName: 'Water Company',
+    price: 150,
+  },
+  {
+    cardName: 'Moorcraft Villas',
+    color: 'yellow',
+    price: 280,
+    ownedBy: false,
+    houses: 0,
+  },
+  {
+    cardName: 'Go to jail',
+  },
+  {
+    cardName: 'Whilworth Gardens',
+    color: 'green',
+    price: 300,
+    ownedBy: false,
+    houses: 0,
+  },
+  {
+    cardName: 'Brock Gardens',
+    color: 'green',
+    price: 300,
+    ownedBy: false,
+    houses: 0,
+  },
+  {
+    cardName: 'Chest',
+  },
+  {
+    cardName: 'Fair Gardens',
+    color: 'green',
+    price: 320,
+    ownedBy: false,
+    houses: 0,
+  },
+  {
+    cardName: 'B. & O. Railroad',
+    color: 'railroad',
+    price: 200,
+  },
+  {
+    cardName: 'Chance',
+  },
+  {
+    cardName: 'Hartington Avenue',
+    color: 'blue',
+    price: 350,
+    ownedBy: false,
+    houses: 0,
+  },
+  {
+    cardName: 'Luxury Tax',
+    price: 75,
+  },
+  {
+    cardName: 'Meadowlands Avenue',
+    color: 'blue',
+    price: 400,
+    ownedBy: false,
+    houses: 0,
+  },
+];
+
+export default initialState;
