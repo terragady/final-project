@@ -11,7 +11,8 @@
     "postgit": "git push --all",
     "client": "npm start --prefix client",
     "server": "nodemon server.js",
-    "build": "npm run build --prefix client"
+    "start": "node server.js",
+    "build": "npm install --prefix client & npm run build --prefix client"
   },
   "repository": {
     "type": "git",
