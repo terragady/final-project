@@ -1,4 +1,9 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, {
+  useState,
+  useEffect,
+  useContext,
+  useReducer,
+} from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import './style/Board.css';
 import stateContext from '../internal';
@@ -10,7 +15,18 @@ import Dashboard from './Dashboard';
 import cardFlipContext from '../cardFlipContext';
 import backOfCards from './backOfCards';
 
+const reducer = (state, action) => {
+  switch (action.type) {
+    case 'FLIP_CARD':
+      return [...action.payload];
+    default:
+      return state;
+  }
+};
+
 function Board() {
+  const [cardsBack, dispatch] = useReducer(reducer, backOfCards);
+
   const [tiles] = useState(initialState);
   const { socketFunctions } = useContext(stateContext);
   const playerName = 'Default player';
@@ -20,7 +36,7 @@ function Board() {
   }, [socketFunctions, playerName]);
 
   return (
-    <cardFlipContext.Provider value={backOfCards}>
+    <cardFlipContext.Provider value={{ cardsBack, dispatch }}>
       <section className="Board">
         {
           tiles.map((tile, index) => {

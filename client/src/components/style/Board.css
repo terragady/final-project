@@ -31,10 +31,6 @@
   position: relative;
 }
 
-.tile1:hover {
-  color: red;
-}
-
 .tile2 {
   grid-area: 11 / 9 / 12 / 10;
   background-image: url('https://i.pinimg.com/originals/aa/98/84/aa98846a483c4de09ea31b9c1e3fd8a1.gif');
@@ -185,8 +181,8 @@
 
 .tile28 {
   grid-area: 1 / 9 / 2 / 10;
-  background-image: url('https://i.pinimg.com/originals/a8/a6/20/a8a620c5f79c2b85554352148eac732f.gif');
-  background-position: center 2vmin;
+  background-image: url('https://static.thenounproject.com/png/1929131-200.png');
+  background-position: center 2.5vmin;
   background-repeat: no-repeat;
   background-size: 3.5vmin;
 }

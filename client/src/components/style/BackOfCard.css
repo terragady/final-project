@@ -1,0 +1,29 @@
+.Tile-back {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  border: 1px solid black;
+}
+
+.tile-back__name {
+  flex: 0;
+  align-self: center;
+  border: 1px solid black;
+  margin-top: 0.4vmin;
+  font-weight: bold;
+  width: 90%;
+  height: 25%;
+  background: rgb(255, 255, 255, 0.50);
+  line-height: 2vmin;
+}
+
+.tile-back__price {
+  margin-top: 1vmin;
+}
+
+.tile-back__details {
+  
+}

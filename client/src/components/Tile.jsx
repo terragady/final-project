@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { v4 as uuid } from 'uuid';
 import PropTypes from 'prop-types';
 import './style/Board.css';
@@ -8,16 +8,19 @@ import cardFlipContext from '../cardFlipContext';
 
 function Tile({ initState, id, position }) {
   const { state } = useContext(stateContext);
-  const cardFlip = useContext(cardFlipContext);
+  const { cardsBack, dispatch } = useContext(cardFlipContext);
 
   const handleCardClick = () => {
-    const foundIndex = cardFlip.findIndex(card => card.clicked);
-    console.log(foundIndex);
-    if (foundIndex !== -1) cardFlip[foundIndex].clicked = false;
-    cardFlip[id].clicked = true;
+    // console.log(cardsBack.map((card, index) => index));
+    const cardsFlipped = cardsBack.map((card, index) => {
+      if (card.clicked) return { ...card, clicked: false };
+      if (index === id) return { ...card, clicked: true };
+      return card;
+    });
+    dispatch({ type: 'FLIP_CARD', payload: cardsFlipped });
   };
 
-  if (!cardFlip[id].clicked) {
+  if (!cardsBack[id].clicked) {
     return (
       <article role="presentation" onClick={handleCardClick} className={`Tile tile${id} ${position}`} id={id}>
         {initState.color && initState.color !== 'railroad'
