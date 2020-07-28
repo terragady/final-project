@@ -5,7 +5,7 @@ import io from 'socket.io-client';
 import Board from './components/Board';
 import stateContext from './internal';
 
-const socket = io.connect('/');
+const socket = io.connect('http://localhost:8080');
 const socketFunctions = {
   makeMove: num => socket.emit('makeMove', num),
   newPlayer: name => socket.emit('new player', name),
