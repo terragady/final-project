@@ -10,7 +10,8 @@
     "git": "git commit -m",
     "postgit": "git push --all",
     "client": "npm start --prefix client",
-    "server": "nodemon server.js"
+    "server": "nodemon server.js",
+    "build": "npm run build --prefix client"
   },
   "repository": {
     "type": "git",
