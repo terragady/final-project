@@ -5,8 +5,8 @@ import io from 'socket.io-client';
 import Board from './components/Board';
 import stateContext from './internal';
 
-const url = window.location.hostname === 'localhost' ? 'http://localhost:8080' : window.location.hostname;
-
+const url = window.location.hostname === 'localhost' ? 'http://localhost:8080' : window.location.origin;
+console.log(url);
 const socket = io.connect(url);
 const socketFunctions = {
   makeMove: num => socket.emit('makeMove', num),
