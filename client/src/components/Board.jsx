@@ -46,7 +46,7 @@ function Board() {
   }
 
   return (
-    <sellPromptContext.Provider value={{ handlePutOpenMarket, handleMakeOffer, openSale }}>
+    <sellPromptContext.Provider value={{ handlePutOpenMarket, handleMakeOffer, openSale, setOpenSale }}>
       <cardFlipContext.Provider value={{ cardsBack, dispatch }}>
         <section className="Board">
           {

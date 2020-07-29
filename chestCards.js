@@ -81,7 +81,7 @@ const chestCards = [
     message: 'Your car was towed you are going to free parking and paying $100M fine',
     penalty: 100,
     reward: 0,
-    moveToTile,
+    moveToTile: 20,
   },
 ];
 

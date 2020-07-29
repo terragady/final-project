@@ -70,18 +70,18 @@
   border-radius: 0.5vmin;
   padding: 0.5vmin 1vmin;
   font-size: 1.5vmin;
-  background: rgb(191, 234, 163, 0.25);
+  background: rgb(200, 232, 170);
   color: black;
   width: 100%;
   margin: 1vmin 0vmin;
 }
 
 .button__purchase--yes {
-  border: 1px solid rgba(0, 128, 0, 0.50);
+  border: 1px solid rgb(0, 128, 0);
 }
 
 .button__purchase--no {
-  border: 1px solid rgba(255, 0, 0, 0.50);
+  border: 1px solid rgb(255, 0, 0);
 }
 
 .button__end-turn {
