@@ -32,12 +32,12 @@ const BackOfCard = ({ id, handleCardClick, position }) => {
         </section>
         <p className="tile-back__line" />
         <section className="tile-back__details--wrapper">
-          <p className="tile-back__details">{backOfCard.details1 ? `${backOfCard.details1.split('$')[0]}` : ''}</p>
-          <span className="tile-back__details--price">{backOfCard.details1 ? `$${backOfCard.details1.split('$')[1]}` : ''}</span>
+          <p className="tile-back__details">{backOfCard.details1 && backOfCard.details1.includes('$') ? `${backOfCard.details1.split('$')[0]}` : backOfCard.details1}</p>
+          <span className="tile-back__details--price">{backOfCard.details1 && backOfCard.details1.includes('$') ? `$${backOfCard.details1.split('$')[1]}` : ''}</span>
         </section>
         <section className="tile-back__details--wrapper">
-          <p className="tile-back__details">{backOfCard.details2 ? `${backOfCard.details2.split('$')[0]}` : ''}</p>
-          <span className="tile-back__details--price">{backOfCard.details2 ? `$${backOfCard.details2.split('$')[1]}` : ''}</span>
+          <p className="tile-back__details">{backOfCard.details2 && backOfCard.details2.includes('$') ? `${backOfCard.details2.split('$')[0]}` : backOfCard.details2}</p>
+          <span className="tile-back__details--price">{backOfCard.details2 && backOfCard.details2.includes('$') ? `$${backOfCard.details2.split('$')[1]}` : ''}</span>
         </section>
         <section className="tile-back__details--wrapper">
           <p className="tile-back__details">{backOfCard.details3 ? `${backOfCard.details3.split('$')[0]}` : ''}</p>
