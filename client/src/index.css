@@ -48,3 +48,6 @@ button:hover {
   left: 50%;
 }
 
+.log-name {
+  text-shadow: 0px 0px 1px black;
+}
