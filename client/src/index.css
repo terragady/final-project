@@ -48,6 +48,14 @@ button:hover {
   left: 50%;
 }
 
-.log-name {
+.log-chat-name {
   text-shadow: 0px 0px 1px black;
+  /* letter-spacing: 0.2vmin;
+  text-shadow:
+  -0.5px -0.5px 0 #000,  
+   0.5px -0.5px 0 #000,
+   -0.5px 0.5px 0 #000,
+    0.5px 0.5px 0 #000; */
+  font-weight: bold;
+
 }

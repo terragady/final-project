@@ -118,7 +118,7 @@ io.on('connection', socket => {
 
   // send chat
   socket.on('send chat', message => {
-    sendToLog(`<span style="color:${state.players[socket.id].color}" class="log-name" >${state.players[socket.id].name}</span> says: ${message}`)
+    sendToLog(`<span style="color:${state.players[socket.id].color}" class="log-chat-name" >${state.players[socket.id].name}</span> says: ${message}`)
     io.emit('update', state);
   });
 
