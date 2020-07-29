@@ -3,14 +3,18 @@
   padding: 0;
   box-sizing: border-box;
   font-family: 'Avenir', sans-serif;
-  font-size: 0.8vw;
 }
 
 body {
   cursor: url('./cursor.png'), auto;
+  font-size: 0.8vw;
 }
 
 button {
+  outline: none;
+}
+
+button:disabled{
   outline: none;
 }
 

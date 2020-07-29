@@ -156,7 +156,7 @@ const initialState = [
     houses: 0,
   },
   {
-    streetName: 'Water Company',
+    streetName: 'Water Works',
     price: 150,
   },
   {

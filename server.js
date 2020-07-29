@@ -204,7 +204,7 @@ io.on('connection', socket => {
         const chestCard = chestCards[randomNumber];
         state.players[socket.id].accountBalance += chestCard.reward;
         state.players[socket.id].accountBalance -= chestCard.penalty;
-        state.players[socket.id].currentTile = chestCard.moveToTile;
+        if(chestCard.moveToTile) state.players[socket.id].currentTile = chestCard.moveToTile;
 
         if (chestCard.moveToTile === 10) { state.players[socket.id].isJail = true; }
         sendToLog(`${playerName}: ${chestCard.message}`);
@@ -266,6 +266,10 @@ io.on('connection', socket => {
     state.boardState.diceValue = dices;
     nextTurn();
     io.emit('update', state);
+  });
+
+  socket.on('put on open market', saleInfo => {
+    console.log(saleInfo);
   });
 
   socket.on('disconnect', () => {

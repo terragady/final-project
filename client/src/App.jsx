@@ -15,6 +15,7 @@ const socketFunctions = {
   inJail: dices => socket.emit('in jail', dices),
   buyProperty: () => socket.emit('buy property', true),
   sendChat: message => socket.emit('send chat', message),
+  putOpenMarket: saleInfo => socket.emit('put on open market', saleInfo)
 };
 
 const initialState = { boardState: {currentPlayer: {id: false}}, players: {}, loaded: false };

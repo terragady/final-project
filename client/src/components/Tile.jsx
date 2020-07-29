@@ -72,7 +72,7 @@ function Tile({ initState, id, position }) {
       </article>
     );
   }
-  return <BackOfCard id={id} handleCardClick={handleCardClick} />;
+  return <BackOfCard id={id} handleCardClick={handleCardClick} position={position} />;
 }
 
 Tile.propTypes = {
