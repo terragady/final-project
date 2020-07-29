@@ -199,7 +199,7 @@ const tileState = [
   },
   {
     streetName: 'Chest',
-    tileType: 'chance',
+    tileType: 'chest',
   },
   {
     streetName: 'Fair Gardens',

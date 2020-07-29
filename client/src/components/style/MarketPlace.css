@@ -35,6 +35,10 @@ justify-content: space-evenly;
   justify-content: space-evenly;
 }
 
+.dashboard__market-place__buttons:hover {
+  cursor: pointer;
+}
+
 .dashboard__market-place__icon-v {
   font-size: 1.75vmin;
   color: green;

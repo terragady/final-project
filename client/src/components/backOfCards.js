@@ -280,7 +280,7 @@ const backOfCards = [
     price: 350,
     rent: 35,
     ownedBy: false,
-    clicked: false
+    clicked: false,
   },
   {
     cardName: 'Luxury Tax',

@@ -23,7 +23,7 @@ export default function Log() {
   return (
     <section className="center__room">
       <section ref={scrollRef} className="center__log">
-        {state.loaded ? state.boardState.logs.map(e => <p key={uuid()} dangerouslySetInnerHTML={{__html: e}} />) : <p>Loading...</p>}
+        {state.loaded ? state.boardState.logs.map(e => <p key={uuid()} dangerouslySetInnerHTML={{ __html: e }} />) : <p>Loading...</p>}
       </section>
       <section className="center__chat">
         <form className="center__chat--form" onSubmit={e => sendChat(e)}>

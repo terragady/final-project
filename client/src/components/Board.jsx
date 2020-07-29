@@ -31,22 +31,25 @@ function Board() {
 
   const [tiles] = useState(initialState);
   const [openSale, setOpenSale] = useState(false);
-  let playerName = 'Marcin is King';
+  const playerName = 'Marcin The King';
   useEffect(() => {
     // while (!playerName) playerName = prompt('What is your name?');
     socketFunctions.newPlayer(playerName);
   }, [socketFunctions, playerName]);
 
   const handlePutOpenMarket = tileID => {
-    setOpenSale({tileID, playerId});
-  }
+    setOpenSale({ tileID, playerId });
+  };
 
   const handleMakeOffer = sellerID => {
-    console.log('makeOffer')
-  }
+    console.log('makeOffer');
+  };
 
   return (
-    <sellPromptContext.Provider value={{ handlePutOpenMarket, handleMakeOffer, openSale, setOpenSale }}>
+    <sellPromptContext.Provider value={{
+      handlePutOpenMarket, handleMakeOffer, openSale, setOpenSale,
+    }}
+    >
       <cardFlipContext.Provider value={{ cardsBack, dispatch }}>
         <section className="Board">
           {
