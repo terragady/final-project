@@ -18,6 +18,10 @@
   text-align: center;
 }
 
+.Tile:hover {
+  cursor: pointer;
+}
+
 .tile0 {
   grid-area: 11 / 11 / 12 / 12;
   background-image: url('https://i.pinimg.com/originals/a9/b6/8a/a9b68a1213ecc93ee5f07b3423d0e913.gif');

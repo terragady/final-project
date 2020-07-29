@@ -9,7 +9,6 @@ const socket = io.connect('http://localhost:8080');
 const socketFunctions = {
   makeMove: num => socket.emit('makeMove', num),
   newPlayer: name => socket.emit('new player', name),
-  addToLog: log => socket.emit('log', log),
   toggleHasMoved: bool => socket.emit('player has moved', bool),
   endTurn: () => socket.emit('end turn', ''),
   sendDice: dices => socket.emit('send dice', dices),
@@ -18,7 +17,7 @@ const socketFunctions = {
   sendChat: message => socket.emit('send chat', message),
 };
 
-const initialState = { boardState: {}, players: {}, loaded: false };
+const initialState = { boardState: {currentPlayer: {id: false}}, players: {}, loaded: false };
 const reducer = (state, action) => {
   switch (action.type) {
     case 'updateGameState':

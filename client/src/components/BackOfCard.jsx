@@ -7,8 +7,29 @@ const BackOfCard = ({ id, handleCardClick }) => {
   const [backOfCard] = useState(cardsBack[id]);
   return (
     <article role="presentation" onClick={handleCardClick} className="Tile-back">
-      <p className="tile-back__name">{backOfCard.cardName}</p>
-      <p className="tile-back__price">{`Rent: ${backOfCard.rent}`}</p>
+      <p className="tile-back__name" style={backOfCard.color ? {backgroundColor: backOfCard.color} : {backgroundColor: 'none'}}>{backOfCard.cardName}</p>
+      <div className="tile-back__prices">
+      <p className="tile-back__price">{backOfCard.price ? `Price: $${backOfCard.price}` : ''}</p>
+      <p className="tile-back__rent">{backOfCard.rent ? `Rent: $${backOfCard.rent}` : ''}</p>
+      </div>
+      <p className="tile-back__line"></p>
+      <div className="tile-back__details--wrapper" >
+      <p className="tile-back__details">{backOfCard.details1 ? `${backOfCard.details1.split('$')[0]}` : ''}</p>
+      <span className="tile-back__details--price">{backOfCard.details1 ? `$${backOfCard.details1.split('$')[1]}` : ''}</span>
+      </div>
+      <div className="tile-back__details--wrapper" >
+      <p className="tile-back__details">{backOfCard.details2 ? `${backOfCard.details2.split('$')[0]}` : ''}</p>
+      <span className="tile-back__details--price">{backOfCard.details2 ? `$${backOfCard.details2.split('$')[1]}` : ''}</span>
+      </div>
+      <div className="tile-back__details--wrapper" >
+      <p className="tile-back__details">{backOfCard.details3 ? `${backOfCard.details3.split('$')[0]}` : ''}</p>
+      <span className="tile-back__details--price">{backOfCard.details3 ? `$${backOfCard.details3.split('$')[1]}` : ''}</span>
+      </div>
+      <div className="tile-back__details--wrapper" >
+      <p className="tile-back__details">{backOfCard.details4 ? `${backOfCard.details4.split('$')[0]}` : ''}</p>
+      <span className="tile-back__details--price">{backOfCard.details4 ? `$${backOfCard.details4.split('$')[1]}` : ''}</span>
+      </div>
+      <p className="tile-back__mortgage">{backOfCard.mortgage ? `Mortgage value: $${backOfCard.mortgage}` : ''}</p>
       {/* {initState.color && initState.color !== 'railroad'
         ? (
           <>

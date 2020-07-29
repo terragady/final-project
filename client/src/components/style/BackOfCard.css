@@ -8,22 +8,60 @@
   border: 1px solid black;
 }
 
+.Tile-back:hover {
+  cursor: pointer;
+}
+
 .tile-back__name {
   flex: 0;
   align-self: center;
   border: 1px solid black;
-  margin-top: 0.4vmin;
+  margin-top: 0.25vmin;
   font-weight: bold;
-  width: 90%;
-  height: 25%;
+  width: 95%;
   background: rgb(255, 255, 255, 0.50);
   line-height: 2vmin;
+  word-break: break-all;
+  white-space: nowrap;
+}
+
+.tile-back__prices {
+  display: flex;
+  margin-top: 0.1vmin;
 }
 
 .tile-back__price {
-  margin-top: 1vmin;
+  margin-right: 0.5vmin;
+  font-size: 0.8vmin;
+}
+
+.tile-back__rent {
+  font-size: 0.8vmin;
+}
+
+.tile-back__mortgage {
+  position: absolute;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  bottom: 0.5vmin;
+}
+
+.tile-back__line {
+  width: 95%;
+  border-top: 1px solid black;
+}
+
+.tile-back__details--wrapper {
+  width: 95%;
+  text-align: left;
+  display: flex;
+  justify-content: space-between;
 }
 
 .tile-back__details {
+  font-size: 0.7vmin;
+}
 
+.tile-back__details--price {
+  font-size: 0.7vmin;
 }

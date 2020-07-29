@@ -29,9 +29,9 @@ function Board() {
 
   const [tiles] = useState(initialState);
   const { socketFunctions } = useContext(stateContext);
-  const playerName = 'Default player';
+  let playerName = 'Marcin is King';
   useEffect(() => {
-  //   while (!playerName) playerName = prompt('What is your name?');
+    // while (!playerName) playerName = prompt('What is your name?');
     socketFunctions.newPlayer(playerName);
   }, [socketFunctions, playerName]);
 

@@ -62,8 +62,8 @@ export default function Dice() {
             </h1>
             <h2 className="dice__result">
               {'Result: '}
-              {dice.dice1[1] + dice.dice2[1]}
-              <h2>{dice.dice1[1] === dice.dice2[1] ? <span className="dice__result" role="img" aria-label="emoji">🤩DOUBLE🤩</span> : ''}</h2>
+              {dice.dice1[1] + dice.dice2[1]}<br/>
+              {dice.dice1[1] === dice.dice2[1] ? <span className="dice__result" role="img" aria-label="emoji">🤩DOUBLE🤩</span> : ''}
             </h2>
           </section>
         )

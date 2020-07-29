@@ -33,7 +33,9 @@ const state = {
   turnInfo: {},
   loaded: true,
 };
-
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////FUNCTIONS//////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // player change
 const nextTurn = () => {
   if (state.boardState.players.includes(state.boardState.currentPlayer.id) === -1) {
@@ -47,14 +49,37 @@ const nextTurn = () => {
     const firstPlayer = state.boardState.players[0];
     state.boardState.currentPlayer.id = firstPlayer;
   }
+  state.turnInfo = {};
 };
-
-// color array for players
-const colors = ['black', 'white', 'orange', 'red', 'blue', 'green', 'yellow'];
 
 // current date function for logs
 const date = () => (new Date(Date.now())).toLocaleTimeString('en-GB', { hour12: false });
 
+// Log a message
+const sendToLog = text => {
+    state.boardState.logs = [
+      ...state.boardState.logs,
+      `${date()} - ${text}`,
+    ];
+}
+// Check if property is owned and pay accordingly
+const checkOwned = (playerId, currentTile, callback) => {
+  if (!Object.prototype.hasOwnProperty.call(state.boardState.ownedProps, currentTile)) {
+    state.turnInfo.canBuyProp = true;
+  } else if (state.boardState.ownedProps[currentTile].id !== playerId) {
+    callback();
+    nextTurn();
+  } else {
+    nextTurn();
+  }
+}
+
+// color array for players
+const colors = ['black', 'white', 'orange', 'red', 'blue', 'green', 'yellow'];
+
+////////////////////////////////////////////////////////////////////////////////////////////
+//////////////SOCKET FUNCTIONS////////////////////////;/////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////
 // On client connection
 io.on('connection', socket => {
   socket.emit('update', state);
@@ -70,10 +95,7 @@ io.on('connection', socket => {
       isJail: false,
       jailRounds: 0,
     };
-    state.boardState.logs = [
-      ...state.boardState.logs,
-      `${date()} - ${newName} joined the game as ${state.players[socket.id].color}`,
-    ];
+    sendToLog(`${newName} joined the game as ${state.players[socket.id].color}`);
     state.boardState.players = Object.keys(state.players);
     io.emit('update', state);
   });
@@ -89,28 +111,21 @@ io.on('connection', socket => {
       const more = num - left;
       state.players[id].currentTile = more;
       state.players[id].accountBalance += 200;
-      state.boardState.logs = [...state.boardState.logs, `${date()} - ${state.players[socket.id].name} has passed start and recieved $200M.`];
+      sendToLog(`${state.players[socket.id].name} has passed start and recieved $200M`)
     }
-    io.emit('update', state);
-  });
-
-  // when log is submitted
-  socket.on('log', logText => {
-    state.boardState.logs = [...state.boardState.logs, `${date()} - ${logText}`];
     io.emit('update', state);
   });
 
   // send chat
   socket.on('send chat', message => {
-    state.boardState.logs = [...state.boardState.logs, `${date()} - ${state.players[socket.id].name} says: ${message}`];
+    sendToLog(`${state.players[socket.id].name} says: ${message}`)
     io.emit('update', state);
   });
 
   // next turn
   socket.on('end turn', () => {
     nextTurn();
-    state.boardState.currentPlayer.hasMoved = false;
-    state.turnInfo = {};
+    state.boardState.currentPlayer.hasMoved = false; // move to function?
     io.emit('update', state);
   });
 
@@ -121,32 +136,24 @@ io.on('connection', socket => {
     const railRoadArray = [5, 15, 25, 35];
     const { dice1, dice2 } = state.boardState.diceValue;
     const diceResult = dice1[1] + dice2[1];
+    const playerName = state.players[socket.id].name;
 
     switch (tileState[currentTile].tileType) {
       case 'normal':
-        if (!Object.prototype.hasOwnProperty.call(state.boardState.ownedProps, currentTile)) {
-          state.turnInfo.canBuyProp = true;
-        } else if (state.boardState.ownedProps[currentTile].id !== socket.id) {
+        checkOwned(socket.id, currentTile, () => {
           const currentTileOwner = state.boardState.ownedProps[currentTile].id;
           state.players[socket.id].accountBalance -= tileState[currentTile].rent;
           state.players[currentTileOwner].accountBalance += tileState[currentTile].rent;
-          state.boardState.logs = [
-            ...state.boardState.logs, `${date()} - ${state.players[socket.id].name} have paid rent $${tileState[currentTile].rent}M to ${state.players[currentTileOwner].name}`,
-          ];
-          nextTurn();
-        } else {
-          nextTurn();
-        }
+          sendToLog(`${playerName} have paid rent $${tileState[currentTile].rent}M to ${state.players[state.boardState.ownedProps[currentTile].id].name}`);
+        });
         break;
       case 'expense':
         state.players[socket.id].accountBalance -= tileState[currentTile].rent;
-        state.boardState.logs = [...state.boardState.logs, `${date()} - ${state.players[socket.id].name} paid ${tileState[currentTile].rent} in taxes.`];
+        sendToLog(`${playerName} paid ${tileState[currentTile].rent} in taxes.`);
         nextTurn();
         break;
       case 'railroad': {
-        if (!Object.prototype.hasOwnProperty.call(state.boardState.ownedProps, currentTile)) {
-          state.turnInfo.canBuyProp = true;
-        } else {
+        checkOwned(socket.id, currentTile, () => {
           let ownedRailroads = 0;
           railRoadArray.forEach(tileNumb => {
             if (state.boardState.ownedProps[tileNumb]
@@ -159,33 +166,26 @@ io.on('connection', socket => {
           state.players[socket.id].accountBalance -= priceToPay;
           state.players[state.boardState.ownedProps[currentTile].id].accountBalance += priceToPay;
           if (ownedRailroads > 1) {
-            state.boardState.logs = [
-              ...state.boardState.logs, `${date()} - ${state.players[socket.id].name} have paid rent $${priceToPay}M for ${ownedRailroads} owned railroads to ${state.players[state.boardState.ownedProps[currentTile].id].name}`,
-            ];
+            sendToLog(`${playerName} have paid rent $${priceToPay}M for ${ownedRailroads} owned railroads to ${state.players[state.boardState.ownedProps[currentTile].id].name}`)
           } else {
-            state.boardState.logs = [
-              ...state.boardState.logs, `${date()} - ${state.players[socket.id].name} have paid rent $${priceToPay}M to ${state.players[state.boardState.ownedProps[currentTile].id].name}`,
-            ];
+            sendToLog(`${playerName} have paid rent $${priceToPay}M to ${state.players[state.boardState.ownedProps[currentTile].id].name}`)
           }
-          nextTurn();
-        }
+        })
         break;
       }
       case 'gojail':
         state.players[socket.id].isJail = true;
         state.players[socket.id].jailRounds = 0;
         state.players[socket.id].currentTile = 10;
-        state.boardState.logs = [...state.boardState.logs, `${date()} - ${state.players[socket.id].name} was sent to jail for tax fraud.`];
+        sendToLog(`${playerName} was sent to jail for tax fraud.`);
         nextTurn();
         break;
       case 'jail':
-        state.boardState.logs = [...state.boardState.logs, `${date()} - ${state.players[socket.id].name}, no worries, just visiting!`];
+        sendToLog(`${playerName}, dont't worry! You're just visiting.`);
         nextTurn();
         break;
       case 'company': {
-        if (!Object.prototype.hasOwnProperty.call(state.boardState.ownedProps, currentTile)) {
-          state.turnInfo.canBuyProp = true;
-        } else {
+        checkOwned(socket.id, currentTile, () => {
           let priceToPay = 0;
           if (state.boardState.ownedProps[12]
             && state.boardState.ownedProps[28]
@@ -195,11 +195,8 @@ io.on('connection', socket => {
           } else { priceToPay = diceResult * 4; }
           state.players[socket.id].accountBalance -= priceToPay;
           state.players[state.boardState.ownedProps[currentTile].id].accountBalance += priceToPay;
-          state.boardState.logs = [
-            ...state.boardState.logs, `${date()} - ${state.players[socket.id].name} have paid rent $${priceToPay}M to ${state.players[state.boardState.ownedProps[currentTile].id].name}`,
-          ];
-          nextTurn();
-        }
+          sendToLog(`${playerName} have paid rent $${priceToPay}M to ${state.players[state.boardState.ownedProps[currentTile].id].name}`);
+        });
         break;
       }
       case 'chance': {
@@ -210,8 +207,7 @@ io.on('connection', socket => {
         state.players[socket.id].currentTile = chestCard.moveToTile;
 
         if (chestCard.moveToTile === 10) { state.players[socket.id].isJail = true; }
-
-        state.boardState.logs = [...state.boardState.logs, `${date()} - ${state.players[socket.id].name} ${chestCard.message}`];
+        sendToLog(`${playerName}: ${chestCard.message}`);
         nextTurn();
         break;
       }
@@ -226,32 +222,57 @@ io.on('connection', socket => {
   socket.on('buy property', () => {
     const { accountBalance } = state.players[socket.id];
     const { currentTile } = state.players[socket.id];
+    const playerName = state.players[socket.id].name;
     state.players[socket.id].accountBalance = accountBalance - tileState[currentTile].price;
     state.boardState.ownedProps[currentTile] = {
       id: socket.id,
       color: state.players[socket.id].color,
     };
-    state.boardState.logs = [...state.boardState.logs, `${date()} - ${state.players[socket.id].name} bought property`];
+    sendToLog(`${playerName} bought a property!`)
     nextTurn();
-    state.turnInfo = {};
     io.emit('update', state);
   });
 
   // update dice state
   socket.on('send dice', dices => {
     state.boardState.diceValue = dices;
-    state.boardState.logs = [...state.boardState.logs, `${date()} - ${state.players[socket.id].name} rolled ${dices.dice1[1] + dices.dice2[1]}!`];
+    const diceResult = dices.dice1[1] + dices.dice2[1];
+    const playerName = state.players[socket.id].name;
+    sendToLog(`${playerName} rolled ${diceResult}!`)
     io.emit('update', state);
   });
 
   // when player disconnects
+  socket.on('in jail', dices => {
+    const { jailRounds } = state.players[socket.id];
+    const { currentTile } = state.players[socket.id];
+    const playerName = state.players[socket.id].name;
+    const diceResult = dices.dice1[1] + dices.dice2[1];
+    if (jailRounds === 2) {
+      state.players[socket.id].currentTile = currentTile + diceResult;
+      state.players[socket.id].isJail = false;
+      state.players[socket.id].jailRounds = 0;
+      state.boardState.currentPlayer.hasMoved = true;
+      sendToLog(`${playerName} waited patiently and got out of jail.`)
+    } else if (dices.dice1[1] === dices.dice2[1]) {
+      state.players[socket.id].currentTile = currentTile + diceResult;
+      state.players[socket.id].isJail = false;
+      state.players[socket.id].jailRounds = 0;
+      sendToLog(`${playerName} got lucky and escaped jail!`)
+    } else {
+      state.players[socket.id].jailRounds += 1;
+      sendToLog(`${playerName} has to stay in jail.`)
+    }
+    state.boardState.diceValue = dices;
+    nextTurn();
+    io.emit('update', state);
+  });
+
   socket.on('disconnect', () => {
     if (state.players[socket.id]) {
+      const playerName = state.players[socket.id].name;
       colors.push(state.players[socket.id].color);
-      state.boardState.logs = [
-        ...state.boardState.logs,
-        `${date()} - ${state.players[socket.id].name} left the game`,
-      ];
+      sendToLog(`${playerName} left the game.`)
       delete state.players[socket.id];
     }
     state.boardState.players = Object.keys(state.players);
@@ -260,29 +281,6 @@ io.on('connection', socket => {
       state.boardState.ownedProps = {};
       state.turnInfo = {};
     }
-    io.emit('update', state);
-  });
-
-  socket.on('in jail', dices => {
-    const { jailRounds } = state.players[socket.id];
-    const { currentTile } = state.players[socket.id];
-    const diceResult = dices.dice1[1] + dices.dice2[1];
-    if (jailRounds === 2) {
-      state.players[socket.id].currentTile = currentTile + diceResult;
-      state.players[socket.id].isJail = false;
-      state.players[socket.id].jailRounds = 0;
-      state.boardState.logs = [...state.boardState.logs, `${date()} - ${state.players[socket.id].name} waited patiently and got out of jail.`];
-    } else if (dices.dice1[1] === dices.dice2[1]) {
-      state.players[socket.id].currentTile = currentTile + diceResult;
-      state.players[socket.id].isJail = false;
-      state.players[socket.id].jailRounds = 0;
-      state.boardState.logs = [...state.boardState.logs, `${date()} - ${state.players[socket.id].name} got lucky and escaped jail.`];
-    } else {
-      state.players[socket.id].jailRounds += 1;
-      state.boardState.logs = [...state.boardState.logs, `${date()} - ${state.players[socket.id].name} has to stay in jail.`];
-    }
-    state.boardState.diceValue = dices;
-    nextTurn();
     io.emit('update', state);
   });
 });

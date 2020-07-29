@@ -44,6 +44,18 @@
   font-size: 1.5vmin;
 }
 
+.center__dashboard__player-info__name {
+  font-size: 1.9vmin;
+}
+
+.center__dashboard__player-info__current-player {
+  font-size: 1.9vmin;
+  margin-bottom: 2vmin;
+  padding: 1.5vmin;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
 .button__purchase--yes, .button__purchase--no, .button__end-turn {
   align-self: left;
   border-radius: 0.5vmin;
@@ -51,6 +63,8 @@
   font-size: 1.5vmin;
   background: rgb(191, 234, 163, 0.25);
   color: black;
+  width: 100%;
+  margin: 1vmin 0vmin;
 }
 
 .button__purchase--yes {
