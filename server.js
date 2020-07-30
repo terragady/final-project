@@ -54,7 +54,7 @@ const sendToLog = (text) => {
 };
 
 // check balance if not below 0
-const checkBalance = () => {
+const checkBalance = (noNextTurn) => {
 	Object.keys(state.players).forEach((e) => {
 		if (state.players[e].accountBalance < 1) {
 			state.boardState.finishedPlayers[e] = {
@@ -75,6 +75,7 @@ const checkBalance = () => {
 					delete state.boardState.openMarket[i];
 				}
 			}
+			if(noNextTurn) nextTurn()
 		}
 	});
 };
@@ -378,7 +379,6 @@ io.on('connection', (socket) => {
 			tileName
 		};
 		console.log(state.boardState.openMarket);
-		checkBalance();
 		io.emit('update', state);
 	});
 
@@ -387,7 +387,6 @@ io.on('connection', (socket) => {
 		delete state.boardState.openMarket[item];
 		const playerName = state.players[socket.id].name;
 		sendToLog(`${playerName} removed ${tileName} from the open market.`);
-		checkBalance();
 		io.emit('update', state);
 	});
 
@@ -403,7 +402,7 @@ io.on('connection', (socket) => {
 		state.boardState.ownedProps[item].color = state.players[socket.id].color;
 		delete state.boardState.openMarket[item];
 		sendToLog(`${buyerName} has bought ${tileName} from ${sellerName}`);
-		checkBalance();
+		checkBalance(true);
 		io.emit('update', state);
 	});
 	socket.on('make offer', (item) => {
@@ -411,7 +410,6 @@ io.on('connection', (socket) => {
 		const buyerName = state.players[playerId].name;
 		const tileOwner = state.boardState.ownedProps[item.tileID].id;
 		const tileName = tileState[tileID].streetName;
-		checkBalance();
 		io.sockets.to(tileOwner).emit('offer on prop', { ...item, buyerName, tileName });
 	});
 
@@ -419,7 +417,6 @@ io.on('connection', (socket) => {
 		const { playerId, tileID, price, tileName } = offer;
 		const ownerID = state.boardState.ownedProps[tileID].id;
 		const ownerName = state.players[ownerID].name;
-		checkBalance();
 		io.sockets.to(playerId).emit('offer declined', { tileName, price, ownerName });
 	});
 
@@ -435,7 +432,7 @@ io.on('connection', (socket) => {
     io.sockets.to(playerId).emit('offer accepted', { tileName, price, ownerName });
 
     if (state.boardState.openMarket[tileID]) delete state.boardState.openMarket[tileID]
-		checkBalance();
+		checkBalance(true);
 		io.emit('update', state);
 	});
 

@@ -156,6 +156,7 @@ export default function Dashboard() {
                   <h3 className="open-market__sell-toast__close" onClick={removeSellPropPrompt}>❌</h3>
                   <h3 className="open-market__sell-toast__title">
                     Make offer for
+                    {' '}
                     {tileNames[privateSale.tileID].streetName}
                     {' '}
                     for:
