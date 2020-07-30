@@ -15,7 +15,7 @@ const options = {
 
 ReactDOM.render(
   <React.StrictMode>
-    {/* {window.onbeforeunload = function () { return false; }} */}
+    {window.onbeforeunload = function () { return false; }}
     <AlertProvider template={AlertTemplate} {...options}>
       <App />
     </AlertProvider>

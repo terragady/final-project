@@ -32,9 +32,9 @@ function Board() {
   const [tiles] = useState(initialState);
   const [openSale, setOpenSale] = useState(false);
   const [privateSale, setPrivateSale] = useState(false);
-  const playerName = 'Marcin The King';
+  let playerName = '';
   useEffect(() => {
-    // while (!playerName) playerName = prompt('What is your name?');
+    while (!playerName) playerName = prompt('What is your name?');
     socketFunctions.newPlayer(playerName);
   }, [socketFunctions, playerName]);
 
