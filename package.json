@@ -4,7 +4,6 @@
   "description": "a monopoly game",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint . --ext .js --ext .jsx --quiet --fix",
     "pregit": "git add . ",
     "git": "git commit -m",
@@ -28,8 +27,6 @@
   "dependencies": {
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
-    "react-alert": "^7.0.2",
-    "react-alert-template-basic": "^1.0.0",
     "socket.io": "^2.3.0"
   },
   "devDependencies": {

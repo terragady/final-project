@@ -27,7 +27,7 @@ const reducer = (state, action) => {
 
 function Board() {
   const [cardsBack, dispatch] = useReducer(reducer, backOfCards);
-  const { socketFunctions, state, playerId } = useContext(stateContext);
+  const { socketFunctions, playerId } = useContext(stateContext);
 
   const [tiles] = useState(initialState);
   const [openSale, setOpenSale] = useState(false);
@@ -52,7 +52,6 @@ function Board() {
       handleMakeOffer,
       openSale,
       setOpenSale,
-      handleMakeOffer,
       setPrivateSale,
       privateSale,
     }}

@@ -40,17 +40,31 @@ const state = {
   turnInfo: {},
   loaded: true,
 };
-/// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/// ///////////////////////////////FUNCTIONS//////////////////////////////////////////////////////////////////////////////////
-/// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/// ///////////////////////////////////////////////////////////////////////////////
+/// ///////////////////////////////FUNCTIONS///////////////////////////////////////
+/// ///////////////////////////////////////////////////////////////////////////////
+
+// current date function for logs
+const date = () => (new Date(Date.now())).toLocaleTimeString('en-GB', { hour12: false });
+
+// Log a message
+const sendToLog = text => {
+  state.boardState.logs = [
+    ...state.boardState.logs,
+    `${date()} - ${text}`,
+  ];
+};
 
 // check balance if not below 0
 const checkBalance = () => {
-  Object.keys(state.players).forEach(e =>{
+  Object.keys(state.players).forEach(e => {
     if (state.players[e].accountBalance < 1) {
-      state.boardState.finishedPlayers[e] = {name: state.players[e].name, color: state.players[e].color}
-      sendToLog(`${state.players[e].name} <span class="bancrupt-message">went bancrupt and can no longer play the game, all his properties were put on sale again!</span> `)
-      delete state.players[e]
+      state.boardState.finishedPlayers[e] = {
+        name: state.players[e].name,
+        color: state.players[e].color,
+      };
+      sendToLog(`<span class="bancrupt-message">${state.players[e].name} went bancrupt and can no longer play the game, all his properties were put on sale again!</span>`);
+      delete state.players[e];
       state.boardState.players = Object.keys(state.players);
       for (let i = 0; i < 40; i++) {
         if (state.boardState.ownedProps[i] && state.boardState.ownedProps[i].id === e) {
@@ -61,12 +75,13 @@ const checkBalance = () => {
         }
       }
     }
-})}
+  });
+};
 
 // player change
 const nextTurn = () => {
   // remove player when less than 0 balance
-  checkBalance()
+  checkBalance();
 
   // next turn
   if (state.boardState.players.includes(state.boardState.currentPlayer.id) === -1) {
@@ -83,16 +98,6 @@ const nextTurn = () => {
   state.turnInfo = {};
 };
 
-// current date function for logs
-const date = () => (new Date(Date.now())).toLocaleTimeString('en-GB', { hour12: false });
-
-// Log a message
-const sendToLog = text => {
-  state.boardState.logs = [
-    ...state.boardState.logs,
-    `${date()} - ${text}`,
-  ];
-};
 // Check if property is owned and pay accordingly
 const checkOwned = (playerId, currentTile, callback) => {
   if (!Object.prototype.hasOwnProperty.call(state.boardState.ownedProps, currentTile)) {
@@ -111,6 +116,7 @@ const colors = ['black', 'white', 'orange', 'red', 'blue', 'green', 'yellow'];
 /// /////////////////////////////////////////////////////////////////////////////////////////
 /// ///////////SOCKET FUNCTIONS////////////////////////;/////////////////////////////////////
 /// /////////////////////////////////////////////////////////////////////////////////////////
+
 // On client connection
 io.on('connection', socket => {
   socket.emit('update', state);
@@ -150,12 +156,11 @@ io.on('connection', socket => {
   // send chat
   socket.on('send chat', message => {
     if (state.boardState.players.includes(socket.id)) {
-    sendToLog(`<span style="color:${state.players[socket.id].color}" class="log-chat-name" >${state.players[socket.id].name}</span> says: ${message}`);
+      sendToLog(`<span style="color:${state.players[socket.id].color}" class="log-chat-name" >${state.players[socket.id].name}</span> says: ${message}`);
     } else {
       sendToLog(`<span style="color:${state.boardState.finishedPlayers[socket.id].color}" class="log-chat-name" >${state.boardState.finishedPlayers[socket.id].name}</span> says: ${message}`);
     }
     io.emit('update', state);
-
   });
 
   // next turn
@@ -361,15 +366,19 @@ io.on('connection', socket => {
   });
 
   socket.on('decline offer', offer => {
-    const { playerId, tileID, price, tileName } = offer;
+    const {
+      playerId, tileID, price, tileName,
+    } = offer;
     const ownerID = state.boardState.ownedProps[tileID].id;
     const ownerName = state.players[ownerID].name;
-    checkBalance()
-    io.sockets.to(playerId).emit('offer declined', { tileName, price, ownerName })
-  })
+    checkBalance();
+    io.sockets.to(playerId).emit('offer declined', { tileName, price, ownerName });
+  });
 
   socket.on('accept offer', offer => {
-    const { playerId, tileID, price, tileName } = offer;
+    const {
+      playerId, tileID, price, tileName,
+    } = offer;
     const ownerID = state.boardState.ownedProps[tileID].id;
     const ownerName = state.players[ownerID].name;
     state.players[ownerID].accountBalance += price;
@@ -377,12 +386,12 @@ io.on('connection', socket => {
     state.boardState.ownedProps[tileID].id = playerId;
     state.boardState.ownedProps[tileID].color = state.players[playerId].color;
     sendToLog(`${ownerName} has privately bought ${tileName} from ${ownerName} from $${price}M`);
-    io.sockets.to(playerId).emit('offer accepted', { tileName, price, ownerName })
+    io.sockets.to(playerId).emit('offer accepted', { tileName, price, ownerName });
     checkBalance();
     io.emit('update', state);
-  })
+  });
 
-    // when player disconnects
+  // when player disconnects
   socket.on('disconnect', () => {
     if (state.players[socket.id]) {
       const playerName = state.players[socket.id].name;
@@ -400,7 +409,7 @@ io.on('connection', socket => {
     }
     state.boardState.players = Object.keys(state.players);
 
-    //remove stuff when no players present
+    // remove stuff when no players present
     if (state.boardState.players.length === 0) {
       state.boardState.logs = [];
       state.boardState.ownedProps = {};

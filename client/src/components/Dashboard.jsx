@@ -8,7 +8,9 @@ import tileNames from './BoardInitState';
 import sellPromptContext from '../sellPromptContext';
 
 export default function Dashboard() {
-  const { socketFunctions, state, playerId, socket } = useContext(stateContext);
+  const {
+    socketFunctions, state, playerId, socket,
+  } = useContext(stateContext);
   const {
     openSale, setOpenSale, privateSale, setPrivateSale,
   } = useContext(sellPromptContext);
@@ -19,34 +21,33 @@ export default function Dashboard() {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      const ticked = offers.map(offer => (
-        {...offer, timer: offer.timer - 1}
+      const ticked = offers.map(item => (
+        { ...item, timer: item.timer - 1 }
       ));
       setOffers(ticked);
       const removedZero = offers.filter(offer => (
         offer.timer !== 0
       ));
       setOffers(removedZero);
-    }, 1000)
+    }, 1000);
     return () => clearInterval(interval);
-  }, [offer])
+  }, [offer]);
 
   useEffect(() => {
     socket.on('offer on prop', info => {
       setOffers([...offers, { ...info, timer: 20 }]);
     });
 
-  
     socket.on('offer declined', info => {
       const { tileName, price, ownerName } = info;
-      alert.show(`${ownerName} declined your offer to buy ${tileName} for $${price}M`)
+      alert.show(`${ownerName} declined your offer to buy ${tileName} for $${price}M`);
     });
 
     socket.on('offer accepted', info => {
       const { tileName, price, ownerName } = info;
-      alert.show(`${ownerName} accepted your offer to buy ${tileName} for $${price}M`)
+      alert.show(`${ownerName} accepted your offer to buy ${tileName} for $${price}M`);
     });
-  }, [])
+  }, []);
 
   const handleAcceptOffer = offer => {
     const removedOffer = offers.filter(item => (
@@ -54,7 +55,7 @@ export default function Dashboard() {
     ));
     setOffers([...removedOffer]);
     socketFunctions.acceptOffer(offer);
-  }
+  };
 
   const handleDeclineOffer = offer => {
     const removedOffer = offers.filter(item => (
@@ -62,7 +63,7 @@ export default function Dashboard() {
     ));
     setOffers([...removedOffer]);
     socketFunctions.declineOffer(offer);
-  }
+  };
 
   const removeSellPropPrompt = e => {
     e.preventDefault();
@@ -89,9 +90,9 @@ export default function Dashboard() {
                 </section>
               ))
               : 'Loading...'}
-              
-              {Object.keys(state.boardState.finishedPlayers).length > 0 ? <h3 className="center__dashboard__title">Broke Players:</h3> : <></>}
-              {state.loaded
+
+            {Object.keys(state.boardState.finishedPlayers).length > 0 ? <h3 className="center__dashboard__title">Broke Players:</h3> : <></>}
+            {state.loaded
               ? Object.keys(state.boardState.finishedPlayers).map(player => (
                 <section key={uuid()} className="center__dashboard__players">
                   <h3 className="center__dashboard__player-info__name" style={{ color: state.boardState.finishedPlayers[player].color, textShadow: '1px 1px 0 black, 1px -1px 0 grey, -1px 1px 0 black, -1px -1px 0 grey, 1px 0px 0 grey, 0px 1px 0 black, -1px 0px 0 grey, 0px -1px 0 grey' }}>
@@ -103,25 +104,6 @@ export default function Dashboard() {
           </section>
 
           <section className="center__dashboard__block">
-          <section className="open-market__offer">
-                  <h3 className="open-market__offer__title">Offer from</h3>
-                    <h3 className="open-market__offer__title">{offer.buyerName}</h3>
-                    <h3 className="open-market__offer__title">to buy</h3>
-                    <h3 className="open-market__offer__title">{offer.tileName}</h3>
-                  <p>{`The offer is for $${offer.price}M.`}</p>
-                  <div className="open-market__offer__buttons">
-                  <button
-                    className="open-market__sell-toast__button"
-                    onClick={() => handleAcceptOffer(offer)}
-                    type="submit">Accept
-                  </button>
-                  <button
-                    className="open-market__sell-toast__button"
-                    onClick={() => handleDeclineOffer(offer)}
-                    type="submit">Decline
-                  </button>
-                  </div>
-                </section>
             {state.loaded
           && state.boardState.currentPlayer.id === playerId
           && state.turnInfo.canBuyProp
@@ -142,13 +124,13 @@ export default function Dashboard() {
               ? (
                 <article className="open-market__sell-toast">
                   <h3 className="open-market__sell-toast__close" onClick={removeSellPropPrompt}>❌</h3>
-                    <h3 className="open-market__sell-toast__title">
-                      Sell
-                      {' '}
-                      {tileNames[openSale.tileID].streetName}
-                      {' '}
-                      for:
-                    </h3>
+                  <h3 className="open-market__sell-toast__title">
+                    Sell
+                    {' '}
+                    {tileNames[openSale.tileID].streetName}
+                    {' '}
+                    for:
+                  </h3>
                   <form
                     onSubmit={e => {
                       e.preventDefault();
@@ -160,14 +142,14 @@ export default function Dashboard() {
                   >
                     <label> Input in millions. (e.g. 200 = $200M)</label>
                     <div className="open-market__sell-toast__input--container">
-                    <input
-                      className="open-market__sell-toast__input"
-                      onChange={e => setPriceInput(parseInt(e.target.value))}
-                      type="number"
-                      min="20"
-                      autoFocus
-                    />
-                    <button className="open-market__sell-toast__button" type="submit">Put on the open market</button>
+                      <input
+                        className="open-market__sell-toast__input"
+                        onChange={e => setPriceInput(parseInt(e.target.value))}
+                        type="number"
+                        min="20"
+                        autoFocus
+                      />
+                      <button className="open-market__sell-toast__button" type="submit">Put on the open market</button>
                     </div>
                   </form>
                 </article>
@@ -178,11 +160,11 @@ export default function Dashboard() {
                 <article className="open-market__sell-toast">
                   <h3 className="open-market__sell-toast__close" onClick={removeSellPropPrompt}>❌</h3>
                   <h3 className="open-market__sell-toast__title">
-                      Make offer for
-                      {tileNames[privateSale.tileID].streetName}
-                      {' '}
-                      for:
-                    </h3>
+                    Make offer for
+                    {tileNames[privateSale.tileID].streetName}
+                    {' '}
+                    for:
+                  </h3>
                   <form
                     onSubmit={e => {
                       e.preventDefault();
@@ -194,14 +176,14 @@ export default function Dashboard() {
                   >
                     <label>Input in millions. e.g. 200 = $200M</label>
                     <div className="open-market__sell-toast__input--container">
-                    <input
-                      className="open-market__sell-toast__input"
-                      onChange={e => setOffer(parseInt(e.target.value))}
-                      type="number"
-                      min="20"
-                      autoFocus
-                    />
-                    <button className="open-market__sell-toast__button" type="submit">Make offer</button>
+                      <input
+                        className="open-market__sell-toast__input"
+                        onChange={e => setOffer(parseInt(e.target.value))}
+                        type="number"
+                        min="20"
+                        autoFocus
+                      />
+                      <button className="open-market__sell-toast__button" type="submit">Make offer</button>
                     </div>
                   </form>
                 </article>
@@ -210,30 +192,40 @@ export default function Dashboard() {
             {state.loaded && offers.length !== 0
               ? offers.map(offer => (
                 <section className="open-market__offer">
-                  <h3 className="open-market__offer__title">Offer from</h3>
-                    <h3 className="open-market__offer__title">{offer.buyerName}</h3>
-                    <h3 className="open-market__offer__title">to buy</h3>
-                    <h3 className="open-market__offer__title">{offer.tileName}</h3>
-                    <h3 className="open-market__offer__title">Expires in: {offer.timer} seconds</h3>
-                  <p>{`The offer is for $${offer.price}M.`}</p>
-                  <div className="open-market__offer__buttons">
-                  <button
-                    className="open-market__sell-toast__button"
-                    onClick={() => handleAcceptOffer(offer)}
-                    type="submit">Accept
-                  </button>
-                  <button
-                    className="open-market__sell-toast__button"
-                    onClick={() => handleDeclineOffer(offer)}
-                    type="submit">Decline
-                  </button>
-                  </div>
-                </section>
-                )) 
-              : <></>
-            }
-            <button className="button__end-turn" type="button" onClick={() => socketFunctions.endTurn()}>
-              End turn
+              <h3>
+                <h3 className="open-market__offer__title">Offer from:</h3>
+                <h3>{offer.buyerName}</h3>
+                <h3>To buy:</h3>
+                <h3>{offer.tileName}</h3>
+              </h3>
+              <p>
+                Expires in:
+                {offer.timer}
+                {' '}
+                seconds
+              </p>
+              <p>{`The offer is for $${offer.price}M.`}</p>
+              <div className="open-market__offer__buttons">
+                <button
+                  className="open-market__sell-toast__button--yes"
+                  onClick={() => handleAcceptOffer(offer)}
+                  type="submit"
+                >
+                  Accept
+                </button>
+                <button
+                  className="open-market__sell-toast__button--no"
+                  onClick={() => handleDeclineOffer(offer)}
+                  type="submit"
+                >
+                  Decline
+                </button>
+              </div>
+            </section>
+              ))
+              : <></>}
+            <button className="button__start-game" type="button" onClick={() => socketFunctions.endTurn()}>
+              Start game
             </button>
           </section>
           <MarketPlace />

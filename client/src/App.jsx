@@ -25,7 +25,17 @@ const socketFunctions = {
   removeSale: item => socket.emit('remove sale', item),
 };
 
-const initialState = { boardState: { currentPlayer: { id: false }, finishedPlayers: {} }, players: {}, loaded: false };
+const initialState = {
+  boardState: {
+    currentPlayer: {
+      id: false,
+    },
+    finishedPlayers: {},
+  },
+  players: {},
+  loaded: false,
+};
+
 const reducer = (state, action) => {
   switch (action.type) {
     case 'updateGameState':
@@ -52,9 +62,12 @@ export default function App() {
   }, []);
 
   return (
-    <stateContext.Provider value={{ state, socketFunctions, playerId, socket }}>
+    <stateContext.Provider value={{
+      state, socketFunctions, playerId, socket,
+    }}
+    >
       <main className="App">
-        {JSON.stringify(state)}
+        {/* {JSON.stringify(state)} */}
         <Board />
       </main>
     </stateContext.Provider>
