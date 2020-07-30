@@ -31,7 +31,7 @@ export default function Dashboard() {
       setOffers(removedZero);
     }, 1000);
     return () => clearInterval(interval);
-  }, [offer]);
+  }, [offers]);
 
   useEffect(() => {
     socket.on('offer on prop', info => {
@@ -192,14 +192,10 @@ export default function Dashboard() {
             {state.loaded && offers.length !== 0
               ? offers.map(offer => (
                 <section className="open-market__offer">
-              <h3>
-                <h3 className="open-market__offer__title">Offer from:</h3>
-                <h3>{offer.buyerName}</h3>
-                <h3>To buy:</h3>
-                <h3>{offer.tileName}</h3>
-              </h3>
+                <h3 className="open-market__offer__title">Offer from: {offer.buyerName}</h3>
+                <h3 className="open-market__offer__title">To buy: {offer.tileName}</h3>
               <p>
-                Expires in:
+                Expires in: 
                 {offer.timer}
                 {' '}
                 seconds
