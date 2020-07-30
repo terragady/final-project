@@ -31,6 +31,7 @@ function Board() {
 
   const [tiles] = useState(initialState);
   const [openSale, setOpenSale] = useState(false);
+  const [privateSale, setPrivateSale] = useState(false);
   const playerName = 'Marcin The King';
   useEffect(() => {
     // while (!playerName) playerName = prompt('What is your name?');
@@ -41,13 +42,19 @@ function Board() {
     setOpenSale({ tileID, playerId });
   };
 
-  const handleMakeOffer = sellerID => {
-    console.log('makeOffer');
+  const handleMakeOffer = tileID => {
+    setPrivateSale({ tileID, playerId });
   };
 
   return (
     <sellPromptContext.Provider value={{
-      handlePutOpenMarket, handleMakeOffer, openSale, setOpenSale,
+      handlePutOpenMarket,
+      handleMakeOffer,
+      openSale,
+      setOpenSale,
+      handleMakeOffer,
+      setPrivateSale,
+      privateSale,
     }}
     >
       <cardFlipContext.Provider value={{ cardsBack, dispatch }}>

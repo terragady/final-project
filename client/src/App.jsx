@@ -18,6 +18,9 @@ const socketFunctions = {
   buyProperty: () => socket.emit('buy property', true),
   sendChat: message => socket.emit('send chat', message),
   putOpenMarket: saleInfo => socket.emit('put on open market', saleInfo),
+  makeOffer: saleInfo => socket.emit('make offer', saleInfo),
+  acceptOffer: offer => socket.emit('accept offer', offer),
+  declineOffer: offer => socket.emit('decline offer', offer),
   makeSale: item => socket.emit('make sale', item),
   removeSale: item => socket.emit('remove sale', item),
 };
@@ -49,7 +52,7 @@ export default function App() {
   }, []);
 
   return (
-    <stateContext.Provider value={{ state, socketFunctions, playerId }}>
+    <stateContext.Provider value={{ state, socketFunctions, playerId, socket }}>
       <main className="App">
         {JSON.stringify(state)}
         <Board />

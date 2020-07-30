@@ -56,6 +56,14 @@ const nextTurn = () => {
     state.boardState.currentPlayer.id = firstPlayer;
   }
   state.turnInfo = {};
+
+  // remove player when less than 0 balance
+Object.keys(state.players).forEach(e =>{
+  if (state.players[e].accountBalance < 1) {
+    delete state.players[e]
+    state.boardState.players = Object.keys(state.players);
+  }
+})
 };
 
 // current date function for logs
@@ -319,6 +327,34 @@ io.on('connection', socket => {
     sendToLog(`${buyerName} has bought ${tileName} from ${sellerName}`);
     io.emit('update', state);
   });
+
+  socket.on('make offer', item => {
+    const { playerId, tileID } = item;
+    const buyerName = state.players[playerId].name;
+    const tileOwner = state.boardState.ownedProps[item.tileID].id;
+    const tileName = tileState[tileID].streetName;
+    io.sockets.to(tileOwner).emit('offer on prop', { ...item, buyerName, tileName });
+  });
+
+  socket.on('decline offer', offer => {
+    const { playerId, tileID, price, tileName } = offer;
+    const ownerID = state.boardState.ownedProps[tileID].id;
+    const ownerName = state.players[ownerID].name;
+    io.sockets.to(playerId).emit('offer declined', { tileName, price, ownerName })
+  })
+
+  socket.on('accept offer', offer => {
+    const { playerId, tileID, price, tileName } = offer;
+    const ownerID = state.boardState.ownedProps[tileID].id;
+    const ownerName = state.players[ownerID].name;
+    state.players[ownerID].accountBalance += price;
+    state.players[playerId].accountBalance -= price;
+    state.boardState.ownedProps[tileID].id = playerId;
+    state.boardState.ownedProps[tileID].color = state.players[playerId].color;
+    sendToLog(`${buyerName} has privately bought ${tileName} from ${ownerName} from $${price}M`);
+    io.sockets.to(playerId).emit('offer accepted', { tileName, price, ownerName })
+    io.emit('update', state);
+  })
 
   socket.on('disconnect', () => {
     if (state.players[socket.id]) {

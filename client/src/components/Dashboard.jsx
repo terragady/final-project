@@ -1,4 +1,5 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
+import { useAlert } from 'react-alert';
 import { v4 as uuid } from 'uuid';
 import './style/Dashboard.css';
 import MarketPlace from './MarketPlace';
@@ -7,13 +8,52 @@ import tileNames from './BoardInitState';
 import sellPromptContext from '../sellPromptContext';
 
 export default function Dashboard() {
-  const { socketFunctions, state, playerId } = useContext(stateContext);
-  const { openSale, setOpenSale } = useContext(sellPromptContext);
+  const { socketFunctions, state, playerId, socket } = useContext(stateContext);
+  const {
+    openSale, setOpenSale, privateSale, setPrivateSale,
+  } = useContext(sellPromptContext);
   const [priceInput, setPriceInput] = useState(false);
+  const [offer, setOffer] = useState(false);
+  const [offers, setOffers] = useState([]);
+  const alert = useAlert();
+
+  useEffect(() => {
+    socket.on('offer on prop', info => {
+      console.log(offers);
+      setOffers([...offers, ...info]);
+    });
+
+    socket.on('offer declined', info => {
+      const { tileName, price, ownerName } = info;
+      alert.show(`${ownerName} declined your offer to buy ${tileName} for $${price}M`)
+    });
+
+    socket.on('offer accepted', info => {
+      const { tileName, price, ownerName } = info;
+      alert.show(`${ownerName} accepted your offer to buy ${tileName} for $${price}M`)
+    });
+  }, [])
+
+  const handleAcceptOffer = offer => {
+    const removedOffer = offers.filter(item => (
+      item.tileID !== offer.tileID
+    ));
+    setOffers([...removedOffer]);
+    socketFunctions.acceptOffer(offer);
+  }
+
+  const handleDeclineOffer = offer => {
+    const removedOffer = offers.filter(item => (
+      item.tileID !== offer.tileID
+    ));
+    setOffers([...removedOffer]);
+    socketFunctions.declineOffer(offer);
+  }
 
   const removeSellPropPrompt = e => {
     e.preventDefault();
     setOpenSale(false);
+    setPrivateSale(false);
   };
 
   return (
@@ -28,7 +68,7 @@ export default function Dashboard() {
             {state.loaded
               ? Object.keys(state.players).map(player => (
                 <section key={uuid()} className="center__dashboard__players">
-                  <h3 className="center__dashboard__player-info__name" style={{ color: state.players[player].color, textShadow: '0px 0px 1px black' }}>
+                  <h3 className="center__dashboard__player-info__name" style={{ color: state.players[player].color, textShadow: '1px 1px 0 grey, 1px -1px 0 grey, -1px 1px 0 grey, -1px -1px 0 grey, 1px 0px 0 grey, 0px 1px 0 grey, -1px 0px 0 grey, 0px -1px 0 grey' }}>
                     {state.players[player].name}
                   </h3>
                   <p className="center__dashboard__player-info">{`Account balance: $${state.players[player].accountBalance}M`}</p>
@@ -44,11 +84,11 @@ export default function Dashboard() {
               ? (
                 <div className="open-market__sell-toast">
                   <section className="center__dashboard__button__purchase">
-                    <button className="button__purchase--no" type="button" onClick={() => socketFunctions.endTurn()}>
-                      Do not buy property
-                    </button>
                     <button className="button__purchase--yes" type="button" onClick={() => socketFunctions.buyProperty()}>
                       Buy property
+                    </button>
+                    <button className="button__purchase--no" type="button" onClick={() => socketFunctions.endTurn()}>
+                      Do not buy property
                     </button>
                   </section>
                 </div>
@@ -56,8 +96,15 @@ export default function Dashboard() {
               : <></>}
             {state.loaded && openSale
               ? (
-                <div className="open-market__sell-toast">
+                <article className="open-market__sell-toast">
                   <h3 className="open-market__sell-toast__close" onClick={removeSellPropPrompt}>❌</h3>
+                    <h3 className="open-market__sell-toast__title">
+                      Sell
+                      {' '}
+                      {tileNames[openSale.tileID].streetName}
+                      {' '}
+                      for:
+                    </h3>
                   <form
                     onSubmit={e => {
                       e.preventDefault();
@@ -65,27 +112,76 @@ export default function Dashboard() {
                       setPriceInput('');
                       setOpenSale(false);
                     }}
-                    className="open-market__sell-toast-form"
+                    className="open-market__sell-toast__form"
                   >
-                    <h3>
-                      Sell
-                      {tileNames[openSale.tileID].streetName}
-                      {' '}
-                      for:
-                    </h3>
-                    <p>Input in millions. e.g. 200 = $200M</p>
+                    <label> Input in millions. (e.g. 200 = $200M)</label>
+                    <div className="open-market__sell-toast__input--container">
                     <input
-                      className="open-market__sell-toast-input"
+                      className="open-market__sell-toast__input"
                       onChange={e => setPriceInput(parseInt(e.target.value))}
                       type="number"
                       min="20"
                       autoFocus
                     />
-                    <button className="open-market__sell-toast-button" type="submit">Put on the open market</button>
+                    <button className="open-market__sell-toast__button" type="submit">Put on the open market</button>
+                    </div>
                   </form>
-                </div>
+                </article>
               )
               : <></>}
+            {state.loaded && privateSale
+              ? (
+                <article className="open-market__sell-toast">
+                  <h3 className="open-market__sell-toast__close" onClick={removeSellPropPrompt}>❌</h3>
+                  <h3 className="open-market__sell-toast__title">
+                      Make offer for
+                      {tileNames[privateSale.tileID].streetName}
+                      {' '}
+                      for:
+                    </h3>
+                  <form
+                    onSubmit={e => {
+                      e.preventDefault();
+                      socketFunctions.makeOffer({ ...privateSale, price: offer });
+                      setOffer('');
+                      setPrivateSale(false);
+                    }}
+                    className="open-market__sell-toast__form"
+                  >
+                    <label>Input in millions. e.g. 200 = $200M</label>
+                    <div className="open-market__sell-toast__input--container">
+                    <input
+                      className="open-market__sell-toast__input"
+                      onChange={e => setOffer(parseInt(e.target.value))}
+                      type="number"
+                      min="20"
+                      autoFocus
+                    />
+                    <button className="open-market__sell-toast__button" type="submit">Make offer</button>
+                    </div>
+                  </form>
+                </article>
+              )
+              : <></>}
+            {state.loaded && offers.length !== 0
+              ? offers.map(offer => (
+                <>
+                  <h3>{`Offer from ${offer.buyerName} to buy ${offer.tileName}`}</h3>
+                  <p>{`The offer is for $${offer.price}M.`}</p>
+                  <button
+                    className="open-market__sell-toast__button"
+                    onClick={() => handleAcceptOffer(offer)}
+                    type="submit">Accept
+                  </button>
+                  <button
+                    className="open-market__sell-toast__button"
+                    onClick={() => handleDeclineOffer(offer)}
+                    type="submit">Decline
+                  </button>
+                </>
+                )) 
+              : <></>
+            }
             <button className="button__end-turn" type="button" onClick={() => socketFunctions.endTurn()}>
               End turn
             </button>

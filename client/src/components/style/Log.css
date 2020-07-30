@@ -37,11 +37,13 @@ border-bottom: 1px dashed black;
   border: 1px solid grey;
   border-right: 0px;
   border-radius: 0.5vmin 0vmin 0vmin 0.5vmin;
+  font-size: 1.25vmin;
 }
 
 .center__chat--button {
   align-self: center;
   width: 10%;
+  font-size: 1.25vmin;
   height: 3vmin;
   border: 1px solid grey;
   border-radius: 0vmin 0.5vmin 0.5vmin 0vmin;

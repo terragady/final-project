@@ -97,19 +97,24 @@
 .tile-back__buttons {
   position: absolute;
   bottom:0;
-  display: flex;
   flex: 1;
-  justify-content: space-around;
+  display: flex;
   align-items: flex-end;
+  justify-content: space-around;
   width: 100%;
   margin-bottom: 0.1vmin;
 }
 
 .tile-back__button {
-  background: rgb(255, 255, 255, 0.50);
-  color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 95%;
+  height: 2vmin;
   padding: 0.5vmin 0.5vmin;
+  background: rgb(255, 255, 255, 0.50);
   border: 1px solid black;
   border-radius: 0.25vmin;
-  font-size: 1.5vmin;
+  color: black;
+  font-size: 1.25vmin;
 }
