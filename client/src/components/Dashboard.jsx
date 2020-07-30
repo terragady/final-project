@@ -19,9 +19,9 @@ export default function Dashboard() {
 
   useEffect(() => {
     socket.on('offer on prop', info => {
-      setOffers([...offers, info]);
+      setOffers([...offers, { ...info, timer: 20 }]);
     });
-
+  
     socket.on('offer declined', info => {
       const { tileName, price, ownerName } = info;
       alert.show(`${ownerName} declined your offer to buy ${tileName} for $${price}M`)

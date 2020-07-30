@@ -21,7 +21,7 @@ if (process.env.NODE_ENV === 'production') {
 const state = {
   boardState: {
     players: [],
-    finishedPlayers: [],
+    finishedPlayers: {},
     currentPlayer: {
       id: '',
       hasMoved: false,
@@ -48,7 +48,7 @@ const state = {
 const checkBalance = () => {
   Object.keys(state.players).forEach(e =>{
     if (state.players[e].accountBalance < 1) {
-      state.boardState.finishedPlayers.push([e, state.players[e].name, state.players[e].color,])
+      state.boardState.finishedPlayers[e] = {name: state.players[e].name, color: state.players[e].color}
       sendToLog(`${state.players[e].name} <span class="bancrupt-message">went bancrupt and can no longer play the game, all his properties were put on sale again!</span> `)
       delete state.players[e]
       state.boardState.players = Object.keys(state.players);
@@ -151,13 +151,11 @@ io.on('connection', socket => {
   socket.on('send chat', message => {
     if (state.boardState.players.includes(socket.id)) {
     sendToLog(`<span style="color:${state.players[socket.id].color}" class="log-chat-name" >${state.players[socket.id].name}</span> says: ${message}`);
-    io.emit('update', state);
     } else {
-      const index = state.boardState.finishedPlayers.indexOf(socket.id)
-      console.log(index)
-      // sendToLog(`<span style="color:${state.boardState.finishedPlayers[index][2]}" class="log-chat-name" >${state.boardState.finishedPlayers[index][1]}</span> says: ${message}`);
-
+      sendToLog(`<span style="color:${state.boardState.finishedPlayers[socket.id].color}" class="log-chat-name" >${state.boardState.finishedPlayers[socket.id].name}</span> says: ${message}`);
     }
+    io.emit('update', state);
+
   });
 
   // next turn
