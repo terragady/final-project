@@ -188,39 +188,47 @@ export default function Dashboard() {
             {state.loaded && offers.length !== 0
               ? offers.map(offer => (
                 <section className="open-market__offer">
-                <h3 className="open-market__offer__title">Offer from: {offer.buyerName}</h3>
-                <h3 className="open-market__offer__title">To buy: {offer.tileName}</h3>
-              <p>
-                Expires in: 
-                {offer.timer}
-                {' '}
-                seconds
-              </p>
-              <p>{`The offer is for $${offer.price}M.`}</p>
-              <div className="open-market__offer__buttons">
-                <button
-                  className="open-market__sell-toast__button--yes"
-                  onClick={() => handleAcceptOffer(offer)}
-                  type="submit"
-                >
-                  Accept
-                </button>
-                <button
-                  className="open-market__sell-toast__button--no"
-                  onClick={() => handleDeclineOffer(offer)}
-                  type="submit"
-                >
-                  Decline
-                </button>
-              </div>
-            </section>
+                  <h3 className="open-market__offer__title">
+                    Offer from:
+                    {offer.buyerName}
+                  </h3>
+                  <h3 className="open-market__offer__title">
+                    To buy:
+                    {offer.tileName}
+                  </h3>
+                  <p>
+                    Expires in:
+                    {offer.timer}
+                    {' '}
+                    seconds
+                  </p>
+                  <p>{`The offer is for $${offer.price}M.`}</p>
+                  <div className="open-market__offer__buttons">
+                    <button
+                      className="open-market__sell-toast__button--yes"
+                      onClick={() => handleAcceptOffer(offer)}
+                      type="submit"
+                    >
+                      Accept
+                    </button>
+                    <button
+                      className="open-market__sell-toast__button--no"
+                      onClick={() => handleDeclineOffer(offer)}
+                      type="submit"
+                    >
+                      Decline
+                    </button>
+                  </div>
+                </section>
               ))
               : <></>}
-              {state.loaded && !state.boardState.gameStarted
-                ? (<button className="button__start-game" type="button" onClick={() => socketFunctions.startGame()}>
+            {state.loaded && !state.boardState.gameStarted
+              ? (
+                <button className="button__start-game" type="button" onClick={() => socketFunctions.startGame()}>
                   Start game
-                   </button>)
-                : <></>}
+                </button>
+              )
+              : <></>}
           </section>
           <MarketPlace />
         </section>
