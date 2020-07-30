@@ -21,14 +21,9 @@ export default function Dashboard() {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      const ticked = offers.map(item => (
-        { ...item, timer: item.timer - 1 }
-      ));
+      const ticked = offers.map(item => ({ ...item, timer: item.timer - 1 }))
+        .filter(offer => offer.timer !== 0);
       setOffers(ticked);
-      const removedZero = offers.filter(offer => (
-        offer.timer !== 0
-      ));
-      setOffers(removedZero);
     }, 1000);
     return () => clearInterval(interval);
   }, [offers]);
