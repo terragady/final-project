@@ -89,14 +89,14 @@ export default function Dashboard() {
                 </section>
               ))
               : 'Loading...'}
-
+              
+              {Object.keys(state.boardState.finishedPlayers).length > 0 ? <h3 className="center__dashboard__title">Broke Players:</h3> : <></>}
               {state.loaded
               ? Object.keys(state.boardState.finishedPlayers).map(player => (
                 <section key={uuid()} className="center__dashboard__players">
-                  <h3 className="center__dashboard__player-info__name" style={{ color: state.players[player].color, textShadow: '1px 1px 0 black, 1px -1px 0 grey, -1px 1px 0 black, -1px -1px 0 grey, 1px 0px 0 grey, 0px 1px 0 black, -1px 0px 0 grey, 0px -1px 0 grey' }}>
-                    {state.players[player].name}
+                  <h3 className="center__dashboard__player-info__name" style={{ color: state.boardState.finishedPlayers[player].color, textShadow: '1px 1px 0 black, 1px -1px 0 grey, -1px 1px 0 black, -1px -1px 0 grey, 1px 0px 0 grey, 0px 1px 0 black, -1px 0px 0 grey, 0px -1px 0 grey' }}>
+                    {state.boardState.finishedPlayers[player].name}
                   </h3>
-                  <p className="center__dashboard__player-info">{`Account balance: $${state.players[player].accountBalance}M`}</p>
                 </section>
               ))
               : 'Loading...'}

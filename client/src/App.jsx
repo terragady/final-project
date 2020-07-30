@@ -25,7 +25,7 @@ const socketFunctions = {
   removeSale: item => socket.emit('remove sale', item),
 };
 
-const initialState = { boardState: { currentPlayer: { id: false } }, players: {}, loaded: false };
+const initialState = { boardState: { currentPlayer: { id: false }, finishedPlayers: {} }, players: {}, loaded: false };
 const reducer = (state, action) => {
   switch (action.type) {
     case 'updateGameState':
