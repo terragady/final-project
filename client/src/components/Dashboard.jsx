@@ -215,9 +215,11 @@ export default function Dashboard() {
             </section>
               ))
               : <></>}
-            <button className="button__start-game" type="button" onClick={() => socketFunctions.endTurn()}>
-              Start game
-            </button>
+              {state.loaded && !state.boardState.gameStarted
+                ? (<button className="button__start-game" type="button" onClick={() => socketFunctions.startGame()}>
+                  Start game
+                   </button>)
+                : <></>}
           </section>
           <MarketPlace />
         </section>

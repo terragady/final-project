@@ -20,6 +20,9 @@ The app is built using React and Express. Front-end <-> Back-end communication i
 #### How can I talk to my friends during the game?
 There is a chat in the top right corner of the board! Use that!
 
+#### Can spectators join?
+Yes. Once the game has started, anyone who joins will join as a spectator.
+
 #### How to trade with other players?
 You can trade with other players in two ways:  
 
@@ -34,6 +37,8 @@ Then you're out of the game. All your properties are put back on the open market
 #### How do I win the game?
 By being the only remaining player who is not bankrupt.
 
+#### Known bugs
+  * Spectators and broke players can buy properties and make offers.
 #### Future improvements
   * Add a "win" screen.
   * Add ability to buy houses on properties.

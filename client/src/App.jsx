@@ -22,11 +22,13 @@ const socketFunctions = {
   acceptOffer: offer => socket.emit('accept offer', offer),
   declineOffer: offer => socket.emit('decline offer', offer),
   makeSale: item => socket.emit('make sale', item),
+  startGame: () => socket.emit('start game', ''),
   removeSale: item => socket.emit('remove sale', item),
 };
 
 const initialState = {
   boardState: {
+    gameStarted: false,
     currentPlayer: {
       id: false,
     },
