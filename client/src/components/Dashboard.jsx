@@ -19,8 +19,7 @@ export default function Dashboard() {
 
   useEffect(() => {
     socket.on('offer on prop', info => {
-      console.log(offers);
-      setOffers([...offers, ...info]);
+      setOffers([...offers, info]);
     });
 
     socket.on('offer declined', info => {
@@ -68,7 +67,7 @@ export default function Dashboard() {
             {state.loaded
               ? Object.keys(state.players).map(player => (
                 <section key={uuid()} className="center__dashboard__players">
-                  <h3 className="center__dashboard__player-info__name" style={{ color: state.players[player].color, textShadow: '1px 1px 0 grey, 1px -1px 0 grey, -1px 1px 0 grey, -1px -1px 0 grey, 1px 0px 0 grey, 0px 1px 0 grey, -1px 0px 0 grey, 0px -1px 0 grey' }}>
+                  <h3 className="center__dashboard__player-info__name" style={{ color: state.players[player].color, textShadow: '1px 1px 0 black, 1px -1px 0 grey, -1px 1px 0 black, -1px -1px 0 grey, 1px 0px 0 grey, 0px 1px 0 black, -1px 0px 0 grey, 0px -1px 0 grey' }}>
                     {state.players[player].name}
                   </h3>
                   <p className="center__dashboard__player-info">{`Account balance: $${state.players[player].accountBalance}M`}</p>
@@ -78,6 +77,25 @@ export default function Dashboard() {
           </section>
 
           <section className="center__dashboard__block">
+          <section className="open-market__offer">
+                  <h3 className="open-market__offer__title">Offer from</h3>
+                    <h3 className="open-market__offer__title">{offer.buyerName}</h3>
+                    <h3 className="open-market__offer__title">to buy</h3>
+                    <h3 className="open-market__offer__title">{offer.tileName}</h3>
+                  <p>{`The offer is for $${offer.price}M.`}</p>
+                  <div className="open-market__offer__buttons">
+                  <button
+                    className="open-market__sell-toast__button"
+                    onClick={() => handleAcceptOffer(offer)}
+                    type="submit">Accept
+                  </button>
+                  <button
+                    className="open-market__sell-toast__button"
+                    onClick={() => handleDeclineOffer(offer)}
+                    type="submit">Decline
+                  </button>
+                  </div>
+                </section>
             {state.loaded
           && state.boardState.currentPlayer.id === playerId
           && state.turnInfo.canBuyProp
@@ -165,9 +183,13 @@ export default function Dashboard() {
               : <></>}
             {state.loaded && offers.length !== 0
               ? offers.map(offer => (
-                <>
-                  <h3>{`Offer from ${offer.buyerName} to buy ${offer.tileName}`}</h3>
+                <section className="open-market__offer">
+                  <h3 className="open-market__offer__title">Offer from</h3>
+                    <h3 className="open-market__offer__title">{offer.buyerName}</h3>
+                    <h3 className="open-market__offer__title">to buy</h3>
+                    <h3 className="open-market__offer__title">{offer.tileName}</h3>
                   <p>{`The offer is for $${offer.price}M.`}</p>
+                  <div className="open-market__offer__buttons">
                   <button
                     className="open-market__sell-toast__button"
                     onClick={() => handleAcceptOffer(offer)}
@@ -178,7 +200,8 @@ export default function Dashboard() {
                     onClick={() => handleDeclineOffer(offer)}
                     type="submit">Decline
                   </button>
-                </>
+                  </div>
+                </section>
                 )) 
               : <></>
             }

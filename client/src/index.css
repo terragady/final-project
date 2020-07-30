@@ -59,3 +59,8 @@ button:hover {
   font-weight: bold;
 
 }
+
+.bancrupt-message {
+  color: red;
+  font-weight: bold;
+}

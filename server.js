@@ -21,6 +21,7 @@ if (process.env.NODE_ENV === 'production') {
 const state = {
   boardState: {
     players: [],
+    finishedPlayers: [],
     currentPlayer: {
       id: '',
       hasMoved: false,
@@ -42,8 +43,32 @@ const state = {
 /// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /// ///////////////////////////////FUNCTIONS//////////////////////////////////////////////////////////////////////////////////
 /// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// check balance if not below 0
+const checkBalance = () => {
+  Object.keys(state.players).forEach(e =>{
+    if (state.players[e].accountBalance < 1) {
+      state.boardState.finishedPlayers.push([e, state.players[e].name, state.players[e].color,])
+      sendToLog(`${state.players[e].name} <span class="bancrupt-message">went bancrupt and can no longer play the game, all his properties were put on sale again!</span> `)
+      delete state.players[e]
+      state.boardState.players = Object.keys(state.players);
+      for (let i = 0; i < 40; i++) {
+        if (state.boardState.ownedProps[i] && state.boardState.ownedProps[i].id === e) {
+          delete state.boardState.ownedProps[i];
+        }
+        if (state.boardState.openMarket[i] && state.boardState.openMarket[i].seller === e) {
+          delete state.boardState.openMarket[i];
+        }
+      }
+    }
+})}
+
 // player change
 const nextTurn = () => {
+  // remove player when less than 0 balance
+  checkBalance()
+
+  // next turn
   if (state.boardState.players.includes(state.boardState.currentPlayer.id) === -1) {
     state.boardState.currentPlayer.id = state.boardState.players[0] || 0;
   }
@@ -56,14 +81,6 @@ const nextTurn = () => {
     state.boardState.currentPlayer.id = firstPlayer;
   }
   state.turnInfo = {};
-
-  // remove player when less than 0 balance
-Object.keys(state.players).forEach(e =>{
-  if (state.players[e].accountBalance < 1) {
-    delete state.players[e]
-    state.boardState.players = Object.keys(state.players);
-  }
-})
 };
 
 // current date function for logs
@@ -132,8 +149,15 @@ io.on('connection', socket => {
 
   // send chat
   socket.on('send chat', message => {
+    if (state.boardState.players.includes(socket.id)) {
     sendToLog(`<span style="color:${state.players[socket.id].color}" class="log-chat-name" >${state.players[socket.id].name}</span> says: ${message}`);
     io.emit('update', state);
+    } else {
+      const index = state.boardState.finishedPlayers.indexOf(socket.id)
+      console.log(index)
+      // sendToLog(`<span style="color:${state.boardState.finishedPlayers[index][2]}" class="log-chat-name" >${state.boardState.finishedPlayers[index][1]}</span> says: ${message}`);
+
+    }
   });
 
   // next turn
@@ -268,7 +292,6 @@ io.on('connection', socket => {
     io.emit('update', state);
   });
 
-  // when player disconnects
   socket.on('in jail', dices => {
     const { jailRounds } = state.players[socket.id];
     const { currentTile } = state.players[socket.id];
@@ -302,6 +325,7 @@ io.on('connection', socket => {
       seller: playerId, price, sellerName, tileName,
     };
     console.log(state.boardState.openMarket);
+    checkBalance();
     io.emit('update', state);
   });
 
@@ -310,6 +334,7 @@ io.on('connection', socket => {
     delete state.boardState.openMarket[item];
     const playerName = state.players[socket.id].name;
     sendToLog(`${playerName} removed ${tileName} from the open market.`);
+    checkBalance();
     io.emit('update', state);
   });
 
@@ -325,14 +350,15 @@ io.on('connection', socket => {
     state.boardState.ownedProps[item].color = state.players[socket.id].color;
     delete state.boardState.openMarket[item];
     sendToLog(`${buyerName} has bought ${tileName} from ${sellerName}`);
+    checkBalance();
     io.emit('update', state);
   });
-
   socket.on('make offer', item => {
     const { playerId, tileID } = item;
     const buyerName = state.players[playerId].name;
     const tileOwner = state.boardState.ownedProps[item.tileID].id;
     const tileName = tileState[tileID].streetName;
+    checkBalance();
     io.sockets.to(tileOwner).emit('offer on prop', { ...item, buyerName, tileName });
   });
 
@@ -340,6 +366,7 @@ io.on('connection', socket => {
     const { playerId, tileID, price, tileName } = offer;
     const ownerID = state.boardState.ownedProps[tileID].id;
     const ownerName = state.players[ownerID].name;
+    checkBalance()
     io.sockets.to(playerId).emit('offer declined', { tileName, price, ownerName })
   })
 
@@ -351,11 +378,13 @@ io.on('connection', socket => {
     state.players[playerId].accountBalance -= price;
     state.boardState.ownedProps[tileID].id = playerId;
     state.boardState.ownedProps[tileID].color = state.players[playerId].color;
-    sendToLog(`${buyerName} has privately bought ${tileName} from ${ownerName} from $${price}M`);
+    sendToLog(`${ownerName} has privately bought ${tileName} from ${ownerName} from $${price}M`);
     io.sockets.to(playerId).emit('offer accepted', { tileName, price, ownerName })
+    checkBalance();
     io.emit('update', state);
   })
 
+    // when player disconnects
   socket.on('disconnect', () => {
     if (state.players[socket.id]) {
       const playerName = state.players[socket.id].name;
@@ -372,6 +401,8 @@ io.on('connection', socket => {
       }
     }
     state.boardState.players = Object.keys(state.players);
+
+    //remove stuff when no players present
     if (state.boardState.players.length === 0) {
       state.boardState.logs = [];
       state.boardState.ownedProps = {};
