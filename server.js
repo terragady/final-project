@@ -407,7 +407,10 @@ io.on('connection', socket => {
         }
       }
     }
-    if (state.boardState.finishedPlayers[socket.id]) delete state.boardState.finishedPlayers[socket.id]
+    if (state.boardState.finishedPlayers[socket.id]) {
+      delete state.boardState.finishedPlayers[socket.id]
+      colors.push(state.boardState.finishedPlayers[socket.id].color);
+    }
     state.boardState.players = Object.keys(state.players);
 
     // remove stuff when no players present
@@ -416,7 +419,10 @@ io.on('connection', socket => {
       state.boardState.ownedProps = {};
       state.turnInfo = {};
       state.boardState.openMarket = {};
+      state.boardState.finishedPlayers = {};
+
     }
+    console.log(colors)
     io.emit('update', state);
   });
 });
