@@ -18,9 +18,24 @@ export default function Dashboard() {
   const alert = useAlert();
 
   useEffect(() => {
+    const interval = setInterval(() => {
+      const ticked = offers.map(offer => (
+        {...offer, timer: offer.timer - 1}
+      ));
+      setOffers(ticked);
+      const removedZero = offers.filter(offer => (
+        offer.timer !== 0
+      ));
+      setOffers(removedZero);
+    }, 1000)
+    return () => clearInterval(interval);
+  }, [offer])
+
+  useEffect(() => {
     socket.on('offer on prop', info => {
       setOffers([...offers, { ...info, timer: 20 }]);
     });
+
   
     socket.on('offer declined', info => {
       const { tileName, price, ownerName } = info;
@@ -66,6 +81,17 @@ export default function Dashboard() {
 
             {state.loaded
               ? Object.keys(state.players).map(player => (
+                <section key={uuid()} className="center__dashboard__players">
+                  <h3 className="center__dashboard__player-info__name" style={{ color: state.players[player].color, textShadow: '1px 1px 0 black, 1px -1px 0 grey, -1px 1px 0 black, -1px -1px 0 grey, 1px 0px 0 grey, 0px 1px 0 black, -1px 0px 0 grey, 0px -1px 0 grey' }}>
+                    {state.players[player].name}
+                  </h3>
+                  <p className="center__dashboard__player-info">{`Account balance: $${state.players[player].accountBalance}M`}</p>
+                </section>
+              ))
+              : 'Loading...'}
+
+              {state.loaded
+              ? Object.keys(state.boardState.finishedPlayers).map(player => (
                 <section key={uuid()} className="center__dashboard__players">
                   <h3 className="center__dashboard__player-info__name" style={{ color: state.players[player].color, textShadow: '1px 1px 0 black, 1px -1px 0 grey, -1px 1px 0 black, -1px -1px 0 grey, 1px 0px 0 grey, 0px 1px 0 black, -1px 0px 0 grey, 0px -1px 0 grey' }}>
                     {state.players[player].name}
@@ -188,6 +214,7 @@ export default function Dashboard() {
                     <h3 className="open-market__offer__title">{offer.buyerName}</h3>
                     <h3 className="open-market__offer__title">to buy</h3>
                     <h3 className="open-market__offer__title">{offer.tileName}</h3>
+                    <h3 className="open-market__offer__title">Expires in: {offer.timer} seconds</h3>
                   <p>{`The offer is for $${offer.price}M.`}</p>
                   <div className="open-market__offer__buttons">
                   <button
