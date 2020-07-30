@@ -407,6 +407,7 @@ io.on('connection', socket => {
         }
       }
     }
+    if (state.boardState.finishedPlayers[socket.id]) delete state.boardState.finishedPlayers[socket.id]
     state.boardState.players = Object.keys(state.players);
 
     // remove stuff when no players present

@@ -11,6 +11,8 @@ Creators: [Tina Bisgaard](https://github.com/Tionbai), [Marcin Michalik](https:/
 For out final project we have developed a Monopoly game. This README will outline the key functionality and usage.  
 The app is deployed here: [https://monopoly-websockets.herokuapp.com/](https://monopoly-websockets.herokuapp.com/)
 
+When playing, everything that happens gets logged to the log / chat. Pay close attention to this!
+
 ## The technology
 The app is built using React and Express. Front-end <-> Back-end communication is done with WebSockets using socket.io as a framework. State changes are handled serverside, then pushed to all connected clients in order to facilitate real-time change and ensure that the view is the same for all clients.
 
