@@ -6,6 +6,7 @@ import initialState from './BoardInitState';
 import Center from './Center';
 import Dice from './Dice';
 
+
 function Board() {
   const [tiles, setTiles] = useState(initialState);
   return (
