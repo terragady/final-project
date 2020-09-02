@@ -4,12 +4,15 @@
   "description": "a monopoly game",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "eslint . --ext .js --ext .jsx",
+    "lint": "eslint . --ext .js --ext .jsx --quiet --fix",
     "pregit": "git add . ",
     "git": "git commit -m",
     "postgit": "git push --all",
-    "client": "npm start --prefix client"
+    "client": "npm start --prefix client",
+    "server": "nodemon server.js",
+    "start": "node server.js",
+    "build": "npm install --prefix client && npm run build --prefix client",
+    "start-prod": "npm run build && NODE_ENV=production npm run start"
   },
   "repository": {
     "type": "git",
@@ -22,10 +25,13 @@
   },
   "homepage": "https://github.com/terragady/final-project#readme",
   "dependencies": {
-    "uuid": "^8.2.0"
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "socket.io": "^2.3.0"
   },
   "devDependencies": {
     "eslint": "^7.5.0",
-    "eslint-config-salt": "^1.0.1"
+    "eslint-config-salt": "^1.0.1",
+    "nodemon": "^2.0.4"
   }
 }
